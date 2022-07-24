@@ -106,7 +106,7 @@ def draw_feature(data):
     # 绘制16个整型变量子图
     for i in range(1,17):
         plt.subplot(4,4,i)
-        sns.distplot(data[columns_int_samples[i-1]], kde=False, hist=True, hist_kws={'histtype':'stepfilled'},
+        sns.distplot(data[columns_int_samples[i-1]], bins=15, kde=False, hist=True, hist_kws={'histtype':'stepfilled'},
                      color='deepskyblue')
     plt.subplots_adjust(hspace=0.35)
     # 可选添加标题

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/math_model_tookits.iml" filepath="$PROJECT_DIR$/.idea/math_model_tookits.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/math_model_toolkits.iml" filepath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" />
     </modules>
   </component>
 </project>

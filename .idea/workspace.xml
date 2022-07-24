@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8fb350d-3f4f-4d8b-a4b0-e447de74cc68" name="Changes" comment="7/24">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/math_model_tookits.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/整型变量直方图.png" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/整型变量直方图.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/整型变量直方图.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/整型变量直方图.tiff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/浮点变量直方图.png" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/浮点变量直方图.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/浮点变量直方图.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/浮点变量直方图.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/整型变量直方图.png" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/整型变量直方图.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/整型变量直方图.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/整型变量直方图.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/浮点变量直方图.png" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/浮点变量直方图.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/浮点变量直方图.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/fig_preview/浮点变量直方图.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +52,19 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "PyScientificConfigurable"
+    "last_opened_file_path": "D:/RX-105/math_model_toolkits",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\RX-105\math_model_tookits\dataset" />
+      <recent name="D:\RX-105\math_model_tookits\fig_preview" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.data_preprocess (1)">
     <configuration name="data_preprocess (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_tookits" />
+      <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -75,7 +86,7 @@
       <method v="2" />
     </configuration>
     <configuration name="data_preprocess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_tookits" />
+      <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -119,7 +130,7 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="math_model_tookits" />
+      <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -163,7 +174,8 @@
       <workItem from="1658026251969" duration="460000" />
       <workItem from="1658041041217" duration="181000" />
       <workItem from="1658290212754" duration="597000" />
-      <workItem from="1658546700451" duration="20489000" />
+      <workItem from="1658546700451" duration="20835000" />
+      <workItem from="1658636805900" duration="3414000" />
     </task>
     <task id="LOCAL-00001" summary="7.16">
       <created>1657961783015</created>
@@ -200,7 +212,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658636061399</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="7/24">
+      <created>1658636298493</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1658636298493</updated>
+    </task>
+    <task id="LOCAL-00007" summary="7/24">
+      <created>1658636376205</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1658636376205</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +264,8 @@
     <option name="LAST_COMMIT_MESSAGE" value="7/24" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/math_model_tookits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658636190373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658648382614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_tookits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658636360470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/math_model_tookits$hellowordl.coverage" NAME="hellowordl Coverage Results" MODIFIED="1658026203679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/math_model_tookits$missing_value.coverage" NAME="missing_value Coverage Results" MODIFIED="1658556662270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
