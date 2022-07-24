@@ -185,6 +185,30 @@ def del_perc_null_feature(data, threshold):
     data = data.drop(labels=nan_columns, axis=1)
     return data
 
+def fill_null(data):
+    '''
+    填充缺失值，支持将0转换成空值处理，方法包含：前后填充、均值填充、线性插值
+    :param data:
+    :return:
+    '''
+    # 根据需要可以把表格的0转换为空值
+    data[data == 0] = np.nan
+    # 打印有缺失值的列和缺失值数目
+    nan_count = data.isnull().sum()
+    print(nan_count[nan_count>0])
+
+    # 选择一个填充方法 ↓
+
+    # # 取后一个有效值填充
+    # data = data.fillna(method='bfill')
+    # # 取前一个有效值填充
+    # data = data.fillna(method='ffill')
+    # 填充列的平均值
+    data = data.fillna(data.mean())
+    # # 线性插值
+    # data = data.interpolate()
+    return data
+
 if __name__ == '__main__':
     # # setting
     # file = './dataset/Molecular_Descriptor.xlsx'
@@ -215,4 +239,5 @@ if __name__ == '__main__':
     # 剔除前面的序号和时间 取非操作变量的前面一些行
     data = data.iloc[:, 2:]
     data = del_perc_null_feature(data, 0.2)
+    data = fill_null(data)
     print(data.info)
