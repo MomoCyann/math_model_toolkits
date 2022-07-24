@@ -24,7 +24,7 @@ def del_perc_same_feature(data, threshold):
     删除相同比列高于阈值的列
     :param data: 读取的数据集，只含特征，dataframe
     :param threshold: 阈值，某个值占比超过阈值的列会被删除
-    :return: 清洗后的dataframe
+    :return: 清洗后的dataframe，并打印所删除的特征名
     '''
     # 待删除的列存放
     column_indexs = []
@@ -34,6 +34,7 @@ def del_perc_same_feature(data, threshold):
         # 若占比最大的某个值超过阈值，则记入待删除列
         if counts.iloc[0] >= threshold:
             column_indexs.append(column_index)
+    print("删除的特征为：" + str(column_indexs))
     data = data.drop(labels=column_indexs, axis=1)
     return data
 
@@ -52,6 +53,7 @@ def del_std_small_feature(data, threshold):
         # 若占比最大的某个值超过阈值，则记入待删除列
         if counts <= threshold:
             column_indexs.append(column_index)
+    print("删除的特征为：" + str(column_indexs))
     data = data.drop(labels=column_indexs, axis=1)
     return data
 
@@ -86,11 +88,11 @@ def draw_feature(data):
             columns_int.append(column_index)
         if str(type(data[column_index][0])) == "<class 'numpy.float64'>":
             columns_float.append(column_index)
-    print(columns_float)
-    print(columns_int)
     # 随机选择16个特征做分布图，整形做条形图，浮点型会多一个拟合曲线
     columns_int_samples = random.sample(columns_int, 16)
     columns_float_samples = random.sample(columns_float, 16)
+    print("选取的整型变量为：" + str(columns_int_samples))
+    print("选取的浮点变量为：" + str(columns_float_samples))
     # # 根据实际情况也可手动指定
     # columns_int_samples = []
     # columns_float_samples = []
@@ -148,6 +150,41 @@ def palette():
     sns.palplot(sns.color_palette(colors))
     plt.show()
 
+def sigma3_rules(data):
+    '''
+    根据3σ法则，删除某特征为异常值的样本，即删掉某些行，因为他的某个特征是异常值。
+    :param data: 特征集
+    :return: 清洗后的数据集，并打印所删除样本索引
+    '''
+    mean = data.mean()
+    std = data.std()
+    drop_indices = []
+    for index, row in data.iterrows():
+        tmp = (row - mean).abs() > 3 * std
+        if tmp.any():
+            drop_indices.append(index)
+    data.drop(drop_indices, inplace=True)
+    no = [i + 1 for i in drop_indices]
+    print(no)
+    return data
+
+def del_perc_null_feature(data, threshold):
+    '''
+    删除缺失值比例大于阈值的特征
+    :param data: 特征集
+    :param threshold: 缺失值比例的阈值
+    :return: 清洗后的特征集，并打印被
+    '''
+    # 根据需要可以把表格的0转换为空值
+    data[data == 0] = np.nan
+
+    nan_perc = data.isnull().sum() / len(data)
+    # 筛选缺失值占比大于阈值的列
+    nan_columns = list(nan_perc[nan_perc>threshold].index)
+    print("删除的特征为：" + str(nan_columns))
+    data = data.drop(labels=nan_columns, axis=1)
+    return data
+
 if __name__ == '__main__':
     # # setting
     # file = './dataset/Molecular_Descriptor.xlsx'
@@ -161,7 +198,7 @@ if __name__ == '__main__':
     # # testing
     # data = del_same_feature(data)
     # print(data.info)
-    # # [1974 rows x 504 columns]>
+    # [1974 rows x 504 columns]>
     #
     # data = del_perc_same_feature(data, 0.9)
     # print(data.info)
@@ -170,6 +207,12 @@ if __name__ == '__main__':
     # data = del_std_small_feature(data, 0.05)
     # # [1974 rows x 341 columns] >
 
-    data = pd.read_csv('./dataset/test_data.csv')
-    draw_feature(data)
-    # palette()
+    # data = pd.read_csv('./dataset/test_data.csv')
+    # draw_feature(data)
+    # # palette()
+
+    data = pd.read_excel("./dataset/附件一：325个样本数据.xlsx", header=2)
+    # 剔除前面的序号和时间 取非操作变量的前面一些行
+    data = data.iloc[:, 2:]
+    data = del_perc_null_feature(data, 0.2)
+    print(data.info)
