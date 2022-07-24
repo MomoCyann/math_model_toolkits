@@ -170,6 +170,6 @@ if __name__ == '__main__':
     # data = del_std_small_feature(data, 0.05)
     # # [1974 rows x 341 columns] >
 
-    data = pd.read_csv('test_data.csv')
+    data = pd.read_csv('./dataset/test_data.csv')
     draw_feature(data)
     # palette()
