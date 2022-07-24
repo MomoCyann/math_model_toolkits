@@ -61,14 +61,14 @@ def save_png_to_tiff(name):
     :param name: 文件名
     :return: tiff-dpi：200 → 2594x1854
     '''
-    plt.savefig(name + '.png')
+    plt.savefig('./fig_preview/' + name + '.png')
     # Save the image in memory in PNG format
     png1 = io.BytesIO()
     plt.savefig(png1, format="png", dpi=200, pad_inches=.1, bbox_inches='tight')
     # Load this image into PIL
     png2 = Image.open(png1)
     # Save as TIFF
-    png2.save(name + ".tiff")
+    png2.save('./fig_preview/' + name + ".tiff")
     png1.close()
 
 def draw_feature(data):
@@ -122,7 +122,7 @@ def draw_feature(data):
     for i in range(1,17):
         plt.subplot(4,4,i)
         sns.distplot(data[columns_float_samples[i-1]], hist=True, norm_hist=False, color='deepskyblue')
-    plt.subplots_adjust(hspace=0.35)
+    plt.subplots_adjust(wspace=0.3, hspace=0.35)
     # 可选添加标题
     title = ''
     plt.suptitle(title, fontsize=20)

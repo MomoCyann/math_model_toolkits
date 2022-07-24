@@ -15,8 +15,10 @@
 ### def save_png_to_tiff(name):
 保存图表为PNG和TIFF两种格式
 ### def draw_feature(data):
-选择整型、浮点型变量各16个画出分布图<br />
-保存图表为PNG和TIFF两种格式<br />
-png 1600x1000, tiff-dpi：200 → 2594x1854
+选择整型、浮点型变量各16个画出分布图<br>
+- 保存图表为PNG和TIFF两种格式<br>
+- png 1600x1000, tiff-dpi：200 → 2594x1854<br>
+- 可手动指定变量名
+- 可添加子图总标题，默认无
 ### def palette():
 调色板
