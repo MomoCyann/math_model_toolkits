@@ -12,29 +12,27 @@ def spiltWord(df):
             print(f"----------------------{index}")
             continue
 
-        # #-T表示Tiltle， -S表示Summary
-        # # 分词
-        # segT = jb.lcut(df.loc[index, 'newsTitle'])
-        # segS = jb.lcut(df.loc[index, 'newsSummary'])
-        #
-        # # 去停用词
-        # splitWordT = []
-        # for w in segT:
-        #     # 若某词在停用词表内或为空格，则去除
-        #     if w not in stopwords and w != ' ':
-        #         splitWordT.append(w)
-        #
-        # splitWordS = []
-        # for w in segS:
-        #     # 若某词在停用词表内或为空格，则去除
-        #     if w not in stopwords and w != ' ':
-        #         splitWordS.append(w)
-        #
-        # # 将列表转字符串
-        # df.loc[index, 'splitTile'] = ','.join(splitWordT)
-        # df.loc[index, 'splitSummary'] = ','.join(splitWordS)
+        #-T表示Tiltle， -S表示Summary
+        # 分词
+        segT = jb.lcut(df.loc[index, 'newsTitle'])
+        segS = jb.lcut(df.loc[index, 'newsSummary'])
 
+        # 去停用词
+        splitWordT = []
+        for w in segT:
+            # 若某词在停用词表内或为空格，则去除
+            if w not in stopwords and w != ' ':
+                splitWordT.append(w)
 
+        splitWordS = []
+        for w in segS:
+            # 若某词在停用词表内或为空格，则去除
+            if w not in stopwords and w != ' ':
+                splitWordS.append(w)
+
+        # 将列表转字符串
+        df.loc[index, 'splitTile'] = ','.join(splitWordT)
+        df.loc[index, 'splitSummary'] = ','.join(splitWordS)
 
 
 df = pd.read_csv('clear_data/all_data.csv')

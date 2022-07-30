@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f8fb350d-3f4f-4d8b-a4b0-e447de74cc68" name="Changes" comment="7/26 新闻去重">
+    <list default="true" id="f8fb350d-3f4f-4d8b-a4b0-e447de74cc68" name="Changes" comment="合并所有公司数据，splitWord为分词版本">
+      <change afterPath="$PROJECT_DIR$/finance_science/stopwords/所选公司名单.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/news_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/news_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/SplitWords.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/SplitWords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/all_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/all_data_split_word.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +45,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/finance_science" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -154,6 +160,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/news_data.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -188,6 +195,7 @@
       <workItem from="1658290212754" duration="597000" />
       <workItem from="1658546700451" duration="20835000" />
       <workItem from="1658636805900" duration="14282000" />
+      <workItem from="1659167820528" duration="1616000" />
     </task>
     <task id="LOCAL-00001" summary="7.16">
       <created>1657961783015</created>
@@ -280,7 +288,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658852891477</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="合并所有公司数据，splitWord为分词版本">
+      <created>1659075595605</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1659075595605</updated>
+    </task>
+    <task id="LOCAL-00015" summary="合并所有公司数据，splitWord为分词版本">
+      <created>1659075758387</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1659075758387</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,7 +339,8 @@
     <MESSAGE value="7/23" />
     <MESSAGE value="7/24" />
     <MESSAGE value="7/26 新闻去重" />
-    <option name="LAST_COMMIT_MESSAGE" value="7/26 新闻去重" />
+    <MESSAGE value="合并所有公司数据，splitWord为分词版本" />
+    <option name="LAST_COMMIT_MESSAGE" value="合并所有公司数据，splitWord为分词版本" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -334,5 +357,13 @@
         <watch expression="duplic" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659060963827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$test.coverage" NAME="test Coverage Results" MODIFIED="1658888188233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$123.coverage" NAME="123 Coverage Results" MODIFIED="1658040854897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_tookits$hellowordl.coverage" NAME="hellowordl Coverage Results" MODIFIED="1658026203679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MathModel$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1659055784979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science/chinese_sentiment-master/model/cnn" />
+    <SUITE FILE_PATH="coverage/MathModel$SplitWords.coverage" NAME="SplitWords Coverage Results" MODIFIED="1659061276495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
   </component>
 </project>
