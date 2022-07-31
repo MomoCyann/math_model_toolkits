@@ -50,5 +50,5 @@ spiltWord(df)
 df=df.loc[:,~df.columns.str.contains('Unnamed')]
 print(df.info())
 print(df.head())
-# df.to_csv('clear_data/all_data_split_word.csv')
+df.to_csv('clear_data/all_data_split_word.csv')
 
