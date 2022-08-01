@@ -141,7 +141,7 @@ def concat_all_company(file_path):
     df = df.loc[:, ~df.columns.str.contains('Unnamed')]
     df.reset_index(drop=True, inplace=True)
     #csv总表存储路径, 获取clear_data 等二级目录
-    df.to_csv(f"./data/{files[0].split('//')[1]}/all_data.csv")
+    df.to_csv("./data/all_clear_data.csv")
 
 """
 数据处理逻辑
@@ -154,8 +154,6 @@ def concat_all_company(file_path):
 """
 
 if __name__ == "__main__":
-    clear_data()
-
     # file_path 是去重后的存储路径
-    file_path = ''
-    split_main(file_path)
+    concat_all_company('./data/split_data/*.csv')
+

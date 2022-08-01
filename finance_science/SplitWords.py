@@ -35,7 +35,7 @@ def spiltWord(df):
         df.loc[index, 'splitSummary'] = ','.join(splitWordS)
 
 
-df = pd.read_csv('clear_data/all_data.csv')
+df = pd.read_csv('data/all_data.csv')
 print(df.info())
 # 停用词
 with open('stopwords/hit_stopwords.txt', 'r', encoding='utf-8') as f:

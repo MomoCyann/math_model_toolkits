@@ -53,7 +53,7 @@ def merge_title_summary(df):
 
 if __name__ == '__main__':
     # 读取数据
-    df = pd.read_csv('./clear_data/all_data.csv')
+    df = pd.read_csv('data/all_clear_data.csv')
     print(df.head())
     df = df[['newsTitle', 'newsSummary','sentiment']]
     print(df['sentiment'].value_counts())
