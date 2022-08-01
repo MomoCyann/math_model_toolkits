@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f8fb350d-3f4f-4d8b-a4b0-e447de74cc68" name="Changes" comment="合并所有公司数据，splitWord为分词版本">
-      <change afterPath="$PROJECT_DIR$/finance_science/stopwords/所选公司名单.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="49270493-82aa-4dda-9b67-c72b5202a6e8" name="Default Changelist" comment="合并所有公司数据，splitWord为分词版本">
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/SplitWords.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/SplitWords.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/all_data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/all_data_split_word.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +54,7 @@
       <recent name="D:\RX-105\math_model_tookits\fig_preview" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.news_data">
+  <component name="RunManager" selected="Python.test">
     <configuration name="data_preprocess (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,12 +165,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="math_model_toolkits" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\Program Files (x86)\Anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.news_data" />
         <item itemvalue="Python.data_preprocess (1)" />
         <item itemvalue="Python.data_preprocess" />
-        <item itemvalue="Python.hellowordl" />
         <item itemvalue="Python.hellowordl" />
       </list>
     </recent_temporary>
@@ -183,7 +200,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f8fb350d-3f4f-4d8b-a4b0-e447de74cc68" name="Changes" comment="" />
+      <changelist id="49270493-82aa-4dda-9b67-c72b5202a6e8" name="Default Changelist" comment="合并所有公司数据，splitWord为分词版本" />
       <created>1657961729526</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -196,6 +213,7 @@
       <workItem from="1658546700451" duration="20835000" />
       <workItem from="1658636805900" duration="14282000" />
       <workItem from="1659167820528" duration="1616000" />
+      <workItem from="1659337490237" duration="51000" />
     </task>
     <task id="LOCAL-00001" summary="7.16">
       <created>1657961783015</created>
@@ -359,11 +377,12 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659060963827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/MathModel$test.coverage" NAME="test Coverage Results" MODIFIED="1658888188233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659251821193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$news_data.coverage" NAME="news_data Coverage Results" MODIFIED="1659328497989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$test.coverage" NAME="test Coverage Results" MODIFIED="1659337540496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MathModel$123.coverage" NAME="123 Coverage Results" MODIFIED="1658040854897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/math_model_tookits$hellowordl.coverage" NAME="hellowordl Coverage Results" MODIFIED="1658026203679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MathModel$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1659055784979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science/chinese_sentiment-master/model/cnn" />
-    <SUITE FILE_PATH="coverage/MathModel$SplitWords.coverage" NAME="SplitWords Coverage Results" MODIFIED="1659061276495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$SplitWords.coverage" NAME="SplitWords Coverage Results" MODIFIED="1659328600181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
   </component>
 </project>
