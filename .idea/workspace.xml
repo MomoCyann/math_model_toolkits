@@ -1,222 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49270493-82aa-4dda-9b67-c72b5202a6e8" name="Default Changelist" comment="数据预处理所有流程">
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/万科7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/三一重工7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/三峡能源7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/上海机场7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/东方财富7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/中信证券7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/中公教育7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/中国国航7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/中国巨石7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/中芯国际7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/中青旅7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/五粮液7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/京东方7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/伊利股份7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/传智教育7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/佳发教育7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/保利发展7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/华新水泥7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/南京银行7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/同花顺7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/国基精工7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/大参林7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/天津港7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/宁德时代7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/宏发股份7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/平安银行7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/恒瑞医药7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/招商蛇口7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/晨光文具7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/杭州银行7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/格力电器7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/比亚迪7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/永兴材料7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/浙江龙盛7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/海大集团7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/海天味业7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/海康威视7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/爱尔眼科7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/片仔癀7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/用友网络7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/福耀玻璃7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/科大讯飞7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/美的集团7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/迈克生物7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/重庆啤酒7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/金风科技7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/长城军工7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/长江电力7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/阳光电源7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/clear_data/顺丰控股7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/万科A1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/三一重工1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/三峡能源1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/上海机场1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/东方财富1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/中信证券1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/中公教育1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/中国国航1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/中国巨石1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/中芯国际1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/中青旅1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/五粮液1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/京东方A1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/伊利股份1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/传智教育1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/佳发教育1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/保利发展1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/华新水泥1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/南京银行1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/同花顺1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/国基精工1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/大参林1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/天津港1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/宁德时代1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/宏发股份1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/平安银行1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/恒瑞医药1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/招商蛇口1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/晨光文具1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/杭州银行1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/格力电器1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/比亚迪1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/永兴材料1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/浙江龙盛1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/海大集团1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/海天味业1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/海康威视1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/爱尔眼科1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/片仔癀1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/用友网络1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/福耀玻璃1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/科大讯飞1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/美的集团1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/迈克生物1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/重庆啤酒1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/金风科技1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/长城军工1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/original_data/长江电力1-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/万科7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/三一重工7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/三峡能源7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/上海机场7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/东方财富7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/中信证券7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/中公教育7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/中国国航7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/中国巨石7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/中芯国际7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/中青旅7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/五粮液7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/京东方7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/伊利股份7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/传智教育7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/佳发教育7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/保利发展7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/华新水泥7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/南京银行7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/同花顺7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/国基精工7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/大参林7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/天津港7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/宁德时代7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/宏发股份7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/平安银行7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/恒瑞医药7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/招商蛇口7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/晨光文具7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/杭州银行7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/格力电器7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/比亚迪7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/永兴材料7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/浙江龙盛7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/海大集团7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/海天味业7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/海康威视7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/爱尔眼科7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/片仔癀7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/用友网络7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/福耀玻璃7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/科大讯飞7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/美的集团7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/迈克生物7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/重庆啤酒7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/金风科技7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/长城军工7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/长江电力7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/阳光电源7-12.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/data/split_data/顺丰控股7-12.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/math_model_toolkits.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="49270493-82aa-4dda-9b67-c72b5202a6e8" name="Default Changelist" comment="8/1 BERT">
+      <change afterPath="$PROJECT_DIR$/finance_science/BERT/embedding_title_label.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/BERT/iri.xls" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/NN_classifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/wordvec.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/Concat.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/同花顺1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/大参林1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/天津港1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/宁德时代1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/宏发股份1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/平安银行1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/恒瑞医药1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/招商蛇口1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/晨光文具1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/杭州银行1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/格力电器1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/比亚迪1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/永兴材料1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/浙江龙盛1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/海大集团1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/海天味业1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/海康威视1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/爱尔眼科1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/片仔癀1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/用友网络1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/福耀玻璃1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/科大讯飞1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/美的集团1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/迈克生物1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/重庆啤酒1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/金风科技1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/长城军工1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/长江电力1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/阳光电源1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/clear_data/顺丰控股1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/同花顺1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/大参林1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/天津港1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/宁德时代1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/宏发股份1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/平安银行1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/恒瑞医药1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/招商蛇口1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/晨光文具1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/杭州银行1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/格力电器1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/比亚迪1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/永兴材料1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/浙江龙盛1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/海大集团1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/海天味业1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/海康威视1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/爱尔眼科1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/片仔癀1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/用友网络1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/福耀玻璃1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/科大讯飞1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/美的集团1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/迈克生物1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/重庆啤酒1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/金风科技1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/长城军工1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/长江电力1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/阳光电源1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/data/顺丰控股1-12.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/news_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/classifier.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/RoBERTa_wwm_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,27 +47,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/finance_science" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\math_model_toolkits\finance_science" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\RX-105\math_model_toolkits\finance_science" />
+      <recent name="D:\RX-105\math_model_toolkits\finance_science\BERT" />
       <recent name="E:\math_model_toolkits\finance_science" />
       <recent name="E:\math_model_toolkits\finance_science\BERT" />
       <recent name="E:\math_model_toolkits\finance_science\BERT\RoBERTa-wwm-ext" />
-      <recent name="D:\RX-105\math_model_tookits\dataset" />
-      <recent name="D:\RX-105\math_model_tookits\fig_preview" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
-    <configuration name="Concat" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.NN_classifier (1)">
+    <configuration name="NN_classifier (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -288,7 +78,29 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/Concat.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/NN_classifier.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="NN_classifier" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="math_model_toolkits" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/finance_science" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="D:\RX-105\math_model_toolkits\finance_science\NN_classifier.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -319,29 +131,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="RoBERTa_wwm_ext" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/finance_science/BERT/RoBERTa-wwm-ext" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\math_model_toolkits\finance_science\BERT\RoBERTa_wwm_ext.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="SplitWords" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="RoBERTa_wwm_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -354,7 +144,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/SplitWords.py" />
+      <option name="SCRIPT_NAME" value="D:\RX-105\math_model_toolkits\finance_science\RoBERTa_wwm_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -385,7 +175,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="wordvec" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="math_model_toolkits" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -398,7 +188,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/wordvec.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -409,18 +199,17 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
+        <item itemvalue="Python.NN_classifier (1)" />
+        <item itemvalue="Python.wordvec" />
+        <item itemvalue="Python.NN_classifier" />
+        <item itemvalue="Python.RoBERTa_wwm_model" />
         <item itemvalue="Python.RoBERTa_wwm_ext (1)" />
-        <item itemvalue="Python.RoBERTa_wwm_ext" />
-        <item itemvalue="Python.SplitWords" />
-        <item itemvalue="Python.Concat" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f8fb350d-3f4f-4d8b-a4b0-e447de74cc68" name="Changes" comment="" />
       <created>1657961729526</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -433,6 +222,7 @@
       <workItem from="1658546700451" duration="20835000" />
       <workItem from="1658636805900" duration="14282000" />
       <workItem from="1659167820528" duration="1616000" />
+      <workItem from="1659399129347" duration="8936000" />
     </task>
     <task id="LOCAL-00001" summary="7.16">
       <created>1657961783015</created>
@@ -546,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659279605725</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="8/1 BERT">
+      <created>1659347012636</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1659347012636</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,7 +371,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -585,7 +381,8 @@
     <MESSAGE value="7/26 新闻去重" />
     <MESSAGE value="合并所有公司数据，splitWord为分词版本" />
     <MESSAGE value="7/31 splitword and bert test" />
-    <option name="LAST_COMMIT_MESSAGE" value="7/31 splitword and bert test" />
+    <MESSAGE value="8/1 BERT" />
+    <option name="LAST_COMMIT_MESSAGE" value="8/1 BERT" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -595,6 +392,16 @@
           <line>31</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/finance_science/NN_classifier.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/finance_science/wordvec.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -602,16 +409,24 @@
         <watch expression="duplic" />
         <watch expression="output.pooler_output.is_mkldnn" />
         <watch expression="output.pooler_output.is_mkldnn" />
+        <watch expression="ds" />
       </configuration>
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659251821193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/MathModel$news_data.coverage" NAME="news_data Coverage Results" MODIFIED="1659328497989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/MathModel$test.coverage" NAME="test Coverage Results" MODIFIED="1659337541930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658660198411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MathModel$123.coverage" NAME="123 Coverage Results" MODIFIED="1658040854897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$test.coverage" NAME="test Coverage Results" MODIFIED="1659324401901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659251821193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$classifier.coverage" NAME="classifier Coverage Results" MODIFIED="1659402212910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_tookits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658636360470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/math_model_tookits$hellowordl.coverage" NAME="hellowordl Coverage Results" MODIFIED="1658026203679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MathModel$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1659055784979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science/chinese_sentiment-master/model/cnn" />
+    <SUITE FILE_PATH="coverage/MathModel$news_data.coverage" NAME="news_data Coverage Results" MODIFIED="1659328497989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$NN_classifier__1_.coverage" NAME="NN_classifier (1) Coverage Results" MODIFIED="1659409413243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
     <SUITE FILE_PATH="coverage/MathModel$SplitWords.coverage" NAME="SplitWords Coverage Results" MODIFIED="1659328600181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$wordvec.coverage" NAME="wordvec Coverage Results" MODIFIED="1659406259341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_tookits$missing_value.coverage" NAME="missing_value Coverage Results" MODIFIED="1658556662270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MathModel$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1659055784979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science/chinese_sentiment-master/model/cnn" />
+    <SUITE FILE_PATH="coverage/MathModel$test.coverage" NAME="test Coverage Results" MODIFIED="1659337541930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
