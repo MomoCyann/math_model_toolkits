@@ -11,7 +11,8 @@ from sklearn.metrics import classification_report
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, LSTM, Bidirectional
-
+from keras import optimizers
+from keras.callbacks import ReduceLROnPlateau
 
 '''
 0 - 中性
@@ -96,15 +97,21 @@ def net_NN():
 
 def net_LSTM():
     # LSTM
+    # 优化器
+
+    sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+    adam = keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.01, amsgrad=False)
+    myReduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', epsilon=0.0001,
+                                    cooldown=0, min_lr=0)
     model = Sequential()
     model.add(LSTM(units=256, return_sequences=True, input_shape=(1, 768)))
     model.add(LSTM(units=128))
-    model.add(Dropout(0.2))
+    model.add(Dropout(0.5))
     model.add(Dense(3, activation='softmax'))
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
-    history = model.fit(x_train, y_train, epochs=800, batch_size=64,
+    history = model.fit(x_train, y_train, epochs=60, batch_size=64,
                         validation_data=(x_val, y_val), verbose=1, callbacks=Metrics(valid_data=(x_val, y_val)))
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
