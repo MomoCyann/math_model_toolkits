@@ -3,22 +3,34 @@ import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
 import random
+from zhon.hanzi import punctuation as punc
+import string
 import re
 import glob
 import jieba as jb
 
-
 def del_same_news(data):
-    '''
+    """
     新闻数据去重。方法：把需要保存下来的新闻，包括独一无二的、和重复里面决定留下来的新闻的ID保存下来，在原始数据中保留这些ID的行。
     :param data:
     :return:
-    '''
+    """
     # 复制一份数据
     data_copy = data.copy()
     # 去掉标点符号 方便比较
-    data_copy['newsTitle'] = data_copy['newsTitle'].apply(lambda x: re.sub(r'[\W]', "", str(x)))
-    data_copy['newsSummary'] = data_copy['newsSummary'].apply(lambda x: re.sub(r'[\W]', "", str(x)))
+    # 标点符号集合
+    allpunc = punc + string.punctuation
+    # data_copy['newsTitle'] = data_copy['newsTitle'].apply(lambda x: re.sub(r'[\W]', "", str(x)))
+    # data_copy['newsSummary'] = data_copy['newsSummary'].apply(lambda x: re.sub(r'[\W]', "", str(x)))
+    for index, rows in data_copy.iterrows():
+        title = rows['newsTitle']
+        summary = rows['newsSummary']
+        for i in allpunc:
+            title = title.replace(i, '')
+            summary = summary.replace(i, '')
+        data_copy['newsTitle'][index] = title
+        data_copy['newsSummary'][index] = summary
+        print('去掉标点符号中……'+str(index))
     # 重复数据全部去除→clean
     clean = data_copy.drop_duplicates(subset=['newsTitle'], keep=False)
     # 这个操作可以单独取出重复新闻
@@ -154,6 +166,8 @@ def concat_all_company(file_path):
 """
 
 if __name__ == "__main__":
-    # file_path 是去重后的存储路径
-    concat_all_company('./data/split_data/*.csv')
+    # # file_path 是去重后的存储路径
+    # concat_all_company('./data/split_data/*.csv')
+    data = pd.read_csv('./data/original_data/三一重工1-12.csv')
+    data = del_same_news(data)
 

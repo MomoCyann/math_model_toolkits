@@ -5,6 +5,7 @@ import tensorflow_hub as hub
 import tensorflow_text as text
 from sklearn.model_selection import train_test_split
 from keras.utils.np_utils import *
+from sklearn.utils import shuffle
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import recall_score, precision_score, f1_score
 from sklearn.metrics import classification_report
@@ -41,7 +42,7 @@ class Metrics(keras.callbacks.Callback):
         logs['val_recall'] = _val_recall
         logs['val_precision'] = _val_precision
         # print(" — val_f1: %f — val_precision: %f — val_recall: %f" % (_val_f1, _val_precision, _val_recall))
-        print(classification_report(val_targ, val_predict))
+        print(classification_report(val_targ, val_predict, digits=5))
         return
 
 def df_to_tensor(df):
@@ -55,8 +56,11 @@ def df_to_tensor(df):
 
 def load_data(path):
     data = pd.read_csv(path)
+    # 把标签-1替换成2
     data['label'] = data['label'].replace(-1, 2)
     print(data['label'].value_counts())
+    # 打乱数据
+    data = shuffle(data)
     # 分层抽样
     split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
     for train_index, test_index in split.split(data, data["label"]):
@@ -111,7 +115,7 @@ def net_LSTM():
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
-    history = model.fit(x_train, y_train, epochs=60, batch_size=64,
+    history = model.fit(x_train, y_train, epochs=30, batch_size=64,
                         validation_data=(x_val, y_val), verbose=1, callbacks=Metrics(valid_data=(x_val, y_val)))
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
@@ -152,9 +156,9 @@ if __name__ == '__main__':
     # model = Sequential()
     # model.add(Dense(3, activation='softmax',input_shape=(768,)))
 
-    # 若选用LSTM
-    # 先把X的2维数组变成3维数组, 不用重塑Y
-    x_train, x_test, x_val = reshape_to_3d(x_train), reshape_to_3d(x_test), reshape_to_3d(x_val)
+    # # 若选用LSTM
+    # # 先把X的2维数组变成3维数组, 不用重塑Y
+    # x_train, x_test, x_val = reshape_to_3d(x_train), reshape_to_3d(x_test), reshape_to_3d(x_val)
 
     '''
     只需在下方调整方法名，即可选用不同网络训练
@@ -172,4 +176,4 @@ if __name__ == '__main__':
     loss: 0.4779 - accuracy: 0.7882 - val_loss: 0.5171 - val_accuracy: 0.7643 - val_f1: 0.7643 - val_recall: 0.7643 - val_precision: 0.7643
     测试集 Accuracy 0.76434326171875
     '''
-    net_LSTM()
+    net_NN()
