@@ -805,7 +805,7 @@ def winter_breaking():
     shower = False
     tloop = 0
     Tset = 42
-    Tcw = 20
+    Tcw = 15
     # 热水流速 Tset出水口，Tcw冷水温度
     # 第二次 返回最低温度
     for i in range(0, 1440):
@@ -823,13 +823,13 @@ def winter_breaking():
                 heat_sw = False
         if shower:
             Bt = B * ((Tset - Tcw) / (t - Tcw))
-            R1 = R / (C * p * Bt * R + 1)
+            R1 = R / ((C * p * Bt * R) + 1)
             if (t < Twint - 5):
                 ut = 1
             else:
                 ut = 0
             t = t * math.exp(-60 / (C * p * V * R1)) + (
-                    n * P * ut * R1 + (Tair_win[i] * R1 / R) + (C * p * Bt * R1 * Tcw)) * (
+                    n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
                         1 - math.exp(-60 / (C * p * V * R1)))
 
         # 检查是否在加热
@@ -914,7 +914,7 @@ if __name__ == '__main__':
     #     t_searching = summer_breaking()
     #     print(t_searching)
     # print("最优夏天设置温度为"+str(Tsumm))
-    Twint = 62.5
+    Twint = 68.4
     t_searching = 0
     while t_searching < 42:
         Twint+=0.01
