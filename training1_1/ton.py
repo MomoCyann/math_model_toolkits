@@ -716,7 +716,7 @@ def summer_breaking():
     t_water = t_moment
     x_name = '时间'
     y_name = '温度 / °C'
-    title = '暴力搜索'
+    title = '夏季最优设定温度下EWH水温变化'
     # 每类数据依次绘图散点
     # dpi?
     plt.figure(figsize=(16, 10))
@@ -866,7 +866,7 @@ def winter_breaking():
     t_water = t_moment
     x_name = '时间'
     y_name = '温度 / °C'
-    title = '暴力搜索冬'
+    title = '冬季最优设定温度下EWH水温变化'
     # 每类数据依次绘图散点
     # dpi?
     plt.figure(figsize=(16, 10))
@@ -907,13 +907,13 @@ if __name__ == '__main__':
     # summer_onetime()
     # winter_onetime()
     print("第三问")
-    # Tsumm = 51.5
-    # t_searching = 0
-    # while t_searching<37:
-    #     Tsumm+=0.01
-    #     t_searching = summer_breaking()
-    #     print(t_searching)
-    # print("最优夏天设置温度为"+str(Tsumm))
+    Tsumm = 51.5
+    t_searching = 0
+    while t_searching<37:
+        Tsumm+=0.01
+        t_searching = summer_breaking()
+        print(t_searching)
+    print("最优夏天设置温度为"+str(Tsumm))
     Twint = 68.4
     t_searching = 0
     while t_searching < 42:
