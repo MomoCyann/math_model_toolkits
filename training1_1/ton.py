@@ -174,12 +174,14 @@ def winter_open():
     t_moment = []
     # 初始温度
     # t=60
-    t=5
+    t=20
     ut=0
     heat_sw=False
-
+    Tcw = 20
     tloop=0
     for i in range(0,1440):
+        Bt = 0
+        R1 = R / ((C * p * Bt * R) + 1)
         # 先检查是否在加热
         if heat_sw:
             # 加热中要检查是否到达规定温度
@@ -188,10 +190,16 @@ def winter_open():
                 ut=0
                 heat_sw=False
                 # 自然降温
-                t = cooldown(t, Tair_win[i])
+                # t = cooldown(t, Tair_win[i])
+                t = t * math.exp(-60 / (C * p * V * R1)) + (
+                        n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
+                            1 - math.exp(-60 / (C * p * V * R1)))
             else:
                 # 继续加热
-                t = heat(t, Tair_win[i], ut)
+                # t = heat(t, Tair_win[i], ut)
+                t = t * math.exp(-60 / (C * p * V * R1)) + (
+                        n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
+                            1 - math.exp(-60 / (C * p * V * R1)))
                 tloop+=1
         else:
             # 若没有在加热，则检查温度是否降温到5度一下，ut变为1
@@ -199,11 +207,17 @@ def winter_open():
                 # 此时代表重新加热
                 ut=1
                 heat_sw=True
-                t = heat(t, Tair_win[i], ut)
+                # t = heat(t, Tair_win[i], ut)
+                t = t * math.exp(-60 / (C * p * V * R1)) + (
+                        n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
+                            1 - math.exp(-60 / (C * p * V * R1)))
                 tloop+=1
             else:
                 # 此时代表继续降温
-                t = cooldown(t, Tair_win[i])
+                # t = cooldown(t, Tair_win[i])
+                t = t * math.exp(-60 / (C * p * V * R1)) + (
+                        n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
+                            1 - math.exp(-60 / (C * p * V * R1)))
         t_moment.append(t)
         # if i == 1317:
         #     W = (P * tloop * 60) / (1000 * 3600)
@@ -257,7 +271,7 @@ def summer_onetime():
 
 def winter_onetime():
     # 起始温度还是20吗
-    T0 = 5
+    T0 = 20
     Tair = 7
     t = C * p * V * R * math.log((T0 - Tair - n * P * R) / (Twint - Tair - n * P * R))
     print("冬季一次性加热时间为" + str(t) + "秒")
@@ -266,7 +280,7 @@ def winter_onetime():
 
     # 初始温度
     # t=60
-    t = 5
+    t = 20
     ut = 1
     heat_sw = False
 
@@ -452,155 +466,6 @@ def tenet():
 def summer_breaking():
     print("夏季搜索开始")
     print("设置温度为"+str(Tsumm))
-    print("夏季室温为最低恒定24°")
-    # 储存温度
-    t_moment = []
-    # 初始温度
-    # t=45
-    t = Tsumm
-    ut = 0
-    heat_sw = False
-    tloop = 0
-    # 第一步是为了找出温度最低点作为shower_time
-    shower_time = 9999
-    i_lowest = []
-
-    # 假设Tair全为24°
-    for j in range(0, len(Tair_sum)):
-        Tair_sum[j] = min(Tair_sum)
-
-    for i in range(0, 1440):
-        # 检查是否在加热
-        if heat_sw:
-            # 加热中要检查是否到达规定温度
-            if t >= Tsumm:
-                # 到达规定温度 停止加热
-                ut = 0
-                heat_sw = False
-                # 自然降温
-                t = cooldown(t, Tair_sum[i])
-            else:
-                # 继续加热
-                # t = t * math.exp(-60 / (C * p * V * R)) + (n * P * ut * R + Tair_win[i]) * (1 - math.exp(-60 / (C * p * V * R)))
-                t = heat(t, Tair_sum[i], ut)
-                tloop += 1
-        else:
-            # 若没有在加热，则检查温度是否降温到5度一下，ut变为1
-            if (t < Tsumm - 5):
-                # 此时代表重新加热
-                print("在i=" + str(i) + "时温度小于设定-5")
-                i_lowest.append(i)
-                ut = 1
-                heat_sw = True
-                t = heat(t, Tair_sum[i], ut)
-                tloop += 1
-            else:
-                # 此时代表继续降温
-                t = cooldown(t, Tair_sum[i])
-
-    shower_time = i_lowest[0]
-    t = Tsumm
-    ut = 0
-    heat_sw = False
-    shower = False
-    tloop = 0
-    Tset = 37
-    Tcw = 20
-    # 热水流速 Tset出水口，Tcw冷水温度
-    # 第二次 返回最低温度
-    for i in range(0, 1440):
-        if i == shower_time:
-            shower = True
-            print("在i=" + str(i) + "时开始洗澡")
-        if i == shower_time + 15:
-            shower = False
-            print("洗完澡温度为" + str(t))
-            t_target = t
-            # 洗澡过程结束重新整理下heat_sw
-            if (t < Tsumm - 5):
-                heat_sw = True
-            else:
-                heat_sw = False
-        if shower:
-            Bt = B * ((Tset - Tcw) / (t - Tcw))
-            R1 = R / (C * p * Bt * R + 1)
-            if (t < Tsumm - 5):
-                ut = 1
-            else:
-                ut = 0
-            t = t * math.exp(-60 / (C * p * V * R1)) + (
-                    n * P * ut * R1 + (Tair_sum[i] * R1 / R) + (C * p * Bt * R1 * Tcw)) * (
-                        1 - math.exp(-60 / (C * p * V * R1)))
-
-        # 检查是否在加热
-        if heat_sw:
-            # 加热中要检查是否到达规定温度
-            if t >= Tsumm:
-                # 到达规定温度 停止加热
-                ut = 0
-                heat_sw = False
-                # 自然降温
-                t = cooldown(t, Tair_sum[i])
-            else:
-                # 继续加热
-                # t = t * math.exp(-60 / (C * p * V * R)) + (n * P * ut * R + Tair_win[i]) * (1 - math.exp(-60 / (C * p * V * R)))
-                t = heat(t, Tair_sum[i], ut)
-                tloop += 1
-        else:
-            # 若没有在加热，则检查温度是否降温到5度一下，ut变为1
-            if (t < Tsumm - 5):
-                # 此时代表重新加热
-                ut = 1
-                heat_sw = True
-                t = heat(t, Tair_sum[i], ut)
-                tloop += 1
-            else:
-                # 此时代表继续降温
-                t = cooldown(t, Tair_sum[i])
-
-        t_moment.append(t)
-
-    # plt
-    date = data['minutes']
-    tair = Tair_sum
-    t_water = t_moment
-    x_name = '时间'
-    y_name = '温度 / °C'
-    title = '暴力搜索'
-    # 每类数据依次绘图散点
-    # dpi?
-    plt.figure(figsize=(16, 10))
-
-    # plt.scatter(date, tair, s=10, color='deepskyblue')
-    plt.plot(date, tair, color='deepskyblue', label='室外温度')
-    plt.plot(date, t_water, color='salmon', label='水温')
-    # 坐标轴
-    plt.xlabel(x_name, fontsize=16)
-    plt.ylabel(y_name, fontsize=16)
-    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(60))
-    plt.gcf().autofmt_xdate()
-    plt.xticks(fontsize=12)
-    plt.yticks(fontsize=12)
-    plt.title(title, fontsize=22)
-    plt.legend(fontsize=16, loc='center right')
-
-    plt.savefig(title + '.png')
-    # Save the image in memory in PNG format
-    png1 = io.BytesIO()
-    plt.savefig(png1, format="png", dpi=100, pad_inches=.1, bbox_inches='tight')
-
-    # Load this image into PIL
-    png2 = Image.open(png1)
-
-    # Save as TIFF
-    png2.save(title + ".tiff")
-    png1.close()
-
-    return t_target
-
-def summer_breaking():
-    print("夏季搜索开始")
-    print("设置温度为"+str(Tsumm))
     # print("夏季室温为最低恒定24°")
     print("夏季室温为自然变化")
     # 储存温度
@@ -709,7 +574,9 @@ def summer_breaking():
                 t = cooldown(t, Tair_sum[i])
 
         t_moment.append(t)
-
+    print("最佳温度夏季洗澡一直开启电源加热时间为" + str(tloop) + "分钟")
+    W = (P * tloop * 60) / (1000 * 3600)
+    print("最佳温度夏季洗澡一直开启电源加热用电量为" + str(W) + "千瓦时")
     # plt
     date = data['minutes']
     tair = Tair_sum
@@ -805,7 +672,7 @@ def winter_breaking():
     shower = False
     tloop = 0
     Tset = 42
-    Tcw = 15
+    Tcw = 20
     # 热水流速 Tset出水口，Tcw冷水温度
     # 第二次 返回最低温度
     for i in range(0, 1440):
@@ -831,7 +698,6 @@ def winter_breaking():
             t = t * math.exp(-60 / (C * p * V * R1)) + (
                     n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
                         1 - math.exp(-60 / (C * p * V * R1)))
-
         # 检查是否在加热
         if heat_sw:
             # 加热中要检查是否到达规定温度
@@ -859,7 +725,9 @@ def winter_breaking():
                 t = cooldown(t, Tair_win[i])
 
         t_moment.append(t)
-
+    print("最佳温度冬季洗澡一直开启电源加热时间为" + str(tloop) + "分钟")
+    W = (P * tloop * 60) / (1000 * 3600)
+    print("最佳温度冬季洗澡一直开启电源加热用电量为" + str(W) + "千瓦时")
     # plt
     date = data['minutes']
     tair = Tair_win
@@ -898,6 +766,204 @@ def winter_breaking():
 
     return t_target
 
+def winter_double_heat(tset, tone):
+    print("设置温度为" + str(tset))
+    print("洗钱加热温度为"+ str(tone))
+    # 储存温度
+    t_moment = []
+    # 初始温度
+    # t=45
+    t = 20
+    ut = 0
+    heat_sw = False
+    tloop = 0
+    # 第一步是为了找出温度最低点作为shower_time
+    shower_time = 9999
+    i_lowest = []
+
+    # # 假设Tair全为24°
+    # for j in range(0, len(Tair_sum)):
+    #     Tair_sum[j] = min(Tair_sum)
+
+    for i in range(0, 1440):
+        # 检查是否在加热
+        if heat_sw:
+            # 加热中要检查是否到达规定温度
+            if t >= tset:
+                # 到达规定温度 停止加热
+                ut = 0
+                heat_sw = False
+                # 自然降温
+                t = cooldown(t, Tair_win[i])
+            else:
+                # 继续加热
+                # t = t * math.exp(-60 / (C * p * V * R)) + (n * P * ut * R + Tair_win[i]) * (1 - math.exp(-60 / (C * p * V * R)))
+                t = heat(t, Tair_win[i], ut)
+                tloop += 1
+        else:
+            # 若没有在加热，则检查温度是否降温到5度一下，ut变为1
+            if (t < tset - 5):
+                # 此时代表重新加热
+                print("在i=" + str(i) + "时温度小于设定-5")
+                i_lowest.append(i)
+                ut = 1
+                heat_sw = True
+                t = heat(t, Tair_win[i], ut)
+                tloop += 1
+            else:
+                # 此时代表继续降温
+                t = cooldown(t, Tair_win[i])
+
+    first_time = i_lowest[2]
+    first_heat = False
+    second_heat = False
+    shower = False
+    t = 20
+    ut = 0
+    heat_sw = False
+    first_shower = False
+    tloop = 0
+    Tset = 42
+    Tcw = 20
+    # 第一次加热后温度
+    T_firstheat = tone
+    # 等待时间1
+    t_firstwait = 0
+    t_secondwait = 0
+    # 初始化洗澡时间
+    first_shower_time = 9999
+    second_shower_time =9999
+    # 热水流速 Tset出水口，Tcw冷水温度
+    # 第二次 返回最低温度
+    for i in range(0, 1440):
+        #第一次加热
+        if i == first_time:
+            first_heat = True
+            print("在i=" + str(i) + "时开始第一次加热")
+        if t >= T_firstheat:
+            first_heat = False
+            shower = True
+            first_shower_time = i
+            print("在i=" + str(i) + "时开始第一次洗澡")
+        if first_heat:
+            ut = 1
+            t = heat(t, Tair_win[i], ut)
+            tloop += 1
+            t_firstwait += 1
+            t_moment.append(t)
+            continue
+        if i == first_shower_time + 15:
+            shower = False
+            print("第一次洗完澡温度为" + str(t))
+            t_finish_1shower = t
+            # 第一次洗完澡马上第二次加热
+            second_heat = True
+            print("在i=" + str(i) + "时开始第二次加热")
+        if i == second_shower_time + 15:
+            shower = False
+            print("第二次洗完澡温度为" + str(t))
+            # 洗澡过程结束重新整理下heat_sw
+            if (t < tset - 5):
+                heat_sw = True
+            else:
+                heat_sw = False
+        if second_heat:
+            if t >= 62.57:
+                second_heat = False
+                shower = True
+                second_shower_time = i
+                print("在i=" + str(i) + "时开始第二次洗澡")
+            else:
+                ut = 1
+                t = heat(t, Tair_win[i], ut)
+                tloop += 1
+                t_secondwait += 1
+                t_moment.append(t)
+                continue
+        if shower:
+            Bt = B * ((Tset - Tcw) / (t - Tcw))
+            R1 = R / ((C * p * Bt * R) + 1)
+            if (t < tset - 5):
+                ut = 1
+            else:
+                ut = 0
+            t = t * math.exp(-60 / (C * p * V * R1)) + (
+                    n * P * ut * R1 + ((Tair_win[i] * R1) / R) + (C * p * Bt * R1 * Tcw)) * (
+                        1 - math.exp(-60 / (C * p * V * R1)))
+            t = heat(t, Tair_win[i], ut)
+            tloop += 1
+            t_moment.append(t)
+            continue
+        # 检查是否在加热
+        if heat_sw:
+            # 加热中要检查是否到达规定温度
+            if t >= tset:
+                # 到达规定温度 停止加热
+                ut = 0
+                heat_sw = False
+                # 自然降温
+                t = cooldown(t, Tair_win[i])
+            else:
+                # 继续加热
+                # t = t * math.exp(-60 / (C * p * V * R)) + (n * P * ut * R + Tair_win[i]) * (1 - math.exp(-60 / (C * p * V * R)))
+                t = heat(t, Tair_win[i], ut)
+                tloop += 1
+        else:
+            # 若没有在加热，则检查温度是否降温到5度一下，ut变为1
+            if (t < tset - 5):
+                # 此时代表重新加热
+                ut = 1
+                heat_sw = True
+                t = heat(t, Tair_win[i], ut)
+                tloop += 1
+            else:
+                # 此时代表继续降温
+                t = cooldown(t, Tair_win[i])
+
+        t_moment.append(t)
+    print("最佳温度冬季洗澡一直开启电源加热时间为" + str(tloop) + "分钟")
+    W = (P * tloop * 60) / (1000 * 3600)
+    print("最佳温度冬季洗澡一直开启电源加热用电量为" + str(W) + "千瓦时")
+    wait = 2* t_firstwait + t_secondwait
+    print("等待时间为"+str(wait)+"分钟")
+    # plt
+    date = data['minutes']
+    tair = Tair_win
+    t_water = t_moment
+    x_name = '时间'
+    y_name = '温度 / °C'
+    title = '冬季二人洗澡最优设定温度下EWH水温变化'
+    # 每类数据依次绘图散点
+    # dpi?
+    plt.figure(figsize=(16, 10))
+
+    # plt.scatter(date, tair, s=10, color='deepskyblue')
+    plt.plot(date, tair, color='deepskyblue', label='室外温度')
+    plt.plot(date, t_water, color='salmon', label='水温')
+    # 坐标轴
+    plt.xlabel(x_name, fontsize=16)
+    plt.ylabel(y_name, fontsize=16)
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(60))
+    plt.gcf().autofmt_xdate()
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.title(title, fontsize=22)
+    plt.legend(fontsize=16, loc='center right')
+
+    plt.savefig(title + '.png')
+    # Save the image in memory in PNG format
+    png1 = io.BytesIO()
+    plt.savefig(png1, format="png", dpi=100, pad_inches=.1, bbox_inches='tight')
+
+    # Load this image into PIL
+    png2 = Image.open(png1)
+
+    # Save as TIFF
+    png2.save(title + ".tiff")
+    png1.close()
+
+    return W, wait
+
 if __name__ == '__main__':
     print("第二问")
     # Tsumm = 45
@@ -907,23 +973,21 @@ if __name__ == '__main__':
     # summer_onetime()
     # winter_onetime()
     print("第三问")
-    Tsumm = 51.5
-    t_searching = 0
-    while t_searching<37:
-        Tsumm+=0.01
-        t_searching = summer_breaking()
-        print(t_searching)
-    print("最优夏天设置温度为"+str(Tsumm))
-    Twint = 68.4
-    t_searching = 0
-    while t_searching < 42:
-        Twint+=0.01
-        t_searching = winter_breaking()
-        print(t_searching)
-    print("最优冬天设置温度为" + str(Twint))
-    '''夏天51.56/51.52'''
-
-    # Tsumm = 51.56
-    # summer_suitable()
-    # tenet()
+    # Tsumm = 51.5
+    # t_searching = 0
+    # while t_searching<37:
+    #     Tsumm+=0.01
+    #     t_searching = summer_breaking()
+    #     print(t_searching)
+    # print("最优夏天设置温度为"+str(Tsumm))
+    # Twint = 62.55
+    # t_searching = 0
+    # while t_searching < 42:
+    #     Twint+=0.01
+    #     t_searching = winter_breaking()
+    #     print(t_searching)
+    # print("最优冬天设置温度为" + str(Twint))
+    # '''夏天51.56/冬天62.57'''
+    print("第四问")
+    W, wait_time = winter_double_heat(65, 72)
 
