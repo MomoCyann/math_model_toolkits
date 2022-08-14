@@ -14,7 +14,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, LSTM, Bidirectional
 from keras import optimizers
 from keras.callbacks import ReduceLROnPlateau
-
+import keras.losses
 '''
 0 - 中性
 1 - 利好
@@ -76,6 +76,32 @@ def load_data(path):
     print(len(val), 'val examples')
     return train, test, val
 
+def load_data_wv(path):
+    data = pd.read_csv(path)
+    print(data.isnull().sum())
+    data = data.fillna(0)
+    print("fillna~")
+    print(data.isnull().sum())
+    # 把标签-1替换成2
+    data['label'] = data['label'].replace(-1, 2)
+    print(data['label'].value_counts())
+    # 打乱数据
+    data = shuffle(data)
+    # 分层抽样
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+    for train_index, test_index in split.split(data, data["label"]):
+        train = data.loc[train_index]
+        test = data.loc[test_index]
+
+    # # 随机抽样
+    # train, test = train_test_split(data, test_size=0.2, random_state=42)
+    train, val = train_test_split(train, test_size=0.2, random_state=42)
+
+    print(len(train), 'train examples')
+    print(len(test), 'test examples')
+    print(len(val), 'val examples')
+    return train, test, val
+
 def reshape_to_3d(array):
     rows = array.shape[0]
     cols = array.shape[1]
@@ -85,7 +111,7 @@ def reshape_to_3d(array):
 def net_NN():
     # 全连接网络 76%
     model = Sequential()
-    model.add(Dense(256, activation='relu',input_shape=(768,),name='layer1'))
+    model.add(Dense(256, activation='relu',input_shape=(300,),name='layer1'))
     model.add(Dense(128, activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(3, activation='softmax'))
@@ -103,19 +129,19 @@ def net_LSTM():
     # LSTM
     # 优化器
 
-    sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    adam = keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.01, amsgrad=False)
-    myReduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', epsilon=0.0001,
-                                    cooldown=0, min_lr=0)
+    # sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+    # adam = keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.01, amsgrad=False)
+    # myReduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', epsilon=0.0001,
+    #                                 cooldown=0, min_lr=0)
     model = Sequential()
-    model.add(LSTM(units=256, return_sequences=True, input_shape=(1, 768)))
+    model.add(LSTM(units=256, return_sequences=True, input_shape=(1, 300)))
     model.add(LSTM(units=128))
     model.add(Dropout(0.5))
     model.add(Dense(3, activation='softmax'))
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
-    history = model.fit(x_train, y_train, epochs=30, batch_size=64,
+    history = model.fit(x_train, y_train, epochs=60, batch_size=64,
                         validation_data=(x_val, y_val), verbose=1, callbacks=Metrics(valid_data=(x_val, y_val)))
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
@@ -134,7 +160,7 @@ def net_BiLSTM():
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
-    history = model.fit(x_train, y_train, epochs=30, batch_size=64,
+    history = model.fit(x_train, y_train, epochs=60, batch_size=64,
                         validation_data=(x_val, y_val), verbose=1, callbacks=Metrics(valid_data=(x_val, y_val)))
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
@@ -144,9 +170,14 @@ def net_BiLSTM():
     # model = tf.keras.models.load_model('./model/text_classifier')
 
 if __name__ == '__main__':
-    # 读取数据
-    path = 'BERT/embedding_title_label_v2.csv'
-    train, test, val = load_data(path)
+    # # 读取数据_BERT
+    # path = 'BERT/embedding_title_label_v2.csv'
+    # train, test, val = load_data(path)
+
+    # 读取数据_wv
+    path = 'word_vector/sentence_vector.csv'
+    train, test, val = load_data_wv(path)
+
 
     x_train, y_train = df_to_tensor(train)
     x_test, y_test = df_to_tensor(test)
@@ -156,9 +187,9 @@ if __name__ == '__main__':
     # model = Sequential()
     # model.add(Dense(3, activation='softmax',input_shape=(768,)))
 
-    # # 若选用LSTM
-    # # 先把X的2维数组变成3维数组, 不用重塑Y
-    # x_train, x_test, x_val = reshape_to_3d(x_train), reshape_to_3d(x_test), reshape_to_3d(x_val)
+    # 若选用LSTM
+    # 先把X的2维数组变成3维数组, 不用重塑Y
+    x_train, x_test, x_val = reshape_to_3d(x_train), reshape_to_3d(x_test), reshape_to_3d(x_val)
 
     '''
     只需在下方调整方法名，即可选用不同网络训练
@@ -176,4 +207,4 @@ if __name__ == '__main__':
     loss: 0.4779 - accuracy: 0.7882 - val_loss: 0.5171 - val_accuracy: 0.7643 - val_f1: 0.7643 - val_recall: 0.7643 - val_precision: 0.7643
     测试集 Accuracy 0.76434326171875
     '''
-    net_NN()
+    net_LSTM()
