@@ -53,7 +53,8 @@ def merge_title_summary(df):
 
 if __name__ == '__main__':
     # 读取数据
-    df = pd.read_csv('data/all_clear_data.csv')
+    # df = pd.read_csv('data/all_clear_data.csv')
+    df = pd.read_csv('data/selected_newsData_split.csv')
     print(df.head())
     df = df[['newsTitle', 'newsSummary','sentiment']]
     print(df['sentiment'].value_counts())
@@ -80,6 +81,7 @@ if __name__ == '__main__':
             # news_embedding = news_embedding.append(n_embedding)
         print(index)
     title_embedding.to_csv('./BERT/embedding_title_label.csv')
+    title_embedding.to_csv('./BERT/selected_embedding_title_label.csv')
     # news_embedding.to_csv('./BERT/embedding_news_label.csv')
 
     print("end")

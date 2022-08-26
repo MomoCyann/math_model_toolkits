@@ -5,7 +5,8 @@ from gensim.models import word2vec as wv
 
 def get_vocabulary():
     print("中文测试")
-    df = pd.read_excel('./data/all_clear_data.xlsx')
+    # df = pd.read_excel('./data/all_clear_data.xlsx')
+    df = pd.read_csv('./data/selected_newsData_split.csv')
     df['str_spl']=df.splitSummary.str.split(',')
     print(df.head(2))
     all_word = []
@@ -50,16 +51,17 @@ def load_dic(vec_data):
 
 if __name__ == "__main__":
     # 先取出所有可能用到的词
-    # vocabulary = get_vocabulary()
+    vocabulary = get_vocabulary()
 
     # 将词向量存储为字典
-    # get_vocabulary_vector(vocabulary)
+    get_vocabulary_vector(vocabulary)
     # # 读取词汇-向量字典，csv转字典
 
     vec_data = pd.read_csv("./word_vector/vocabulary_vector.csv")
     # 获取词典对照
     vocabulary_vector = load_dic(vec_data)
-    df = pd.read_excel('./data/all_clear_data.xlsx')
+    # df = pd.read_excel('./data/all_clear_data.xlsx')
+    df = pd.read_csv('./data/selected_newsData_split.csv')
     df['str_spl'] = df.splitSummary.str.split(',')
     sentence_vec = np.zeros((df.shape[0], 300))
     for index, rows in df.iterrows():
@@ -70,14 +72,12 @@ if __name__ == "__main__":
                 sentence_vec[index] += word_vec
                 count += 1
         print(index)
-        if index == 10:
-            break
         print(sentence_vec[index])
         sentence_vec[index] = sentence_vec[index] / count
         print(count)
         print(sentence_vec[index])
-    # result = pd.DataFrame(sentence_vec)
-    # result['label'] = df['sentiment']
-    # result.to_csv("./word_vector/sentence_vector.csv")
-    # print("complete")
+    result = pd.DataFrame(sentence_vec)
+    result['label'] = df['sentiment']
+    result.to_csv("./word_vector/selected_sentence_vector.csv")
+    print("complete")
 
