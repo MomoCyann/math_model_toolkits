@@ -3,8 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import preprocessing
+
 """
-price_growth
+price_growth_fiexd
 索引介绍：
 1为年份
 2-51 为原始数据
@@ -13,6 +14,15 @@ price_growth
 149-158 为9类别增长率
 158 为 总增长率-9 个类别 均值增长率
 159 为 总增长率-较上期差额
+
+price_growth_m2m
+索引介绍：
+1为年份
+2-51 为原始数据
+51-100 为各变量对应的增长率
+100-109 为9类别增长率
+109 为 总增长率-9 个类别 均值增长率
+110 为 总增长率-较上期差额
 """
 
 # 画单一增长率图
@@ -79,20 +89,3 @@ def plot_50var_corr_heatmap(df):
     figure,ax=plt.subplots(figsize=(12,12))
     sns.heatmap(df.corr(),square=True,annot=False,ax=ax)
     plt.show()
-
-# 养老教育
-def edu(df):
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-    df = df.iloc[1:, :]
-    plt.plot(df.iloc[:, 0], df.iloc[:, 7], label='教育文娱GR', color='deepskyblue')
-    plt.plot(df.iloc[:, 0], df.iloc[:, 8], label='医疗保健GR', color='salmon')
-    plt.legend()
-    plt.show()
-    print('s')
-df=pd.read_csv('data/edu_gr_dif.csv')
-
-# plot_GrowthRate(df)
-# plot_9GrowthRate(df)
-# plot_50var_corr_heatmap(df)
-edu(df)

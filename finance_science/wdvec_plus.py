@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas_method as pd
 import gensim
 import numpy as np
 from gensim.models import word2vec as wv

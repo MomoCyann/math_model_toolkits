@@ -1,5 +1,5 @@
 from __future__ import (absolute_import, division, print_function, unicode_literals)
-import pandas as pd
+import pandas_method as pd
 import numpy as np
 import backtrader as bt
 from datetime import datetime

@@ -1,5 +1,5 @@
 import time
-import pandas as pd
+import pandas_method as pd
 import sklearn.metrics
 from sklearn import preprocessing
 from sklearn.ensemble import RandomForestClassifier

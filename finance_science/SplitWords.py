@@ -1,5 +1,5 @@
 import jieba as jb
-import pandas as pd
+import pandas_method as pd
 from jieba import analyse
 
 

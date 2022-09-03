@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas_method as pd
 import glob
 import os
 import shutil

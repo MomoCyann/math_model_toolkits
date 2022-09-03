@@ -6,16 +6,25 @@ import seaborn as sns
 from sklearn import preprocessing
 from minepy import MINE
 """
-price_growth
+price_growth_fiexd
 索引介绍：
 1为年份
-2-52 为原始数据
-52-102 为各变量对应的增长率
-102-111 为9类别增长率
-111 为 50个变量均值增长率
-112 为 9 个类别 均值增长率
-"""
+2-51 为原始数据
+51-100 为各变量对应的增长率
+100-149 为各变量增长率较上期差额
+149-158 为9类别增长率
+158 为 总增长率-9 个类别 均值增长率
+159 为 总增长率-较上期差额
 
+price_growth_m2m
+索引介绍：
+1为年份
+2-51 为原始数据
+51-100 为各变量对应的增长率
+100-109 为9类别增长率
+109 为 总增长率-9 个类别 均值增长率
+110 为 总增长率-较上期差额
+"""
 
 # 插值
 def interpolate():
@@ -29,47 +38,84 @@ def interpolate():
     df = df.iloc[:, 1:]
     df.to_csv('data/price_1.csv')
 
-# 计算每一个变量的环比增长率
-def count_rowthRate():
-    df = pd.read_csv('data/price_1.csv')
-    for column in df.columns[2:]:
-        print(column)
-        for index in df.index[1:]:
-            GR_column_name = column + '_GR'
-            df.loc[index, GR_column_name] = df.loc[index, column] / df.loc[index - 1, column] - 1
-    print(df.info())
-    print(df.head(-5))
-    df = df.iloc[:, 1:]
-    df.to_csv('data/price_growthRate.csv')
+"""
+index_type:
+fixed - 定基 以20140101 为基期
+m2m   - 环比 以上一期来基准
+"""
 
-# 计算类内平均
-def splitByCategory():
-    df = pd.read_csv('data/price_growthRate.csv')
-    for index in df.index[1:]:
+def count_index(index_type):
+    # 导入数据
+    df=pd.read_excel('data/流通领域重要生产资料价格.xlsx',header=0)
+    # 删除开头部分连续多行的空行，以及空列
+    df.dropna(axis=1,how='all',inplace=True)
+    df.drop(range(1,25),axis=0,inplace=True)
+    df.drop(columns='人造板（1220*2440*15mm）',inplace=True)
+    df.reset_index(drop=True,inplace=True)
+    print(df.info())
+
+    # 数据清洗及插值
+    for i in range(50):
+        print(df.columns[i])
+        df.iloc[:, i] = df.iloc[:, i].apply(lambda x: str(x).replace(u'\xa0', u''))
+        df.iloc[:, i] = df.iloc[:, i].apply(lambda x: float(x))
+    df = df.apply(lambda x: x.interpolate())
+
+    # 计算每个变量的定基指数
+    # 　以2014年1月1日为基期，计算定基指数
+    var_columns=df.columns[1:]
+    if index_type=='fixed':
+        for column in var_columns:
+            print(column)
+            for index in df.index:
+                GR_column_name = column + '_fixed_GR'
+                df.loc[index, GR_column_name] = df.loc[index, column] / df.loc[0, column]
+
+        for column in var_columns:
+            dif_column_name=column+'_dif_GR'
+            GR_column_name = column + '_fixed_GR'
+            df[dif_column_name]=df[GR_column_name]-df[GR_column_name].shift(1)
+            df.loc[[0,1],dif_column_name]=0
+    print(df.info())
+
+    # 环比
+    if index_type=='m2m':
+        for column in var_columns:
+            print(column)
+            for index in df.index[2:]:
+                GR_column_name = column + '_m2m_GR'
+                df.loc[index, GR_column_name] = df.loc[index, column] / df.loc[index - 1, column] - 1
+        df.fillna(0.0,inplace=True)
+
+    # 计算类别定基指数
+    for index in df.index:
         # iloc 里的column 左闭右开
         # 第一类 黑色金属
-        df.loc[index,'黑色金属GR']=df.iloc[index,52:58].mean()
+        df.loc[index,'黑色金属GR']=df.iloc[index,50:56].mean()
         # 第二类 有色金属
-        df.loc[index, '有色金属GR'] = df.iloc[index, 58:62].mean()
+        df.loc[index, '有色金属GR'] = df.iloc[index, 56:60].mean()
         # 第三类 化工产品
-        df.loc[index, '化工产品GR'] = df.iloc[index, 62:72].mean()
+        df.loc[index, '化工产品GR'] = df.iloc[index, 60:70].mean()
         # 第四类 石油天然气
-        df.loc[index, '石油天然气GR'] = df.iloc[index, 72:78].mean()
+        df.loc[index, '石油天然气GR'] = df.iloc[index, 70:76].mean()
         # 第五类 煤炭
-        df.loc[index, '煤炭GR'] = df.iloc[index, 78:84].mean()
+        df.loc[index, '煤炭GR'] = df.iloc[index, 76:82].mean()
         # 第六类 非金属建材
-        df.loc[index, '非金属建材GR'] = df.iloc[index, 84:88].mean()
+        df.loc[index, '非金属建材GR'] = df.iloc[index, 82:86].mean()
         # 第七类 农产品
-        df.loc[index, '农产品GR'] = df.iloc[index, 88:96].mean()
+        df.loc[index, '农产品GR'] = df.iloc[index, 86:94].mean()
         # 第八类 农业生产资料
-        df.loc[index, '农业生产资料GR'] = df.iloc[index, 96:99].mean()
+        df.loc[index, '农业生产资料GR'] = df.iloc[index, 94:97].mean()
         # 第九类 林产品
-        df.loc[index, '林产品GR'] = df.iloc[index, 99:102].mean()
+        df.loc[index, '林产品GR'] = df.iloc[index, 97:99].mean()
         # 总指标
-        df.loc[index,'总增长率50'] = df.iloc[index, 52:102].mean()
-        df.loc[index,'总增长率9'] = df.iloc[index, 102:111].mean()
-    df=df.iloc[:,1:]
-    df.to_csv('data/price_growth.csv')
+        # df.loc[index,'总增长率50'] = df.iloc[index, 50:100].mean()
+        df.loc[index,'总增长率9'] = df.iloc[index, 99:108].mean()
+    df['总增长率9_dif'] = df['总增长率9']-df['总增长率9'].shift(1)
+    df.loc[0,'总增长率9_dif'] = 0
+
+    print(df.columns)
+    df.to_csv('data/price_{}_GR.csv'.format(index_type))
 
 # 画单一增长率图
 def plot_GrowthRate():
@@ -83,36 +129,6 @@ def plot_GrowthRate():
         plt.ylim(-0.4, 0.4)
         # plt.xticks(df.index,df.iloc[:,1],rotation=90,size=4)
         plt.show()
-
-# 9个类别增长率
-# 总体增长率图
-def plot_9GrowthRate():
-    df = pd.read_csv('data/price_growth.csv')
-    print(df.info())
-    # plt.plot(df.index,df.loc[:,'总增长率9'],c='r',label='9')
-    # plt.plot(df.index,df.loc[:,'总增长率50'],c='b',label='50')
-    # plt.plot(df.index,df.loc[:,'黑色金属GR'],label='黑色金属GR')
-    # plt.plot(df.index,df.loc[:,'有色金属GR'],label='有色金属GR')
-    # plt.plot(df.index,df.loc[:,'化工产品GR'],label='化工产品GR')
-    # plt.plot(df.index,df.loc[:,'石油天然气GR'],label='石油天然气GR')
-    # plt.plot(df.index,df.loc[:,'煤炭GR'],label='煤炭GR')
-    # plt.plot(df.index,df.loc[:,'非金属建材GR'],label='非金属建材GR')
-    # plt.plot(df.index,df.loc[:,'农产品GR'],label='农产品GR')
-    # plt.plot(df.index,df.loc[:,'农业生产资料GR'],label='农业生产资料GR')
-    plt.plot(df.index,df.loc[:,'林产品GR'],label='林产品GR')
-    plt.legend()
-    plt.ylim(-0.5, 0.5)
-    plt.show()
-
-# 总体增长率图
-def plot_GrowthRate():
-    df = pd.read_csv('data/price_growth.csv')
-    print(df.info())
-    plt.plot(df.index,df.loc[:,'总增长率9'],c='r',label='9')
-    plt.plot(df.index,df.loc[:,'总增长率50'],c='b',label='50')
-    plt.legend()
-    plt.ylim(-0.1, 0.1)
-    plt.show()
 
 # 3sigma 输出一个表格 那些产品的什么时间，增长率异常
 def sigma3_rules():
@@ -150,7 +166,13 @@ def plot_50var_corr_heatmap():
 # 灰色关联分析
 def grey_relation_analysis():
     DataFrame = pd.read_csv('data/price_fixed_GR.csv')
-    DataFrame = DataFrame.iloc[1:,52:102]
+    list = np.arange(51, 100).tolist()
+    print(list)
+    list1 = np.arange(149, 158)
+    for i in list1:
+        list.append(i)
+    list.append(158)
+    DataFrame = DataFrame.iloc[1:, list]
     DataFrame.reset_index(drop=True, inplace=True)
 
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -227,11 +249,18 @@ def grey_relation_analysis():
     df_local.columns = DataFrame.columns
     df_local['column'] = DataFrame.columns
     df_local.set_index('column', inplace=True)
-    ShowGRAHeatMap(df_local)
+    df_local.to_csv('data/grey59.csv')
+    # ShowGRAHeatMap(df_local)
 
-def mic(df):
+def mic():
     df = pd.read_csv('data/price_fixed_GR.csv')
-    df = df.iloc[1:, 52:102]
+    list = np.arange(51, 100).tolist()
+    print(list)
+    list1 = np.arange(149, 158)
+    for i in list1:
+        list.append(i)
+    list.append(158)
+    df = df.iloc[1:, list]
     df.reset_index(drop=True, inplace=True)
 
     def MIC_matirx(dataframe, mine):
@@ -253,6 +282,7 @@ def mic(df):
     data_wine_mic.columns = df.columns
     data_wine_mic['column'] = df.columns
     data_wine_mic.set_index('column', inplace=True)
+    data_wine_mic.to_csv('data/mic59.csv')
 
     def ShowHeatMap(DataFrame):
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -263,52 +293,12 @@ def mic(df):
         sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
         plt.yticks(rotation=0)
         plt.show()
-    ShowHeatMap(data_wine_mic)
+    #ShowHeatMap(data_wine_mic)
 
-def edu_med():
-    df = pd.read_csv('data/edu.csv')
-    df = df.iloc[1:-1, :]
-    df = df.T
-    columns = df.iloc[0, 1:].tolist()
-    df.set_index(1, inplace=True)
-    df.columns = columns
-    df = df.iloc[1:, :]
-    df['newindex'] = np.arange(len(df) - 1, -1, -1)
-    df.sort_values('newindex', inplace=True)
-    df.drop('newindex', axis=1, inplace=True)
 
-    # 居然是累计值
-    for col in [0,2,4,6,8,10]:
-        row = 31
-        count = 1
-        while row > 0:
-            if count <= 3:
-                df.iloc[row, col] = int(df.iloc[row, col]) - int(df.iloc[row-1, col])
-                count += 1
-                row -= 1
-            else:
-                count = 1
-                row -= 1
-        df.iloc[-1, col] = int(df.iloc[-1, col]) - int(df.iloc[-2, col])
-    for col in [1, 3, 5, 7, 9, 11]:
-        row = 0
-        while row <= 33:
-            if row == 0:
-                df.iloc[row, col] = ''
-            df.iloc[row, col] = (int(df.iloc[row, col-1])-int(df.iloc[0, col-1])) / int(df.iloc[0, col-1])
-            row +=1
-    result = df.iloc[:, [1, 3, 5, 7, 9, 11]]
 
-    for col in [1, 3, 5, 7, 9, 11]:
-        df.iloc[:, col] = df.iloc[:, col] - df.iloc[:, col].shift(1)
-    df.iloc[:1,:] = 0
-    result2 = df.iloc[:, [1, 3, 5, 7, 9, 11]]
-    final_result = pd.concat([result, result2], axis=1)
-    final_result.to_csv('data/edu_gr_dif.csv')
-
-# grey_relation_analysis()
-# mic()
-edu_med()
+#grey_relation_analysis()
+mic()
 
 
 

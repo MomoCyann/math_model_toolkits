@@ -1,5 +1,5 @@
 import numpy as np
-import pandas as pd
+import pandas_method as pd
 import datetime
 
 def getNewsfactor(tradeData, newsData):
