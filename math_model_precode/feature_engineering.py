@@ -120,7 +120,6 @@ def palette(arg:str):
     sns.palplot(choice)
     plt.show()
 
-# 灰色关联分析
 def grey_relation_analysis(DataFrame):
     '''
     输出特征的灰色关联系数热力图
