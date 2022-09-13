@@ -6,7 +6,8 @@ pip freeze > requirements.txt 保存环境
 
 pip install -r requirements.txt 部署环境
 # 功 能
-## 数据清洗 data_preprocess.py
+## 数据预处理 data_preprocess.py
+### 数据清洗
 - **def del_same_feature(data):**
   - 删除方差为0的列（全部相同）
 - **def del_perc_same_feature(data, threshold):**
@@ -24,15 +25,6 @@ pip install -r requirements.txt 部署环境
     - 前后填充
     - 均值填充
     - 线性插值
----
-## 特征工程 feature_engineering.py
-- 相关性分析
-- 特征重要度
-  - **def grey_relation_analysis(DataFrame):**
-    - 灰色关联分析
-  - **def mic(df):**
-    - 最大信息系数
-- 降维
 ### 图表
 - **def save_png_to_tiff(name):**
   - 保存图表为PNG和TIFF两种格式
@@ -48,6 +40,17 @@ pip install -r requirements.txt 部署环境
     - 蓝红简约渐变
     - 彩虹
     - 自定义
+### 特征重要度
+  - **def grey_relation_analysis(DataFrame):**
+    - 灰色关联分析
+  - **def mic_target(df, target):**
+    - 最大信息系数
+### 相关性分析
+  - **def grey_relation_analysis(DataFrame):**
+    - 灰色关联分析
+  - **def mic_features(df):**
+    - 最大信息系数
+---
 ### 3.模型
 - 常用模型
 - 模型效果比较

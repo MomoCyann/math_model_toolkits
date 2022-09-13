@@ -6,6 +6,8 @@ import seaborn as sns
 import random
 import io
 from PIL import Image
+from minepy import MINE
+from sklearn import preprocessing
 
 def del_same_feature(data):
     '''
@@ -169,7 +171,6 @@ def palette(arg:str):
     sns.palplot(choice)
     plt.show()
 
-
 def sigma3_rules(data):
     '''
     根据3σ法则，删除某特征为异常值的样本，即删掉某些行，因为他的某个特征是异常值。
@@ -229,32 +230,218 @@ def fill_null(data):
     # data = data.interpolate()
     return data
 
+def grey_relation_analysis(DataFrame):
+    '''
+    输出特征的灰色关联系数热力图
+    :return:
+    '''
+    # DataFrame = pd.read_csv('data/price_fixed_GR.csv')
+    ## 选择列数的预处理
+    # list = np.arange(51, 100).tolist()
+    # print(list)
+    # list1 = np.arange(149, 158)
+    # for i in list1:
+    #     list.append(i)
+    # list.append(158)
+    # DataFrame = DataFrame.iloc[1:, list]
+    # DataFrame.reset_index(drop=True, inplace=True)
+
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
+    # 无量纲化
+    def dimensionlessProcessing(df):
+        newDataFrame = pd.DataFrame(index=df.index)
+        columns = df.columns.tolist()
+        for c in columns:
+            d = df[c]
+            MAX = d.max()
+            MIN = d.min()
+            MEAN = d.mean()
+            newDataFrame[c] = ((d - MEAN) / (MAX - MIN)).tolist()
+        return newDataFrame
+
+    def GRA_ONE(gray, m=0):
+        # 读取为df格式
+        gray = dimensionlessProcessing(gray)
+        # 标准化
+        std = gray.iloc[:, m]  # 为标准要素
+        gray.drop(str(m), axis=1, inplace=True)
+        ce = gray.iloc[:, 0:]  # 为比较要素
+        shape_n, shape_m = ce.shape[0], ce.shape[1]  # 计算行列
+
+        # 与标准要素比较，相减
+        a = zeros([shape_m, shape_n])
+        for i in range(shape_m):
+            for j in range(shape_n):
+                a[i, j] = abs(ce.iloc[j, i] - std[j])
+
+        # 取出矩阵中最大值与最小值
+        c, d = amax(a), amin(a)
+
+        # 计算值
+        result = zeros([shape_m, shape_n])
+        for i in range(shape_m):
+            for j in range(shape_n):
+                result[i, j] = (d + 0.5 * c) / (a[i, j] + 0.5 * c)
+
+        # 求均值，得到灰色关联值,并返回
+        result_list = [mean(result[i, :]) for i in range(shape_m)]
+        result_list.insert(m, 1)
+        return pd.DataFrame(result_list)
+
+    df = DataFrame.copy()
+    list_columns = [
+        str(s) for s in range(len(df.columns)) if s not in [None]
+    ]
+    df_local = pd.DataFrame(columns=list_columns)
+    df.columns = list_columns
+    for i in range(len(df.columns)):
+        df_local.iloc[:, i] = GRA_ONE(df, m=i)[0]
+
+    def ShowGRAHeatMap(DataFrame):
+        colormap = plt.cm.RdBu
+        ylabels = DataFrame.columns.values.tolist()
+        f, ax = plt.subplots(figsize=(14, 14))
+        ax.set_title('GRA HeatMap')
+
+        # 设置展示一半，如果不需要注释掉mask即可
+        mask = np.zeros_like(DataFrame)
+        mask[np.triu_indices_from(mask)] = True
+
+        with sns.axes_style("white"):
+            sns.heatmap(DataFrame,
+                        cmap="YlGnBu",
+                        annot=False,
+                        mask=mask,
+                        )
+        plt.yticks(rotation=0)
+        plt.show()
+    df_local.columns = DataFrame.columns
+    df_local['column'] = DataFrame.columns
+    df_local.set_index('column', inplace=True)
+    df_local.to_csv('data/grey.csv')
+    ShowGRAHeatMap(df_local)
+
+def mic_features(df):
+    '''
+    这个是返回变量间的关系。
+    :param df:
+    :return:
+    '''
+    # df = pd.read_csv('data/price_fixed_GR.csv')
+    ## 选择列数的预处理
+    # list = np.arange(51, 100).tolist()
+    # print(list)
+    # list1 = np.arange(149, 158)
+    # for i in list1:
+    #     list.append(i)
+    # list.append(158)
+    # df = df.iloc[1:, list]
+    # df.reset_index(drop=True, inplace=True)
+
+    def MIC_matirx(dataframe, mine):
+
+        data = np.array(dataframe)
+        n = len(data[0, :])
+        result = np.zeros([n, n])
+
+        for i in range(n):
+            for j in range(n):
+                mine.compute_score(data[:, i], data[:, j])
+                result[i, j] = mine.mic()
+                result[j, i] = mine.mic()
+        RT = pd.DataFrame(result)
+        return RT
+
+    mine = MINE(alpha=0.6, c=15)
+    data_mic = MIC_matirx(df, mine)
+    data_mic.columns = df.columns
+    data_mic['column'] = df.columns
+    data_mic.set_index('column', inplace=True)
+    data_mic.to_csv('data/mic.csv')
+
+    def ShowHeatMap(DataFrame):
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+        colormap = plt.cm.RdBu
+        plt.figure(figsize=(14, 12))
+        plt.title('MIC', y=1.05, size=15)
+        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
+        plt.yticks(rotation=0)
+        plt.show()
+    ShowHeatMap(data_mic)
+
+def mic_target(df, target):
+    '''
+    这个是返回变量与被预测量。
+    :param df:
+    :return:
+    '''
+    def MIC_matirx(dataframe, mine):
+
+        data = np.array(dataframe)
+        # 特征数量
+        n = len(data[0, :])
+        result = np.zeros([1, n])
+
+        for i in range(n):
+            mine.compute_score(data[:, i], target)
+            result[0, i] = mine.mic()
+        RT = pd.DataFrame(result)
+        return RT
+
+    mine = MINE(alpha=0.6, c=15)
+    data_mic = MIC_matirx(df, mine)
+    data_mic.columns = df.columns
+    data_mic.to_csv('mic_target.csv')
+
+    def ShowHeatMap(DataFrame):
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+        colormap = plt.cm.RdBu
+        plt.figure(figsize=(14, 12))
+        plt.title('MIC', y=1.05, size=15)
+        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
+        plt.yticks(rotation=0)
+        plt.show()
+    # ShowHeatMap(data_mic)
 
 if __name__ == '__main__':
-    # # setting
-    # file = './dataset/Molecular_Descriptor.xlsx'
-    # data = pd.read_excel(file)
-    # #删掉第一列，分子结构，只保留特征
-    # data = data.iloc[:,1:]
-    # print(data.info)
-    # # [1974 rows x 729 columns]>
-    #
-    #
-    # # testing
-    # data = del_same_feature(data)
-    # print(data.info)
+    # setting
+    feature_file = './dataset/Molecular_Descriptor.xlsx'
+    target_file = './dataset/ER_activity.xlsx'
+    data = pd.read_excel(feature_file)
+    #删掉第一列，分子结构，只保留特征
+    data = data.iloc[:,1:]
+    print(data.info)
+    # [1974 rows x 729 columns]>
+
+    # testing
+    data = del_same_feature(data)
+    print(data.info)
     # [1974 rows x 504 columns]>
-    #
-    # data = del_perc_same_feature(data, 0.9)
-    # print(data.info)
-    # # [1974 rows x 362 columns] >
-    #
-    # data = del_std_small_feature(data, 0.05)
-    # # [1974 rows x 341 columns] >
+
+    data = del_perc_same_feature(data, 0.9)
+    print(data.info)
+    # [1974 rows x 362 columns] >
+
+    data = del_std_small_feature(data, 0.05)
+    # [1974 rows x 341 columns] >
+
+    target = pd.read_excel(target_file)
+    target = target.iloc[:,2]
+
+    mic_target(data, target)
+    print('complete')
+
+
+
 
     # data = pd.read_csv('./dataset/test_data.csv')
     # draw_feature(data)
-    palette('fade')
+
+    # palette('fade')
 
     # data = pd.read_excel("./dataset/附件一：325个样本数据.xlsx", header=2)
     # # 剔除前面的序号和时间 取非操作变量的前面一些行
