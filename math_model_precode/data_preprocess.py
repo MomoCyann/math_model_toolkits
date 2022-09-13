@@ -1,5 +1,5 @@
 import missingno as msno
-import pandas_method as pd
+import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -133,22 +133,42 @@ def draw_feature(data):
     save_png_to_tiff(name)
     plt.show()
 
-def palette():
+def palette(arg:str):
     '''
     调色板
+    fade: 12色 红黄绿蓝紫渐变
+    simple: 蓝到红渐变 6色
+    rainbow: 彩虹 12色
     :return:
     '''
-    # 标准彩色调色板，12色
-    sns.palplot(sns.hls_palette(12, l=0.7, s=0.9))
-    sns.palplot(sns.diverging_palette(240, 10, sep=12))
-    # cmap = sns.diverging_palette(200, 20, as_cmap=True)
-    sns.palplot(sns.color_palette('rainbow', 12))
+    # 标准彩色调色板，12色 红黄绿蓝紫渐变
+    fade = sns.hls_palette(12, l=0.7, s=0.9)
+    # sns.palplot(fade)
+
+    # 简约 蓝到红渐变 6色
+    simple = sns.diverging_palette(240, 10, sep=12)
+    # sns.palplot(simple)
+    # # cmap = sns.diverging_palette(200, 20, as_cmap=True)
+
+    # 彩虹 12色
+    rainbow = sns.color_palette('rainbow', 12)
 
     # 自定义
     colors = ["deepskyblue", "salmon"]
     # colors = ['#00bfff', '#fa8072']
-    sns.palplot(sns.color_palette(colors))
+    custom = sns.color_palette(colors)
+
+    dict = {
+        "fade": fade,
+        "simple": simple,
+        "rainbow": rainbow
+    }
+    choice = dict.get(arg)
+    # 设置调色板
+    sns.set_palette(choice)
+    sns.palplot(choice)
     plt.show()
+
 
 def sigma3_rules(data):
     '''
@@ -209,6 +229,7 @@ def fill_null(data):
     # data = data.interpolate()
     return data
 
+
 if __name__ == '__main__':
     # # setting
     # file = './dataset/Molecular_Descriptor.xlsx'
@@ -233,11 +254,11 @@ if __name__ == '__main__':
 
     # data = pd.read_csv('./dataset/test_data.csv')
     # draw_feature(data)
-    # # palette()
+    palette('fade')
 
-    data = pd.read_excel("./dataset/附件一：325个样本数据.xlsx", header=2)
-    # 剔除前面的序号和时间 取非操作变量的前面一些行
-    data = data.iloc[:, 2:]
-    data = del_perc_null_feature(data, 0.2)
-    data = fill_null(data)
-    print(data.info)
+    # data = pd.read_excel("./dataset/附件一：325个样本数据.xlsx", header=2)
+    # # 剔除前面的序号和时间 取非操作变量的前面一些行
+    # data = data.iloc[:, 2:]
+    # data = del_perc_null_feature(data, 0.2)
+    # data = fill_null(data)
+    # print(data.info)
