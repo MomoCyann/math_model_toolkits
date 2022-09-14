@@ -5,6 +5,9 @@ import pandas as pd
 df_local.set_index('column', inplace=True)
 df.reset_index(drop=True, inplace=True)
 
+# 读取 不读取 第一列
+df = pd.read_csv(fpath,index_col=False)
+
 # 重排 从大到小 从小到大 重新排列 某一列
 df.sort_values(by=['time_list'], ascending=True, inplace=True)
 

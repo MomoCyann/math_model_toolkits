@@ -1,4 +1,3 @@
-import missingno as msno
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -8,6 +7,12 @@ import io
 from PIL import Image
 from minepy import MINE
 from sklearn import preprocessing
+from sklearn.preprocessing import MinMaxScaler
+import dcor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
 
 def del_same_feature(data):
     '''
@@ -230,117 +235,100 @@ def fill_null(data):
     # data = data.interpolate()
     return data
 
-def grey_relation_analysis(DataFrame):
+def grey_all_features(df):
     '''
-    输出特征的灰色关联系数热力图
+    归一化的方法不同，关系系数不同，但趋势是一样
+    :param df:
     :return:
     '''
-    # DataFrame = pd.read_csv('data/price_fixed_GR.csv')
-    ## 选择列数的预处理
-    # list = np.arange(51, 100).tolist()
-    # print(list)
-    # list1 = np.arange(149, 158)
-    # for i in list1:
-    #     list.append(i)
-    # list.append(158)
-    # DataFrame = DataFrame.iloc[1:, list]
-    # DataFrame.reset_index(drop=True, inplace=True)
+    columns = df.columns
+    # 归一化
+    scaler = MinMaxScaler()
+    df = scaler.fit_transform(df)
 
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    # rho: 分辨率 会影响结果
+    rho = 0.5
 
-    # 无量纲化
-    def dimensionlessProcessing(df):
-        newDataFrame = pd.DataFrame(index=df.index)
-        columns = df.columns.tolist()
-        for c in columns:
-            d = df[c]
-            MAX = d.max()
-            MIN = d.min()
-            MEAN = d.mean()
-            newDataFrame[c] = ((d - MEAN) / (MAX - MIN)).tolist()
-        return newDataFrame
+    def get_grey(data, target):
+        # 数列间的绝对距离
+        distance = np.abs(data - target)
+        dis_min = distance.min()
+        dis_max = rho * distance.max()
+        # 关联系数: 比较数列中每个值与参照数列的关联性
+        cor_param = (dis_min + dis_max) / (distance + dis_max)
+        # 关联度: 关联系数按列求平均
+        grey = cor_param.mean(axis=0)
+        if np.isnan(grey):
+            grey = 1
+        return grey
+    def grey_matrix(dataframe):
+        data = np.array(dataframe)
+        n = len(data[0, :])
+        result = np.zeros([n, n])
 
-    def GRA_ONE(gray, m=0):
-        # 读取为df格式
-        gray = dimensionlessProcessing(gray)
-        # 标准化
-        std = gray.iloc[:, m]  # 为标准要素
-        gray.drop(str(m), axis=1, inplace=True)
-        ce = gray.iloc[:, 0:]  # 为比较要素
-        shape_n, shape_m = ce.shape[0], ce.shape[1]  # 计算行列
-
-        # 与标准要素比较，相减
-        a = zeros([shape_m, shape_n])
-        for i in range(shape_m):
-            for j in range(shape_n):
-                a[i, j] = abs(ce.iloc[j, i] - std[j])
-
-        # 取出矩阵中最大值与最小值
-        c, d = amax(a), amin(a)
-
-        # 计算值
-        result = zeros([shape_m, shape_n])
-        for i in range(shape_m):
-            for j in range(shape_n):
-                result[i, j] = (d + 0.5 * c) / (a[i, j] + 0.5 * c)
-
-        # 求均值，得到灰色关联值,并返回
-        result_list = [mean(result[i, :]) for i in range(shape_m)]
-        result_list.insert(m, 1)
-        return pd.DataFrame(result_list)
-
-    df = DataFrame.copy()
-    list_columns = [
-        str(s) for s in range(len(df.columns)) if s not in [None]
-    ]
-    df_local = pd.DataFrame(columns=list_columns)
-    df.columns = list_columns
-    for i in range(len(df.columns)):
-        df_local.iloc[:, i] = GRA_ONE(df, m=i)[0]
-
-    def ShowGRAHeatMap(DataFrame):
+        for i in range(n):
+            for j in range(n):
+                grey = get_grey(data[:, i], data[:, j])
+                result[i, j] = grey
+                result[j, i] = grey
+        RT = pd.DataFrame(result)
+        return RT
+    data_grey = grey_matrix(df)
+    data_grey.columns = columns
+    data_grey['column'] = columns
+    data_grey.set_index('column', inplace=True)
+    data_grey.to_csv('grey_all_features.csv')
+    print('Done:输出所有特征对被预测量的MIC')
+    def ShowHeatMap(DataFrame):
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
         colormap = plt.cm.RdBu
-        ylabels = DataFrame.columns.values.tolist()
-        f, ax = plt.subplots(figsize=(14, 14))
-        ax.set_title('GRA HeatMap')
-
-        # 设置展示一半，如果不需要注释掉mask即可
-        mask = np.zeros_like(DataFrame)
-        mask[np.triu_indices_from(mask)] = True
-
-        with sns.axes_style("white"):
-            sns.heatmap(DataFrame,
-                        cmap="YlGnBu",
-                        annot=False,
-                        mask=mask,
-                        )
+        plt.figure(figsize=(14, 12))
+        plt.title('GREY', y=1.05, size=15)
+        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
         plt.yticks(rotation=0)
         plt.show()
-    df_local.columns = DataFrame.columns
-    df_local['column'] = DataFrame.columns
-    df_local.set_index('column', inplace=True)
-    df_local.to_csv('data/grey.csv')
-    ShowGRAHeatMap(df_local)
+    # ShowHeatMap(data_grey)
 
-def mic_features(df):
+def grey_top_m(df, target, m=20):
+    '''
+
+    :param df: 特征
+    :param target: 被预测量
+    :param m: 排名前m个数
+    :return:
+    '''
+    # 归一化
+    scaler = MinMaxScaler()
+    df = scaler.fit_transform(df)
+    target = scaler.fit_transform(np.array(target).reshape(-1, 1))
+
+    # rho: 分辨率 会影响结果
+    rho=0.01
+    # 数列间的绝对距离
+    distance = np.abs(data - target)
+    dis_min = distance.min()
+    dis_max = rho * distance.max()
+    # 关联系数: 比较数列中每个值与参照数列的关联性
+    cor_param = (dis_min + dis_max) / (distance + dis_max)
+    # 关联度: 关联系数按列求平均
+    grey = cor_param.mean(axis=0)
+    grey.to_csv('grey_to_y.csv', header=False)
+    print('Done:输出所有特征对被预测量的灰色关联系数')
+
+    # top m
+    grey.sort_values(ascending=False, inplace=True)
+    top_m = grey.iloc[0:m]
+    top_m.to_csv('grey_top_m.csv')
+    print('Done:输出灰色关联系数的top20')
+
+def mic_all_features(df):
     '''
     这个是返回变量间的关系。
     :param df:
     :return:
     '''
-    # df = pd.read_csv('data/price_fixed_GR.csv')
-    ## 选择列数的预处理
-    # list = np.arange(51, 100).tolist()
-    # print(list)
-    # list1 = np.arange(149, 158)
-    # for i in list1:
-    #     list.append(i)
-    # list.append(158)
-    # df = df.iloc[1:, list]
-    # df.reset_index(drop=True, inplace=True)
-
-    def MIC_matirx(dataframe, mine):
+    def MIC_matrix(dataframe, mine):
 
         data = np.array(dataframe)
         n = len(data[0, :])
@@ -355,11 +343,11 @@ def mic_features(df):
         return RT
 
     mine = MINE(alpha=0.6, c=15)
-    data_mic = MIC_matirx(df, mine)
+    data_mic = MIC_matrix(df, mine)
     data_mic.columns = df.columns
     data_mic['column'] = df.columns
     data_mic.set_index('column', inplace=True)
-    data_mic.to_csv('data/mic.csv')
+    data_mic.to_csv('data/mic_all_features.csv')
 
     def ShowHeatMap(DataFrame):
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -372,13 +360,15 @@ def mic_features(df):
         plt.show()
     ShowHeatMap(data_mic)
 
-def mic_target(df, target):
+def mic_top_m(df, target, m=20):
     '''
     这个是返回变量与被预测量。
-    :param df:
+    :param df: 特征
+    :param target: 被预测量
+    :param m: 排名前m个数
     :return:
     '''
-    def MIC_matirx(dataframe, mine):
+    def MIC_matrix(dataframe, mine):
 
         data = np.array(dataframe)
         # 特征数量
@@ -390,12 +380,20 @@ def mic_target(df, target):
             result[0, i] = mine.mic()
         RT = pd.DataFrame(result)
         return RT
-
+    # 输出每个特征与被预测量的的MIC
     mine = MINE(alpha=0.6, c=15)
-    data_mic = MIC_matirx(df, mine)
+    data_mic = MIC_matrix(df, mine)
     data_mic.columns = df.columns
-    data_mic.to_csv('mic_target.csv')
+    data_mic.to_csv('mic_to_y.csv')
+    print('Done:输出所有特征对被预测量的MIC')
 
+    # 输出MIC最大的前m个特征
+    mic = data_mic.iloc[0, :]
+    mic.sort_values(ascending=False, inplace=True)
+    top_m = mic.iloc[0:m]
+    top_m.to_csv('mic_top_m.csv')
+    print('Done:输出MIC的top20')
+    # 作图
     def ShowHeatMap(DataFrame):
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
         plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
@@ -407,32 +405,159 @@ def mic_target(df, target):
         plt.show()
     # ShowHeatMap(data_mic)
 
+def dcor_all_features(df):
+    '''
+    这个是返回变量间的关系。
+    :param df:
+    :return:
+    '''
+    def dcor_matrix(dataframe):
+
+        data = np.array(dataframe)
+        n = len(data[0, :])
+        result = np.zeros([n, n])
+
+        for i in range(n):
+            for j in range(n):
+                d_cor = dcor.distance_correlation(data[:, i], data[:, j])
+                result[i, j] = d_cor
+                result[j, i] = d_cor
+        RT = pd.DataFrame(result)
+        return RT
+
+    data_dcor = dcor_matrix(df)
+    data_dcor.columns = df.columns
+    data_dcor['column'] = df.columns
+    data_dcor.set_index('column', inplace=True)
+    data_dcor.to_csv('dcor_all_features.csv')
+
+    def ShowHeatMap(DataFrame):
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+        colormap = plt.cm.RdBu
+        plt.figure(figsize=(14, 12))
+        plt.title('DCOR', y=1.05, size=15)
+        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
+        plt.yticks(rotation=0)
+        plt.show()
+    ShowHeatMap(data_dcor)
+
+def dcor_top_m(df, target, m=20):
+    '''
+    这个是返回变量与被预测量。
+    :param df: 特征
+    :param target: 被预测量
+    :param m: 排名前m个数
+    :return:
+    '''
+    def dcor_matrix(dataframe):
+
+        data = np.array(dataframe)
+        # 特征数量
+        n = len(data[0, :])
+        result = np.zeros([1, n])
+
+        for i in range(n):
+            d_cor = dcor.distance_correlation(data[:, i], target)
+            result[0, i] = d_cor
+        RT = pd.DataFrame(result)
+        return RT
+    # 输出每个特征与被预测量的
+    data_dcor = dcor_matrix(df)
+    data_dcor.columns = df.columns
+    data_dcor.to_csv('dcor_to_y.csv')
+    print('Done:输出所有特征对被预测量的dcor')
+
+    # 输出MIC最大的前m个特征
+    ddcor = data_dcor.iloc[0, :]
+    ddcor.sort_values(ascending=False, inplace=True)
+    top_m = ddcor.iloc[0:m]
+    top_m.to_csv('dcor_top_m.csv')
+    print('Done:输出dcor的top20')
+    # 作图
+    def ShowHeatMap(DataFrame):
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+        colormap = plt.cm.RdBu
+        plt.figure(figsize=(14, 12))
+        plt.title('MIC', y=1.05, size=15)
+        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
+        plt.yticks(rotation=0)
+        plt.show()
+    # ShowHeatMap(data_mic)
+
+def rf_features(x, y, m=20):
+    '''
+
+    :param x:
+    :param y:
+    :return:
+    '''
+    columns = x.columns
+
+    # 标准化
+    scaler = StandardScaler()
+    x = scaler.fit_transform(x)
+    x_train, x_test,y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+    model = RandomForestRegressor(n_estimators=1000)
+    y_pred = model.fit(x_train, y_train)
+    y_train_pred = model.predict(x_train)
+    y_test_pred = model.predict(x_test)
+    print('MSE train: %.3f, test: %.3f' % (
+    mean_squared_error(y_train, y_train_pred), mean_squared_error(y_test, y_test_pred)))
+
+    # 重要性
+    imp_rf = model.feature_importances_
+    imp = pd.DataFrame({'features': columns, 'importance': imp_rf})
+    imp.sort_values(by=['importance'], ascending=False, inplace=True)
+    top_m = imp.iloc[0:m]
+    top_m.to_csv('rf_top_m.csv', index=False)
+    print('s')
+
+
 if __name__ == '__main__':
-    # setting
-    feature_file = './dataset/Molecular_Descriptor.xlsx'
-    target_file = './dataset/ER_activity.xlsx'
-    data = pd.read_excel(feature_file)
-    #删掉第一列，分子结构，只保留特征
-    data = data.iloc[:,1:]
-    print(data.info)
-    # [1974 rows x 729 columns]>
+    # # setting
+    # feature_file = './dataset/Molecular_Descriptor.xlsx'
+    # data = pd.read_excel(feature_file)
+    # #删掉第一列，分子结构，只保留特征
+    # data = data.iloc[:,1:]
+    # print(data.info)
+    # # [1974 rows x 729 columns]>
 
-    # testing
-    data = del_same_feature(data)
-    print(data.info)
-    # [1974 rows x 504 columns]>
+    # # testing
+    # data = del_same_feature(data)
+    # print(data.info)
+    # # [1974 rows x 504 columns]>
+    #
+    # data = del_perc_same_feature(data, 0.9)
+    # print(data.info)
+    # # [1974 rows x 362 columns] >
+    #
+    # data = del_std_small_feature(data, 0.05)
+    # # [1974 rows x 341 columns] >
 
-    data = del_perc_same_feature(data, 0.9)
-    print(data.info)
-    # [1974 rows x 362 columns] >
+    # 特征选择
+    features = './dataset/341features.csv'
+    y_file = './dataset/ER_activity.xlsx'
+    data = pd.read_csv('./dataset/341features.csv', index_col=0)
+    y = pd.read_excel(y_file)
+    y = y.iloc[:,2]
 
-    data = del_std_small_feature(data, 0.05)
-    # [1974 rows x 341 columns] >
+    # # 最大信息系数top20
+    # mic_top_m(data, y)
+    #
+    # # 灰色关联top20
+    # grey_top_m(data, y)
 
-    target = pd.read_excel(target_file)
-    target = target.iloc[:,2]
+    # # 相关性检验
+    # top20 = pd.read_csv('grey_top_m.csv')
+    # top20_feature = list(top20.iloc[:,0])
+    # top20_features = data.loc[:, top20_feature]
+    #
+    # dcor_all_features(top20_features)
 
-    mic_target(data, target)
+    rf_features(data, y)
     print('complete')
 
 
