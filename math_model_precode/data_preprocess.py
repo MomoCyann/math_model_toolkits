@@ -209,6 +209,7 @@ def del_perc_null_feature(data, threshold):
     nan_columns = list(nan_perc[nan_perc>threshold].index)
     print("删除的特征为：" + str(nan_columns))
     data = data.drop(labels=nan_columns, axis=1)
+    data = data.fillna(0)
     return data
 
 def fill_null(data):
@@ -510,11 +511,12 @@ def rf_features(x, y, m=20):
     # 重要性
     imp_rf = model.feature_importances_
     imp = pd.DataFrame({'features': columns, 'importance': imp_rf})
+    imp.to_csv('rf_all_features.csv')
+    print('Done:输出所有特征对被预测量的随机森林重要性')
     imp.sort_values(by=['importance'], ascending=False, inplace=True)
     top_m = imp.iloc[0:m]
     top_m.to_csv('rf_top_m.csv', index=False)
-    print('s')
-
+    print('Done:输出随机森林重要性的top20')
 
 if __name__ == '__main__':
     # # setting
@@ -524,7 +526,7 @@ if __name__ == '__main__':
     # data = data.iloc[:,1:]
     # print(data.info)
     # # [1974 rows x 729 columns]>
-
+    #
     # # testing
     # data = del_same_feature(data)
     # print(data.info)
@@ -536,19 +538,32 @@ if __name__ == '__main__':
     #
     # data = del_std_small_feature(data, 0.05)
     # # [1974 rows x 341 columns] >
+    #
+    # data = del_perc_null_feature(data, 0.5)
+    # print(data.info)
+    # # [1974 rows x 228 columns]>
+    #
+    # input()
+    # data.to_csv('dataset/features.csv')
 
     # 特征选择
-    features = './dataset/341features.csv'
+    features = './dataset/features.csv'
     y_file = './dataset/ER_activity.xlsx'
-    data = pd.read_csv('./dataset/341features.csv', index_col=0)
+    data = pd.read_csv('./dataset/features.csv', index_col=0)
     y = pd.read_excel(y_file)
     y = y.iloc[:,2]
 
-    # # 最大信息系数top20
-    # mic_top_m(data, y)
-    #
-    # # 灰色关联top20
-    # grey_top_m(data, y)
+    # 最大信息系数top20
+    mic_top_m(data, y)
+
+    # 灰色关联top20
+    grey_top_m(data, y)
+
+    # dcortop20
+    dcor_top_m(data, y)
+
+    # rf
+    rf_features(data, y)
 
     # # 相关性检验
     # top20 = pd.read_csv('grey_top_m.csv')
@@ -557,7 +572,6 @@ if __name__ == '__main__':
     #
     # dcor_all_features(top20_features)
 
-    rf_features(data, y)
     print('complete')
 
 
@@ -571,6 +585,3 @@ if __name__ == '__main__':
     # data = pd.read_excel("./dataset/附件一：325个样本数据.xlsx", header=2)
     # # 剔除前面的序号和时间 取非操作变量的前面一些行
     # data = data.iloc[:, 2:]
-    # data = del_perc_null_feature(data, 0.2)
-    # data = fill_null(data)
-    # print(data.info)

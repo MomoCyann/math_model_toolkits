@@ -16,7 +16,7 @@ pip install -r requirements.txt 部署环境
   - 删除方差小于阈值的列
 - **def del_perc_null_feature(data, threshold):**
   - 删除缺失值比例高于阈值的列
-    - 可将0替换为缺失值满足实际要求
+    - 可将0替换为缺失值满足实际要求，比如0值占比高于阈值也可以。
 - **def sigma3_rules(data):**
   - 利用3σ法则删除特征含有异常值的样本（删除某些行）
 - 箱线图处理异常
@@ -41,15 +41,21 @@ pip install -r requirements.txt 部署环境
     - 彩虹
     - 自定义
 ### 特征重要度
-  - **def grey_relation_analysis(DataFrame):**
+  - **def grey_top_m(df, target, m=20):**
     - 灰色关联分析
-  - **def mic_target(df, target):**
+  - **def mic_top_m(df, target, m=20):**
     - 最大信息系数
+  - **def dcor_top_m(df, target, m=20):**
+    - 距离相关系数
+  - **def rf_features(x, y, m=20):**
+    - 随机森林重要度
 ### 相关性分析
-  - **def grey_relation_analysis(DataFrame):**
+  - **def grey_all_features(df):**
     - 灰色关联分析
-  - **def mic_features(df):**
+  - **def mic_all_features(df):**
     - 最大信息系数
+  - **def dcor_all_features(df):**
+    - 距离相关系数
 ---
 ### 3.模型
 - 常用模型
