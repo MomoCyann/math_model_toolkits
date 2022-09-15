@@ -13,7 +13,11 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
-
+from eli5.sklearn import PermutationImportance
+from eli5.permutation_importance import get_score_importances
+import eli5
+import math
+from matplotlib import cm
 def del_same_feature(data):
     '''
     删除方差为0的列（全部相同）
@@ -150,7 +154,6 @@ def palette(arg:str):
     '''
     # 标准彩色调色板，12色 红黄绿蓝紫渐变
     fade = sns.hls_palette(12, l=0.7, s=0.9)
-    # sns.palplot(fade)
 
     # 简约 蓝到红渐变 6色
     simple = sns.diverging_palette(240, 10, sep=12)
@@ -236,6 +239,18 @@ def fill_null(data):
     # data = data.interpolate()
     return data
 
+def ShowHeatMap(DataFrame, title):
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    colormap = plt.cm.RdBu
+    plt.figure(figsize=(14, 12))
+    plt.title(title, y=1.05, size=15)
+    sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
+    plt.tick_params(labelsize=12, left=False, bottom=False)
+    plt.yticks(rotation=0)
+    plt.xticks(rotation=45)
+    plt.show()
+
 def grey_all_features(df):
     '''
     归一化的方法不同，关系系数不同，但趋势是一样
@@ -280,15 +295,6 @@ def grey_all_features(df):
     data_grey.set_index('column', inplace=True)
     data_grey.to_csv('grey_all_features.csv')
     print('Done:输出所有特征对被预测量的MIC')
-    def ShowHeatMap(DataFrame):
-        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-        colormap = plt.cm.RdBu
-        plt.figure(figsize=(14, 12))
-        plt.title('GREY', y=1.05, size=15)
-        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
-        plt.yticks(rotation=0)
-        plt.show()
     # ShowHeatMap(data_grey)
 
 def grey_top_m(df, target, m=20):
@@ -349,17 +355,7 @@ def mic_all_features(df):
     data_mic['column'] = df.columns
     data_mic.set_index('column', inplace=True)
     data_mic.to_csv('data/mic_all_features.csv')
-
-    def ShowHeatMap(DataFrame):
-        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-        colormap = plt.cm.RdBu
-        plt.figure(figsize=(14, 12))
-        plt.title('MIC', y=1.05, size=15)
-        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
-        plt.yticks(rotation=0)
-        plt.show()
-    ShowHeatMap(data_mic)
+    ShowHeatMap(data_mic, 'MIC')
 
 def mic_top_m(df, target, m=20):
     '''
@@ -432,16 +428,7 @@ def dcor_all_features(df):
     data_dcor.set_index('column', inplace=True)
     data_dcor.to_csv('dcor_all_features.csv')
 
-    def ShowHeatMap(DataFrame):
-        plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-        plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-        colormap = plt.cm.RdBu
-        plt.figure(figsize=(14, 12))
-        plt.title('DCOR', y=1.05, size=15)
-        sns.heatmap(DataFrame.astype(float), square=True, cmap="YlGnBu",annot=False)
-        plt.yticks(rotation=0)
-        plt.show()
-    ShowHeatMap(data_dcor)
+    ShowHeatMap(data_dcor, 'DCOR')
 
 def dcor_top_m(df, target, m=20):
     '''
@@ -509,8 +496,7 @@ def rf_features(x, y, m=20):
     mean_squared_error(y_train, y_train_pred), mean_squared_error(y_test, y_test_pred)))
 
     # 重要性
-    imp_rf = model.feature_importances_
-    imp = pd.DataFrame({'features': columns, 'importance': imp_rf})
+    imp = pd.DataFrame({'features': columns, 'importance': model.feature_importances_})
     imp.to_csv('rf_all_features.csv')
     print('Done:输出所有特征对被预测量的随机森林重要性')
     imp.sort_values(by=['importance'], ascending=False, inplace=True)
@@ -518,70 +504,178 @@ def rf_features(x, y, m=20):
     top_m.to_csv('rf_top_m.csv', index=False)
     print('Done:输出随机森林重要性的top20')
 
-if __name__ == '__main__':
-    # # setting
-    # feature_file = './dataset/Molecular_Descriptor.xlsx'
-    # data = pd.read_excel(feature_file)
-    # #删掉第一列，分子结构，只保留特征
-    # data = data.iloc[:,1:]
-    # print(data.info)
-    # # [1974 rows x 729 columns]>
-    #
-    # # testing
-    # data = del_same_feature(data)
-    # print(data.info)
-    # # [1974 rows x 504 columns]>
-    #
-    # data = del_perc_same_feature(data, 0.9)
-    # print(data.info)
-    # # [1974 rows x 362 columns] >
-    #
-    # data = del_std_small_feature(data, 0.05)
-    # # [1974 rows x 341 columns] >
-    #
-    # data = del_perc_null_feature(data, 0.5)
-    # print(data.info)
-    # # [1974 rows x 228 columns]>
-    #
-    # input()
-    # data.to_csv('dataset/features.csv')
+    # Permutation Importance
+    # model是已经训练好的模型
+    perm_imp_model = PermutationImportance(model, random_state=42).fit(x_test, y_test)
+    perm_imp = pd.DataFrame({'features': columns, 'importance': perm_imp_model.feature_importances_})
+    perm_imp.to_csv('perm_imp_all_features.csv')
+    print('Done:输出所有特征对被预测量的排列重要性')
+    perm_imp.sort_values(by=['importance'], ascending=False, inplace=True)
+    top_m = perm_imp.iloc[0:m]
+    top_m.to_csv('perm_imp_top_m.csv', index=False)
+    print('Done:输出排列重要性的top20')
+    # 显示结果
+    eli5.show_weights(perm_imp_model, feature_names=columns.tolist())
 
+def feature_preprocess():
+    '''
+    21D题729特征处理后变为228个
+    :return:
+    '''
+    # setting
+    feature_file = './dataset/Molecular_Descriptor.xlsx'
+    data = pd.read_excel(feature_file)
+    # 删掉第一列，分子结构，只保留特征
+    data = data.iloc[:, 1:]
+    print(data.info)
+    # [1974 rows x 729 columns]>
+    # testing
+    data = del_same_feature(data)
+    print(data.info)
+    # [1974 rows x 504 columns]>
+    data = del_perc_same_feature(data, 0.9)
+    print(data.info)
+    # [1974 rows x 362 columns] >
+    data = del_std_small_feature(data, 0.05)
+    # [1974 rows x 341 columns] >
+    data = del_perc_null_feature(data, 0.5)
+    print(data.info)
+    # [1974 rows x 228 columns]>
+    input()
+    data.to_csv('dataset/features.csv')
+
+def feature_selection():
     # 特征选择
     features = './dataset/features.csv'
     y_file = './dataset/ER_activity.xlsx'
     data = pd.read_csv('./dataset/features.csv', index_col=0)
     y = pd.read_excel(y_file)
-    y = y.iloc[:,2]
+    y = y.iloc[:, 2]
 
-    # 最大信息系数top20
-    mic_top_m(data, y)
-
-    # 灰色关联top20
-    grey_top_m(data, y)
-
-    # dcortop20
-    dcor_top_m(data, y)
-
+    # # 最大信息系数top20
+    # mic_top_m(data, y)
+    # # 灰色关联top20
+    # grey_top_m(data, y)
+    # # dcortop20
+    # dcor_top_m(data, y)
     # rf
     rf_features(data, y)
 
-    # # 相关性检验
-    # top20 = pd.read_csv('grey_top_m.csv')
-    # top20_feature = list(top20.iloc[:,0])
-    # top20_features = data.loc[:, top20_feature]
-    #
-    # dcor_all_features(top20_features)
+def feature_selection_graph():
+    plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False
+
+    grey = pd.read_csv('grey_to_y.csv', header=None)
+    mic = pd.read_csv('mic_to_y.csv', index_col=0).T
+    rf = pd.read_csv('rf_all_features.csv', index_col=0)
+    perm = pd.read_csv('perm_imp_all_features.csv', index_col=0)
+
+    grey_imp = np.array(grey.iloc[:, 1])
+    mic_imp = np.array(mic.iloc[:, 0])
+    rf_imp = np.array(rf.iloc[:, 1])
+    perm_imp = np.array(perm.iloc[:, 1])
+
+    columns = mic.index.values
+
+    # 渐变
+    def get_colors(y):
+        # 归一化
+        norm = plt.Normalize(0, y.max())
+        norm_values = norm(y)
+        map_vir = cm.get_cmap(name='rainbow')
+        return map_vir(norm_values)
+
+    # 整体画布大小 1600x1000 tiff-dpi：200 → 2594x1854
+    plt.figure(figsize=(16, 10))
+    imp_dict = {'grey_imp':grey_imp, 'mic_imp':mic_imp, 'rf_imp':rf_imp, 'perm_imp':perm_imp}
+    for name in imp_dict.keys():
+        imp = imp_dict[name]
+        plt.xlabel("特征变量", fontsize = 16)  # 设置x坐标标签
+        plt.ylabel("特征重要度", fontsize = 16)  # 设置y坐标标签
+        plt.bar(columns, imp, color=get_colors(imp))
+        plt.xticks([])
+        plt.tick_params(labelsize=16)
+        if name in ['rf_imp', 'perm_imp']:
+            plt.yscale('log')
+        plt.show()
+
+def feature_integration():
+    grey = pd.read_csv('grey_to_y.csv', header=None)
+    mic = pd.read_csv('mic_to_y.csv', index_col=0).T
+    rf = pd.read_csv('rf_all_features.csv', index_col=0)
+    perm = pd.read_csv('perm_imp_all_features.csv', index_col=0)
+
+    stand_scaler = StandardScaler()
+
+    grey_imp = stand_scaler.fit_transform(np.array(grey.iloc[:,1]).reshape(-1, 1))
+    mic_imp = stand_scaler.fit_transform(np.array(mic.iloc[:,0]).reshape(-1, 1))
+    rf_imp = stand_scaler.fit_transform(np.array(rf.iloc[:,1]).reshape(-1, 1))
+    perm_imp = stand_scaler.fit_transform(np.array(perm.iloc[:,1]).reshape(-1, 1))
+
+    columns = mic.index.values
+
+    result = ((grey_imp + mic_imp) / 3) * (1 + np.exp(-rf_imp)) * (1 + np.exp(-perm_imp))
+
+    minmax_scaler = MinMaxScaler()
+    result = minmax_scaler.fit_transform(result).ravel()
+    final_result = pd.DataFrame({'features': columns, 'importance': result})
+    final_result.sort_values('importance', ascending=False, inplace=True)
+    final_result.to_csv('final_feature.csv')
+
+def feature_relation_graph(root):
+    data = pd.read_csv('dataset/features.csv')
+    # 相关性检验
+    def check(features):
+        # 距离相关系数
+        dcor_all_features(features)
+        # 皮尔逊
+        plt.figure(figsize=(12, 12))
+        sns.heatmap(features.corr(), square=True, annot=False)
+        plt.tick_params(labelsize=12, left=False, bottom=False)
+        plt.xticks(rotation=45)
+        plt.show()
+
+    # 其他方法的特征
+    grey = pd.read_csv('grey_top_m.csv')
+    mic = pd.read_csv('mic_top_m.csv')
+    rf = pd.read_csv('rf_top_m.csv')
+    perm = pd.read_csv('perm_imp_top_m.csv')
+
+    grey_features = list(grey.iloc[:, 0])
+    mic_features = list(mic.iloc[:, 0])
+    rf_features = list(rf.iloc[:, 0])
+    perm_features = list(perm.iloc[:, 0])
+    method_dict = {'grey_features':grey_features, 'mic_features':mic_features,
+                   'rf_features':rf_features, 'perm_features':perm_features}
+    for method in method_dict.keys():
+        method_features = method_dict[method]
+        good_features = data.loc[:, method_features]
+        print('输出'+ method + '的DCOR非线性相关系数和皮尔逊线性相关系数的图')
+        check(good_features)
+
+    # 最终特征
+    top20 = pd.read_csv(root)
+    top20_feature = list(top20.iloc[:, 0])
+    top20_features = data.loc[:, top20_feature]
+    print('输出最终特征的DCOR非线性相关系数和皮尔逊线性相关系数的图')
+    check(top20_features)
+
+if __name__ == '__main__':
+    # # 特征预处理
+    # feature_preprocess()
+
+    # # 特征选择
+    # feature_selection()
+
+    # # 特征选择可视化
+    # feature_selection_graph()
+
+    # 特征前20相关性检验
+    # 以rf为例子
+    final_feature = 'rf_top_m.csv'
+    feature_relation_graph(final_feature)
+
+    # # 特征集成
+    # feature_integration()
 
     print('complete')
-
-
-
-
-    # data = pd.read_csv('./dataset/test_data.csv')
-    # draw_feature(data)
-
-    # palette('fade')
-
-    # data = pd.read_excel("./dataset/附件一：325个样本数据.xlsx", header=2)
-    # # 剔除前面的序号和时间 取非操作变量的前面一些行
-    # data = data.iloc[:, 2:]

@@ -7,7 +7,7 @@ pip freeze > requirements.txt 保存环境
 pip install -r requirements.txt 部署环境
 # 功 能
 ## 数据预处理 data_preprocess.py
-### 数据清洗
+### 数据清洗 def feature_preprocess()：
 - **def del_same_feature(data):**
   - 删除方差为0的列（全部相同）
 - **def del_perc_same_feature(data, threshold):**
@@ -40,7 +40,9 @@ pip install -r requirements.txt 部署环境
     - 蓝红简约渐变
     - 彩虹
     - 自定义
-### 特征重要度
+- **def ShowHeatMap(DataFrame, title):**
+  - 画出各种系数热力图
+### 特征重要度 def feature_selection():
   - **def grey_top_m(df, target, m=20):**
     - 灰色关联分析
   - **def mic_top_m(df, target, m=20):**
@@ -48,14 +50,20 @@ pip install -r requirements.txt 部署环境
   - **def dcor_top_m(df, target, m=20):**
     - 距离相关系数
   - **def rf_features(x, y, m=20):**
-    - 随机森林重要度
-### 相关性分析
+    - 随机森林重要度和permutation_importance
+  - **def feature_selection_graph():**
+    - 每个特征的重要度可视化
+  - **def feature_integration():**
+    - 几个方法的加权集成特征重要度计算
+### 相关性分析 def feature_relation_graph(root):
   - **def grey_all_features(df):**
     - 灰色关联分析
   - **def mic_all_features(df):**
     - 最大信息系数
   - **def dcor_all_features(df):**
     - 距离相关系数
+  - **sns.heatmap(features.corr(), square=True, annot=False)**
+    - 皮尔逊相关系数
 ---
 ### 3.模型
 - 常用模型
