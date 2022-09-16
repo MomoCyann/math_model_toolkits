@@ -54,7 +54,8 @@ pip install -r requirements.txt 部署环境
   - **def feature_selection_graph():**
     - 每个特征的重要度可视化
   - **def feature_integration():**
-    - 几个方法的加权集成特征重要度计算
+    - 几个方法的加权集成特征重要度计算，简单加权
+    - 实现根据2种相关性自动去除高相关特征并不齐直到没有高相关特征
 ### 相关性分析 def feature_relation_graph(root):
   - **def grey_all_features(df):**
     - 灰色关联分析

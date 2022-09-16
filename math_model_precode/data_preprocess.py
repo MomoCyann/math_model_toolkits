@@ -263,7 +263,7 @@ def grey_all_features(df):
     df = scaler.fit_transform(df)
 
     # rho: 分辨率 会影响结果
-    rho = 0.5
+    rho = 0.01
 
     def get_grey(data, target):
         # 数列间的绝对距离
@@ -294,7 +294,7 @@ def grey_all_features(df):
     data_grey['column'] = columns
     data_grey.set_index('column', inplace=True)
     data_grey.to_csv('grey_all_features.csv')
-    print('Done:输出所有特征对被预测量的MIC')
+    print('Done:输出所有特征之间GREY')
     # ShowHeatMap(data_grey)
 
 def grey_top_m(df, target, m=20):
@@ -305,29 +305,33 @@ def grey_top_m(df, target, m=20):
     :param m: 排名前m个数
     :return:
     '''
+    columns = df.columns
     # 归一化
     scaler = MinMaxScaler()
     df = scaler.fit_transform(df)
     target = scaler.fit_transform(np.array(target).reshape(-1, 1))
 
     # rho: 分辨率 会影响结果
-    rho=0.01
+    rho=0.5
     # 数列间的绝对距离
-    distance = np.abs(data - target)
+    distance = np.abs(df - target)
     dis_min = distance.min()
     dis_max = rho * distance.max()
     # 关联系数: 比较数列中每个值与参照数列的关联性
     cor_param = (dis_min + dis_max) / (distance + dis_max)
     # 关联度: 关联系数按列求平均
-    grey = cor_param.mean(axis=0)
-    grey.to_csv('grey_to_y.csv', header=False)
+    grey = pd.DataFrame(cor_param.mean(axis=0))
+    grey['column'] = columns
+    grey.columns = ['importance', 'features']
+    grey = grey[['features', 'importance']]
+    grey.to_csv('grey_to_y.csv')
     print('Done:输出所有特征对被预测量的灰色关联系数')
 
     # top m
-    grey.sort_values(ascending=False, inplace=True)
+    grey.sort_values(by=['importance'], ascending=False, inplace=True)
     top_m = grey.iloc[0:m]
-    top_m.to_csv('grey_top_m.csv')
-    print('Done:输出灰色关联系数的top20')
+    top_m.to_csv('grey_top_m.csv', index=False)
+    print('Done:输出灰色关联系数的top'+str(m))
 
 def mic_all_features(df):
     '''
@@ -389,7 +393,7 @@ def mic_top_m(df, target, m=20):
     mic.sort_values(ascending=False, inplace=True)
     top_m = mic.iloc[0:m]
     top_m.to_csv('mic_top_m.csv')
-    print('Done:输出MIC的top20')
+    print('Done:输出MIC的top'+str(m))
     # 作图
     def ShowHeatMap(DataFrame):
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -461,7 +465,7 @@ def dcor_top_m(df, target, m=20):
     ddcor.sort_values(ascending=False, inplace=True)
     top_m = ddcor.iloc[0:m]
     top_m.to_csv('dcor_top_m.csv')
-    print('Done:输出dcor的top20')
+    print('Done:输出dcor的top'+str(m))
     # 作图
     def ShowHeatMap(DataFrame):
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -502,7 +506,7 @@ def rf_features(x, y, m=20):
     imp.sort_values(by=['importance'], ascending=False, inplace=True)
     top_m = imp.iloc[0:m]
     top_m.to_csv('rf_top_m.csv', index=False)
-    print('Done:输出随机森林重要性的top20')
+    print('Done:输出随机森林重要性的top'+str(m))
 
     # Permutation Importance
     # model是已经训练好的模型
@@ -513,7 +517,7 @@ def rf_features(x, y, m=20):
     perm_imp.sort_values(by=['importance'], ascending=False, inplace=True)
     top_m = perm_imp.iloc[0:m]
     top_m.to_csv('perm_imp_top_m.csv', index=False)
-    print('Done:输出排列重要性的top20')
+    print('Done:输出排列重要性的top'+str(m))
     # 显示结果
     eli5.show_weights(perm_imp_model, feature_names=columns.tolist())
 
@@ -549,17 +553,18 @@ def feature_selection():
     features = './dataset/features.csv'
     y_file = './dataset/ER_activity.xlsx'
     data = pd.read_csv('./dataset/features.csv', index_col=0)
+
     y = pd.read_excel(y_file)
     y = y.iloc[:, 2]
 
-    # # 最大信息系数top20
-    # mic_top_m(data, y)
-    # # 灰色关联top20
-    # grey_top_m(data, y)
-    # # dcortop20
-    # dcor_top_m(data, y)
-    # rf
-    rf_features(data, y)
+    # 最大信息系数top
+    mic_top_m(data, y, 40)
+    # 灰色关联top
+    grey_top_m(data, y, 40)
+    # dcor top
+    dcor_top_m(data, y, 40)
+    # rf and permutation_importance
+    rf_features(data, y, 40)
 
 def feature_selection_graph():
     plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 用来正常显示中文标签
@@ -599,8 +604,19 @@ def feature_selection_graph():
             plt.yscale('log')
         plt.show()
 
-def feature_integration():
-    grey = pd.read_csv('grey_to_y.csv', header=None)
+def check(features):
+    # 相关性检验
+    # 距离相关系数
+    dcor_all_features(features)
+    # 皮尔逊
+    plt.figure(figsize=(12, 12))
+    sns.heatmap(features.corr(), square=True, annot=False)
+    plt.tick_params(labelsize=12, left=False, bottom=False)
+    plt.xticks(rotation=45)
+    plt.show()
+
+def feature_integration(m=20):
+    grey = pd.read_csv('grey_to_y.csv', index_col=0)
     mic = pd.read_csv('mic_to_y.csv', index_col=0).T
     rf = pd.read_csv('rf_all_features.csv', index_col=0)
     perm = pd.read_csv('perm_imp_all_features.csv', index_col=0)
@@ -614,37 +630,72 @@ def feature_integration():
 
     columns = mic.index.values
 
-    result = ((grey_imp + mic_imp) / 3) * (1 + np.exp(-rf_imp)) * (1 + np.exp(-perm_imp))
+    # result = ((grey_imp + mic_imp) / 3) * (1 + np.exp(-rf_imp)) * (1 + np.exp(-perm_imp))
+    result = grey_imp * 0.2 + mic_imp * 0.2 + rf_imp * 0.3 + perm_imp * 0.3
 
     minmax_scaler = MinMaxScaler()
     result = minmax_scaler.fit_transform(result).ravel()
     final_result = pd.DataFrame({'features': columns, 'importance': result})
     final_result.sort_values('importance', ascending=False, inplace=True)
-    final_result.to_csv('final_feature.csv')
+    final_result.reset_index(drop=True, inplace=True)
 
-def feature_relation_graph(root):
+    # 相关性检验 然后去除 补上
     data = pd.read_csv('dataset/features.csv')
-    # 相关性检验
-    def check(features):
-        # 距离相关系数
-        dcor_all_features(features)
+
+    # 筛选
+    while True:
+        top_feature = list(final_result.iloc[:m, 0])
+        top_features = data.loc[:, top_feature]
+
         # 皮尔逊
         plt.figure(figsize=(12, 12))
-        sns.heatmap(features.corr(), square=True, annot=False)
+        corr = top_features.corr()
+        sns.heatmap(corr, square=True, annot=False)
         plt.tick_params(labelsize=12, left=False, bottom=False)
         plt.xticks(rotation=45)
         plt.show()
+        print("删除前的皮尔逊相关性热力图")
+        corr_matrix = corr.abs()
+        # Select upper triangle of correlation matrix
+        upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+        # Find features with correlation greater than 0.8
+        to_drop = [column for column in upper.columns if any(upper[column] > 0.8)]
+        print("基于皮尔逊待删除：")
+        print(to_drop)
 
+        # 距离相关
+        print("删除前的距离系数相关性热力图")
+        dcor_all_features(top_features)
+        dcor_matrix = pd.read_csv('dcor_all_features.csv')
+        dcor_matrix.set_index('column', inplace=True)
+        # Select upper triangle of correlation matrix
+        upper = dcor_matrix.where(np.triu(np.ones(dcor_matrix.shape), k=1).astype(bool))
+        # Find features with correlation greater than 0.8
+        to_drop_dcor = [column for column in upper.columns if any(upper[column] > 0.8)]
+        print("基于距离系数待删除：")
+        print(to_drop_dcor)
+
+        if len(to_drop + to_drop_dcor) == 0:
+            break
+            print("清洗结束")
+        # Drop features
+        final_result = final_result[
+            ~final_result['features'].str.contains('|'.join(str(column) for column in (to_drop + to_drop_dcor)))]
+        final_result.reset_index(drop=True, inplace=True)
+        print("再次清洗")
+    final_result.to_csv('final_feature.csv')
+
+def feature_relation_graph(m=20):
     # 其他方法的特征
     grey = pd.read_csv('grey_top_m.csv')
     mic = pd.read_csv('mic_top_m.csv')
     rf = pd.read_csv('rf_top_m.csv')
     perm = pd.read_csv('perm_imp_top_m.csv')
 
-    grey_features = list(grey.iloc[:, 0])
-    mic_features = list(mic.iloc[:, 0])
-    rf_features = list(rf.iloc[:, 0])
-    perm_features = list(perm.iloc[:, 0])
+    grey_features = list(grey.iloc[:m, 0])
+    mic_features = list(mic.iloc[:m, 0])
+    rf_features = list(rf.iloc[:m, 0])
+    perm_features = list(perm.iloc[:m, 0])
     method_dict = {'grey_features':grey_features, 'mic_features':mic_features,
                    'rf_features':rf_features, 'perm_features':perm_features}
     for method in method_dict.keys():
@@ -652,13 +703,6 @@ def feature_relation_graph(root):
         good_features = data.loc[:, method_features]
         print('输出'+ method + '的DCOR非线性相关系数和皮尔逊线性相关系数的图')
         check(good_features)
-
-    # 最终特征
-    top20 = pd.read_csv(root)
-    top20_feature = list(top20.iloc[:, 0])
-    top20_features = data.loc[:, top20_feature]
-    print('输出最终特征的DCOR非线性相关系数和皮尔逊线性相关系数的图')
-    check(top20_features)
 
 if __name__ == '__main__':
     # # 特征预处理
@@ -670,12 +714,10 @@ if __name__ == '__main__':
     # # 特征选择可视化
     # feature_selection_graph()
 
-    # 特征前20相关性检验
-    # 以rf为例子
-    final_feature = 'rf_top_m.csv'
-    feature_relation_graph(final_feature)
+    # 特征集成
+    feature_integration()
 
-    # # 特征集成
-    # feature_integration()
+    # 四种方法得到的重要性的相关性可视化
+    # feature_relation_graph()
 
     print('complete')
