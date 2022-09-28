@@ -34,3 +34,5 @@ df_outliers.dtypes
 df = pd.DataFrame(data=None, columns=['date', 'open', 'high', 'low', 'close', 'volume', 'openinterest',
                                           'sentimentFactor'])
 
+# 列表 插入 dataframe 追加 加入
+dataFrame = dataFrame.append(pd.DataFrame(myList, columns=['Country', 'Rank', 'Points']), ignore_index=True)
