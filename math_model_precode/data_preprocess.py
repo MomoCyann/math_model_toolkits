@@ -197,6 +197,40 @@ def sigma3_rules(data):
     print(no)
     return data
 
+def sigma3_mean(data):
+    '''
+    根据3σ法则，将异常值用该行均值替换
+    :param data: 特征集
+    :return: 清洗后的数据集
+    '''
+
+    for column in data.columns[1:]:
+        mean = data.loc[:,column].mean()
+
+        print(data[column].value_counts())
+        print(f"共有{data[column].value_counts().shape[0]}个值类型")
+        if data[column].value_counts().shape[0]<100:
+            plt.scatter(data.index, data.loc[:, column], alpha=0.5,c='black')
+            plt.show()
+            print("本次跳过，值类型过少，应该是离散属性")
+            print(column,mean)
+            continue
+        std = data.loc[:,column].std()
+        mean_indices = []
+        data_temp = pd.DataFrame(data.loc[:,column])
+
+        for index in data.index:
+            if np.abs(data.loc[index,column] - mean) > 3 * std:
+                mean_indices.append(index)
+                data_temp.drop(index,axis=0,inplace=True)
+        print(column,len(mean_indices),mean_indices)
+        plt.scatter(mean_indices, data.loc[mean_indices, column], alpha=0.5)
+        if len(mean_indices)>0:
+            data.loc[mean_indices,column]=data_temp.loc[:,column].mean()
+            plt.scatter(data.index,data.loc[:, column],alpha=0.5)
+            plt.show()
+    return data
+
 def del_perc_null_feature(data, threshold):
     '''
     删除缺失值比例大于阈值的特征

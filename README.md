@@ -19,7 +19,8 @@ pip install -r requirements.txt 部署环境
     - 可将0替换为缺失值满足实际要求，比如0值占比高于阈值也可以。
 - **def sigma3_rules(data):**
   - 利用3σ法则删除特征含有异常值的样本（删除某些行）
-- 箱线图处理异常
+- **def sigma3_mean(data):**
+  - 利用3σ法则识别异常值，并且用均值代替
 - **def fill_null(data):**
   - 填充缺失值，支持将0转换成空值处理，方法包含：
     - 前后填充
