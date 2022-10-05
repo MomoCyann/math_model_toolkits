@@ -686,6 +686,7 @@ def feature_integration(m=20):
     final_result.to_csv('final_feature.csv')
 
 def feature_relation_graph(m=20):
+    data = pd.read_csv('dataset/features.csv')
     # 其他方法的特征
     grey = pd.read_csv('grey_top_m.csv')
     mic = pd.read_csv('mic_top_m.csv')
@@ -704,6 +705,33 @@ def feature_relation_graph(m=20):
         print('输出'+ method + '的DCOR非线性相关系数和皮尔逊线性相关系数的图')
         check(good_features)
 
+def box_plot(df):
+    '''
+    :param df: 各模型评价指标
+    :return:   4个评价指标的箱线图
+    '''
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    sns.set_theme(style="whitegrid")
+
+    df = df.loc[:, ~df.columns.str.contains('Unnamed')]
+    # 对所有指标进行遍历画图
+    for column in df.columns[:1]:
+        ax = sns.boxplot(x="model", y=column, data=df, hue='model', dodge=False,
+                    showmeans=True,
+                    meanprops={"marker": "d",
+                               "markerfacecolor": "white",
+                               "markeredgecolor": "black",},
+                    palette=sns.diverging_palette(240, 10, sep=12))
+        model_labels = ['KNN', '多层感知机', '随机森林回归', '支持向量机回归', 'XGBoost']
+
+        n = 0
+        for i in model_labels:
+            ax.legend_.texts[n].set_text(i)
+            n += 1
+
+        plt.show()
+
 if __name__ == '__main__':
     # # 特征预处理
     # feature_preprocess()
@@ -714,10 +742,10 @@ if __name__ == '__main__':
     # # 特征选择可视化
     # feature_selection_graph()
 
-    # 特征集成
-    feature_integration()
+    # # 特征集成
+    # feature_integration()
 
     # 四种方法得到的重要性的相关性可视化
-    # feature_relation_graph()
+    feature_relation_graph()
 
     print('complete')

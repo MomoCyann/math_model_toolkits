@@ -42,6 +42,8 @@ pip install -r requirements.txt 部署环境
     - 自定义
 - **def ShowHeatMap(DataFrame, title):**
   - 画出各种系数热力图
+- **def box_plot(df):**
+  - 画出模型指标的箱线图
 ### 特征重要度 def feature_selection():
   - **def grey_top_m(df, target, m=20):**
     - 灰色关联分析
@@ -65,7 +67,12 @@ pip install -r requirements.txt 部署环境
     - 距离相关系数
   - **sns.heatmap(features.corr(), square=True, annot=False)**
     - 皮尔逊相关系数
----
-### 3.模型
+### 模型 regression.py
 - 常用模型
+  - KNN
+  - MLP
+  - SVR(SVM)
+  - RandomForest
+  - XGBoost
 - 模型效果比较
+  - 见”图表“中的箱线图 **def box_plot(df):**
