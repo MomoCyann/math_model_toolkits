@@ -49,7 +49,7 @@ def plot_box_indicator(df):
     df = df.loc[:, ~df.columns.str.contains('Unnamed')]
     # 对所有指标进行遍历画图
     for column in df.columns[:1]:
-        ax = sns.boxplot(x="model", y=column, data=df, hue='model', dodge=False,
+        ax = sns.boxplot(x="LSTM模型参数", y=column, data=df, hue='LSTM模型参数', dodge=False,
                     showmeans=True,
                     meanprops={"marker": "d",
                                "markerfacecolor": "white",

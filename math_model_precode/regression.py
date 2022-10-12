@@ -48,7 +48,7 @@ def plot_box_indicator(df):
     df = df.loc[:, ~df.columns.str.contains('Unnamed')]
     # 对所有指标进行遍历画图
     for column in df.columns[:1]:
-        ax = sns.boxplot(x="model", y=column, data=df, hue='model', dodge=False,
+        ax = sns.boxplot(x="LSTM模型参数", y=column, data=df, hue='LSTM模型参数', dodge=False,
                     showmeans=True,
                     meanprops={"marker": "d",
                                "markerfacecolor": "white",
@@ -115,7 +115,7 @@ def train_data(X, Y):
             if model_name == 'XGBoost':
                 eval_set = [(x_train, y_train), (x_test, y_test)]
                 model.fit(x_train, y_train, eval_set=eval_set, eval_metric='mae',verbose=True,early_stopping_rounds=10)
-                # results = model.evals_result()
+                # results = LSTM模型参数.evals_result()
                 # plt.plot(results['validation_0']['mae'], label='train')
                 # plt.plot(results['validation_1']['mae'], label='test')
                 # plt.legend()
@@ -129,7 +129,7 @@ def train_data(X, Y):
             y_pre_tr = model.predict(x_train)
             mae, mse, rmse, r2 = get_eval_indicator(y_train, y_pre_tr)
 
-            df.loc[df_index, 'model'] = model_name
+            df.loc[df_index, 'LSTM模型参数'] = model_name
             df.loc[df_index, 'MAE_t'] = mae
             df.loc[df_index, 'MSE_t'] = mse
             df.loc[df_index, 'RMSE_T'] = rmse
@@ -147,19 +147,19 @@ def train_data(X, Y):
             model_index += 1
             df_index += 1
 
-            # y_final_pre = model.predict(X_test)
+            # y_final_pre = LSTM模型参数.predict(X_test)
             # df_final_test = pd.concat([df_final_test, pd.DataFrame(y_final_pre)], axis=1)
     # print(df.info())
 
     # 将数据按model排序，同一个model排在一起
-    df.sort_values(by='model', inplace=True)
+    df.sort_values(by='LSTM模型参数', inplace=True)
 
     print(df.head(15))
 
     df.to_csv('dataset/regression_result.csv')
     df2 = pd.read_csv('dataset/regression_result.csv')
-    print(df2.groupby('model').mean())
-    df2.groupby('model').mean().to_csv('dataset/regression_result_mean.csv')
+    print(df2.groupby('LSTM模型参数').mean())
+    df2.groupby('LSTM模型参数').mean().to_csv('dataset/regression_result_mean.csv')
     # row_mean = df_final_test.mean(axis=1)
     # row_mean.to_csv('dataset/regression_final_result.csv')
 

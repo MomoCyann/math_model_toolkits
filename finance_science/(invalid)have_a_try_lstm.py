@@ -113,7 +113,7 @@ def net_NN():
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
     # # 保存模型
-    # model.save('./BERT/model/NN')
+    # LSTM模型参数.save('./BERT/LSTM模型参数/NN')
 
 
 def net_LSTM():
@@ -136,9 +136,9 @@ def net_LSTM():
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
     # # 保存模型
-    # model.save('./BERT/model/LSTM')
+    # LSTM模型参数.save('./BERT/LSTM模型参数/LSTM')
     # #加载模型
-    # model = tf.keras.models.load_model('./model/text_classifier')
+    # LSTM模型参数 = tf.keras.models.load_model('./LSTM模型参数/text_classifier')
 
 
 def net_BiLSTM():
@@ -156,9 +156,9 @@ def net_BiLSTM():
     loss, accuracy = model.evaluate(x_test, y_test)
     print("Accuracy", accuracy)
     # # 保存模型
-    # model.save('./BERT/model/BiLSTM')
+    # LSTM模型参数.save('./BERT/LSTM模型参数/BiLSTM')
     # #加载模型
-    # model = tf.keras.models.load_model('./model/text_classifier')
+    # LSTM模型参数 = tf.keras.models.load_model('./LSTM模型参数/text_classifier')
 
 
 if __name__ == '__main__':
@@ -169,8 +169,8 @@ if __name__ == '__main__':
     y_test = label_to_tensor(y_test)
     y_val = label_to_tensor(y_val)
     # 直接分类 72%
-    # model = Sequential()
-    # model.add(Dense(3, activation='softmax',input_shape=(768,)))
+    # LSTM模型参数 = Sequential()
+    # LSTM模型参数.add(Dense(3, activation='softmax',input_shape=(768,)))
 
     # 若选用LSTM
     # 先把X的2维数组变成3维数组, 不用重塑Y

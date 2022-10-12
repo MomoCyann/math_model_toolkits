@@ -77,7 +77,7 @@ for train_index, test_index in skf.split(x,y):
     y_test = y.iloc[test_index]
 
     #  随机森林
-    # model= RandomForestClassifier(n_estimators=100,max_depth=10,min_samples_leaf=10)
+    # LSTM模型参数= RandomForestClassifier(n_estimators=100,max_depth=10,min_samples_leaf=10)
     model= RandomForestClassifier(n_estimators=100)
     model.fit(x_train,y_train)
     y_pre = model.predict(x_test)
@@ -121,7 +121,7 @@ for train_index, test_index in skf.split(x,y):
 
     # # 对随机森林进行解析
     # # 第0棵树
-    # tree_0 = model.estimators_[0]
+    # tree_0 = LSTM模型参数.estimators_[0]
     # # 查看第0棵树的各项信息
     # n_nodes = tree_0.tree_.node_count
     # print(f"n_nodes = {n_nodes}\n")

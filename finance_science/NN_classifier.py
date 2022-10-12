@@ -1,4 +1,4 @@
-import pandas_method as pd
+import pandas as pd
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
@@ -146,7 +146,7 @@ def net_NN():
     print(roc_auc_score(y_test, y_pred))
     print("Accuracy", accuracy)
     # 保存模型
-    model.save('./BERT/model/NN')
+    model.save('./BERT/LSTM模型参数/NN')
 
 def net_LSTM():
     # LSTM
@@ -176,9 +176,9 @@ def net_LSTM():
     print(roc_auc_score(y_test, y_pred))
     print("Accuracy", accuracy)
     #保存模型
-    model.save('./BERT/model/LSTM')
+    model.save('./BERT/LSTM模型参数/LSTM')
     # #加载模型
-    # model = tf.keras.models.load_model('./model/text_classifier')
+    # LSTM模型参数 = tf.keras.models.load_model('./LSTM模型参数/text_classifier')
 
 def net_BiLSTM():
     # BiLSTM
@@ -207,9 +207,9 @@ def net_BiLSTM():
     print(roc_auc_score(y_test, y_pred))
     print("Accuracy", accuracy)
     #保存模型
-    model.save('./BERT/model/BiLSTM')
+    model.save('./BERT/LSTM模型参数/BiLSTM')
     # #加载模型
-    # model = tf.keras.models.load_model('./model/text_classifier')
+    # LSTM模型参数 = tf.keras.models.load_model('./LSTM模型参数/text_classifier')
 
 def net_CNN():
     # CNN
@@ -240,9 +240,9 @@ def net_CNN():
     print(roc_auc_score(y_test, y_pred))
     print("Accuracy", accuracy)
     #保存模型
-    model.save('./BERT/model/CNN')
+    model.save('./BERT/LSTM模型参数/CNN')
     # #加载模型
-    # model = tf.keras.models.load_model('./model/text_classifier')
+    # LSTM模型参数 = tf.keras.models.load_model('./LSTM模型参数/text_classifier')
 
 def net_RNN():
     # LSTM
@@ -272,9 +272,9 @@ def net_RNN():
     print(roc_auc_score(y_test, y_pred))
     print("Accuracy", accuracy)
     #保存模型
-    model.save('./BERT/model/RNN')
+    model.save('./BERT/LSTM模型参数/RNN')
     # #加载模型
-    # model = tf.keras.models.load_model('./model/text_classifier')
+    # LSTM模型参数 = tf.keras.models.load_model('./LSTM模型参数/text_classifier')
 
 if __name__ == '__main__':
     bert = 1
@@ -295,8 +295,8 @@ if __name__ == '__main__':
     x_val, y_val = df_to_tensor(val)
 
     # 直接分类 72%
-    # model = Sequential()
-    # model.add(Dense(3, activation='softmax',input_shape=(768,)))
+    # LSTM模型参数 = Sequential()
+    # LSTM模型参数.add(Dense(3, activation='softmax',input_shape=(768,)))
 
     # 若选用LSTM
     # 先把X的2维数组变成3维数组, 不用重塑Y

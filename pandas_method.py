@@ -1,5 +1,6 @@
 import pandas as pd
 
+df4=df1.drop(labels=['A','B','C'],axis=1)
 
 # 索引 重设索引 重置索引
 df_local.set_index('column', inplace=True)
@@ -7,7 +8,8 @@ df.reset_index(drop=True, inplace=True)
 
 # 读取 不读取 第一列
 df = pd.read_csv(fpath,index_col=False)
-
+# 保存 不保存 第一列 索引
+data.to_csv('数据集/整理数据/附件3、土壤湿度2022—2012年.csv', index=0)
 # 重排 从大到小 从小到大 重新排列 某一列
 df.sort_values(by=['time_list'], ascending=True, inplace=True)
 

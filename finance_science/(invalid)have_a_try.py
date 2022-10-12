@@ -72,9 +72,9 @@ f1_rf=[]
 acc_lr=[]
 f1_lr=[]
 
-#model
+#LSTM模型参数
 #  随机森林
-# model= RandomForestClassifier(n_estimators=100,max_depth=10,min_samples_leaf=10)
+# LSTM模型参数= RandomForestClassifier(n_estimators=100,max_depth=10,min_samples_leaf=10)
 model= RandomForestClassifier(n_estimators=100)
 model.fit(x_train,y_train)
 y_pre = model.predict(x_test)
