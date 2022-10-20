@@ -1,5 +1,5 @@
 from __future__ import (absolute_import, division, print_function, unicode_literals)
-import pandas_method as pd
+import pandas as pd
 import numpy as np
 import backtrader as bt
 from datetime import datetime
@@ -48,7 +48,7 @@ class PandasDataPlus(bt.feeds.PandasData):
         # 如果是个大于等于0的数，比如8，那么backtrader会将原始数据下标8(第9列，下标从0开始)的列认为是turnover这一列
     )
 
-# 继承官方的类进行修改，能买入10%每次，卖出全部。
+# 继承官方的类进行修改，能买入10%每次，卖出全部。size 是股数
 class PercentSizerPlus(bt.sizers.PercentSizer):
     def _getsizing(self, comminfo, cash, data, isbuy):
         position = self.broker.getposition(data)
@@ -365,7 +365,7 @@ if __name__ == '__main__':
     5.设置起始资金 cerebro.broker.setcash(100000.0)  
     '''
     # 读取决策表
-    decision = pd.read_csv('data/HS300_50/decision/decision_50_50_18-20(1).csv')
+    decision = pd.read_csv('data/HS300_50/decision/decision_50_50.csv')
     # 储存每个公司的收益
     company_profit = []
     benchmark_profit = []
@@ -393,7 +393,6 @@ if __name__ == '__main__':
                 trade_path = trade_path + f
         # featuredata
         feature_path = 'data/HS300_50/feature/50_50/' + company_name + '_feature_50.csv'
-        # feature_path = 'data/HS300_50/feature/50_50/' + company_name + '_feature_50.csv'
         # 匹配dataframe格式为回测框架要求格式
         df = data_reshape(trade_path, feature_path)
         print('data reshape finished')
@@ -423,7 +422,7 @@ if __name__ == '__main__':
         # cerebro.addsizer(bt.sizers.PercentSizer, percents=90)
 
         # 获取数据
-        start_date = datetime(2021, 1, 1)  # 回测开始时间
+        start_date = datetime(2021, 1, 1)  # 回测开始时间0
         end_date = datetime(2021, 12, 31)  # 回测结束时间
         data = PandasDataPlus(dataname=df, fromdate=start_date, todate=end_date)  # 加载数据
         cerebro.adddata(data)  # 将数据传入回测系统
