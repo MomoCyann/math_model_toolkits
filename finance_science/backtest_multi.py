@@ -26,7 +26,7 @@ def data_reshape(trade_path, feature_path):
     feature_data.columns = ['tradeDate', 'sentimentFactor']
     data = pd.merge(data, feature_data, how='left', on=['tradeDate'])
     df = pd.DataFrame(data=None, columns=['date', 'open', 'high', 'low', 'close', 'volume', 'openinterest',
-                                          'sentimentFactor'])
+                                          'sentimentFactor', 'ticker'])
     df['date'] = data['tradeDate']
     df['open'] = data['openPrice']
     df['high'] = data['highestPrice']
@@ -35,16 +35,22 @@ def data_reshape(trade_path, feature_path):
     df['volume'] = data['turnoverVol']
     df['openinterest'] = 0
     df['sentimentFactor'] = data['sentimentFactor']
+    df['ticker'] = data['ticker']
+
     df.set_index('date', inplace=True)
     # df返回一个符合格式的dataframe
     return df
 
 # 继承官方的类进行修改，能在df加入自定义列，我们这里加入的是sentimentFactor
 class PandasDataPlus(bt.feeds.PandasData):
-    lines = ('sentimentFactor',)  # 要添加的列名
+    lines = ('sentimentFactor', 'upper_A', 'decision_A', 'upper_B', 'decision_B')  # 要添加的列名
     # 设置 line 在数据源上新增的位置
     params = (
-        ('sentimentFactor', -1),  # turnover对应传入数据的列名，这个-1会自动匹配backtrader的数据类与原有pandas文件的列名
+        ('sentimentFactor', -1),
+        ('upper_A', -1),
+        ('decision_A', -1),
+        ('upper_B', -1),
+        ('decision_B', -1),# turnover对应传入数据的列名，这个-1会自动匹配backtrader的数据类与原有pandas文件的列名
         # 如果是个大于等于0的数，比如8，那么backtrader会将原始数据下标8(第9列，下标从0开始)的列认为是turnover这一列
     )
 
@@ -71,6 +77,231 @@ class PercentSizerPlus(bt.sizers.PercentSizer):
 
         return size
 
+# 策略配置
+class NewStrategy(bt.Strategy):
+    params = (
+        # 参数这里不用管，可以在主函数进行设置
+        ('senti_pos_threshold', 0),
+        ('senti_neg_threshold', 0),
+        ('maperiod', 15),
+        ('stop_days', 30),
+        ('own_days', 0),
+        ('sell_flag', False)
+    )
+
+    def log(self, txt, dt=None):
+        ''' 记录策略信息'''
+        dt = dt or self.datas[0].datetime.date(0)
+        print('%s, %s' % (dt.isoformat(), txt))
+
+    def __init__(self):
+        self.dataclose = dict()
+        self.datasenti = dict()
+
+        self.upper_A = dict()
+        self.decision_A = dict()
+        self.upper_B = dict()
+        self.decision_B = dict()
+
+        self.order = dict()
+        self.buyprice = dict()
+        self.buycomm = dict()
+        self.sma = dict()
+        # 循环保存每个股票的收盘价，情绪因子
+        # 循环保存upper_A, decision_A, upper_B, decision_B
+        for data in self.datas:
+            self.dataclose[data._name] = data.close
+            self.datasenti[data._name] = data.lines.sentimentFactor
+
+            self.upper_A[data._name] = data.lines.upper_A
+            self.decision_A[data._name] = data.lines.decision_A
+            self.upper_B[data._name] = data.lines.upper_B
+            self.decision_B[data._name] = data.lines.decision_B
+
+            self.order[data._name] = None
+            self.buyprice[data._name] = None
+            self.buycomm[data._name] = None
+            self.sma[data._name] = bt.indicators.SimpleMovingAverage(
+                data, period=self.params.maperiod)
+
+        self.mystats = pd.DataFrame(data=None, columns=['benchmark'])
+
+    # 这个类是用来打印买卖信息的
+    def notify_order(self, order):
+        if order.status in [order.Submitted, order.Accepted]:
+            return
+
+        if order.status in [order.Completed]:
+            if order.isbuy():
+                self.log(
+                    'BUY EXECUTED, Stock: %s, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                    (order.data._name,
+                     order.executed.price,
+                     order.executed.value,
+                     order.executed.comm))
+
+                self.buyprice = order.executed.price
+                self.buycomm = order.executed.comm
+            else:  # Sell
+                self.log(
+                    'SELL EXECUTED, Stock: %s, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                    (order.data._name,
+                     order.executed.price,
+                     order.executed.value,
+                     order.executed.comm))
+
+            self.bar_executed = len(self)
+
+        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
+            self.log('Order Canceled/Margin/Rejected')
+            return
+        # self.order = None
+
+    def notify_trade(self, trade):  # 交易执行后，在这里处理
+        if not trade.isclosed:
+            return
+        self.log('OPERATION PROFIT, GROSS %.2f, NET %.2f' %
+                 (trade.pnl, trade.pnlcomm))  # 记录下盈利数据。
+
+    def next(self):
+        # 在每个横截面上计算买入优先度的综合排名
+        stocks = list(self.datas)
+        ranks = {d: 0 for d in stocks}
+
+
+        # Check if an order is pending ... if yes, we cannot send a 2nd one
+        if self.order:
+            return
+        if self.params.own_days >= self.params.stop_days:
+            self.params.sell_flag = True
+        # 此时 A右边 B左边 对应同一种策略，中间用均线辅助
+        if self.params.decision_A == self.params.decision_B:
+            # AB的行为为买入，则中间是卖出
+            if self.params.decision_A == 1:
+                if (self.datasenti[0] >= self.params.upper_A) or (self.datasenti[0] <= self.params.upper_B):
+                    # 买入
+                    self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                    self.order = self.buy()
+                if self.params.sell_flag:
+                    if self.position:
+                        if self.dataclose[0] <= self.sma[0]:
+                            # 小于均线卖卖卖！
+                            self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                            self.order = self.sell()
+                            self.params.own_days = 0
+                            self.params.sell_flag = False
+            elif self.params.decision_A == -1:
+                if self.dataclose[0] >= self.sma[0]:
+                    # 大于均线
+                    # 买入
+                    self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                    self.order = self.buy()
+                if self.params.sell_flag:
+                    if self.position:
+                        # A右边 B左边 卖出
+                        if (self.datasenti[0] >= self.params.upper_A) or (self.datasenti[0] <= self.params.upper_B):
+                            self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                            self.order = self.sell()
+                            self.params.own_days = 0
+                            self.params.sell_flag = False
+            else:
+                print('纯均线不买不卖')
+                # 大概有6家公司只用到了均线
+
+                # #此时decision_A和decision_B都是0，采用均线决策
+                # if self.dataclose[0] >= self.sma[0]:
+                #     # 大于均线
+                #     # 买入
+                #     self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                #     self.order = self.buy()
+                # if self.params.sell_flag:
+                #     if self.position:
+                #         if self.dataclose[0] <= self.sma[0]:
+                #             # 小于均线卖卖卖！
+                #             self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                #             self.order = self.sell()
+                #             self.params.own_days = 0
+                #             self.params.sell_flag = False
+        # decision_A不等于decision_B
+        else:
+            if self.params.decision_A == 1:
+                # 大于upper_A买入
+                if self.datasenti[0] >= self.params.upper_A:
+                    self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                    self.order = self.buy()
+                if self.params.sell_flag:
+                    if self.position:
+                        if self.params.decision_B == -1:
+                            # 小于upper_B卖出
+                            if self.datasenti[0] <= self.params.upper_B:
+                                self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                                self.order = self.sell()
+                                self.params.own_days = 0
+                                self.params.sell_flag = False
+                        else:
+                            # 均线
+                            if self.dataclose[0] <= self.sma[0]:
+                                # 小于均线卖卖卖！
+                                self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                                self.order = self.sell()
+                                self.params.own_days = 0
+                                self.params.sell_flag = False
+
+            elif self.params.decision_A == -1:
+                if self.params.decision_B == 1:
+                    if self.datasenti[0] <= self.params.upper_B:
+                        self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                        self.order = self.buy()
+                else:
+                    if self.dataclose[0] >= self.sma[0]:
+                        # 大于均线买入
+                        self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                        self.order = self.buy()
+                if self.params.sell_flag:
+                    if self.position:
+                        if self.datasenti[0] >= self.params.upper_A:
+                            self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                            self.order = self.sell()
+                            self.params.own_days = 0
+                            self.params.sell_flag = False
+
+            else:
+                if self.params.decision_B == 1:
+                    if self.datasenti[0] <= self.params.upper_B:
+                        self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                        self.order = self.buy()
+                    if self.params.sell_flag:
+                        if self.position:
+                            if self.dataclose[0] <= self.sma[0]:
+                                # 小于均线卖卖卖！
+                                self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                                self.order = self.sell()
+                                self.params.own_days = 0
+                                self.params.sell_flag = False
+                else:
+                    if self.dataclose[0] >= self.sma[0]:
+                        # 大于均线买入
+                        self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                        self.order = self.buy()
+                    if self.params.sell_flag:
+                        if self.position:
+                            # 小于upper_B卖出
+                            if self.datasenti[0] <= self.params.upper_B:
+                                self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                                self.order = self.sell()
+                                self.params.own_days = 0
+                                self.params.sell_flag = False
+        if self.position:
+            self.params.own_days += 1
+
+    def stop(self):
+        benchmark_data = []
+        benchmark_data.append(self.stats.benchmark.benchmark[0])
+        self.mystats = pd.DataFrame(benchmark_data, columns=['benchmark'])
+        self.mystats.to_csv('benchmark.csv')
+
+
+
 def main():
     '''
         1.设置路径trade_path、feature_path
@@ -80,7 +311,7 @@ def main():
         5.设置起始资金 cerebro.broker.setcash(100000.0)
     '''
     # 读取决策表
-    decision = pd.read_csv('data/HS300_50/decision/decision_50_50.csv')
+    decision = pd.read_csv('data/HS300_55/decision/decision_30_30_55_18-20.csv')
     company_profit = []
     benchmark_profit = []
     all_company_name = decision.loc[:, 'company_name']
@@ -96,9 +327,15 @@ def main():
 
     # 初始化
     cerebro = bt.Cerebro()
-    cerebro.addstrategy(BaseStrategy)
+    # 加一个策略
+    if strategy == 1:
+        cerebro.addstrategy(NewStrategy, stop_days=stop_days)
+    else:
+        cerebro.addstrategy(BaseStrategy)
     # 百分比投资？
     cerebro.addsizer(PercentSizerPlus, percents=percents)
+    # 佣金
+    cerebro.broker.setcommission(commission=0.0003)
     # 获取数据
     start_date = datetime(2021, 1, 1)  # 回测开始时间
     end_date = datetime(2021, 12, 31)  # 回测结束时间
@@ -107,22 +344,25 @@ def main():
     for index in decision.index:
         # 读取公司名字方便匹配文件名
         company_name = decision.loc[index, 'company_name']
-        if (company_name == '隆基股份') or (company_name == '苏宁易购') or (company_name == '青岛海尔') or (company_name == '东方财富'):
-            company_profit.append(-1)
-            benchmark_profit.append(0)
-            continue
+        # if (company_name == '隆基股份') or (company_name == '苏宁易购') or (company_name == '青岛海尔') or (company_name == '东方财富'):
+        #     company_profit.append(-1)
+        #     benchmark_profit.append(0)
+        #     continue
 
-        trade_path = 'data/HS300/tradeData/'  # + index + '_' + company_name + '_trade_20-22.csv'
+        trade_path = 'data/HS300_55/tradeData_55/'  # + index + '_' + company_name + '_trade_20-22.csv'
         file = os.listdir(trade_path)
         # 模糊匹配文件名→找到tradedata路径
         for f in file:
             if company_name in f:
                 trade_path = trade_path + f
         # featuredata
-        feature_path = 'data/HS300_50/feature/50_50/' + company_name + '_feature_50.csv'
+        feature_path = 'data/HS300_55/feature/30_30_55/' + company_name + '_feature_30.csv'
 
         # 匹配dataframe格式为回测框架要求格式
         df = data_reshape(trade_path, feature_path)
+        # 把tiker的数据导出来做名字。
+        ticker = df.iloc[0, 7]
+        df = df.iloc[:, :7]
         # 读取decision的各指标 导入策略
         upper_A, decision_A, upper_B, decision_B = decision.loc[index,
                                                                 ['upper_A', 'decision_A', 'upper_B', 'decision_B']]
@@ -130,10 +370,11 @@ def main():
         df.insert(8, 'decision_A', decision_A)
         df.insert(9, 'upper_B', upper_B)
         df.insert(10, 'decision_B', decision_B)
-        print('data reshape finished')
-        print('---------------------')
         data = PandasDataPlus(dataname=df, fromdate=start_date, todate=end_date)  # 加载数据
-        cerebro.adddata(data)  # 将数据传入回测系统
+        cerebro.adddata(data, name=ticker)  # 将数据传入回测系统
+        print(company_name, '\n', ticker)
+        print('Add Data Completed')
+        print('---------------------')
 
     # 加入benchmark基准对比 继承notimeframe类表示整个数据持续时间
     cerebro.addobserver(bt.observers.Benchmark, timeframe=bt.TimeFrame.NoTimeFrame)
