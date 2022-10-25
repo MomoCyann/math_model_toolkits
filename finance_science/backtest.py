@@ -441,7 +441,6 @@ if __name__ == '__main__':
         # 计入收益
         company_profit.append(cerebro.broker.getvalue()/cash_total) #
         print('策略收益率: %.2f' % ((cerebro.broker.getvalue()/cash_total)-1))
-        print(company_name)
         if plot==1:
             cerebro.plot(
                 #  Format string for the display of ticks on the x axis
