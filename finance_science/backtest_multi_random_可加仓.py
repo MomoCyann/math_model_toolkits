@@ -4,9 +4,11 @@ import numpy as np
 import backtrader as bt
 from datetime import datetime
 import matplotlib
+from matplotlib import pyplot as plt
 from fontTools.varLib.mutator import percents
 import glob
 import os
+
 
 def data_reshape(trade_path, feature_path):
     '''
@@ -54,7 +56,7 @@ class PandasDataPlus(bt.feeds.PandasData):
         # 如果是个大于等于0的数，比如8，那么backtrader会将原始数据下标8(第9列，下标从0开始)的列认为是turnover这一列
     )
 
-# 继承官方的类进行修改，能买入10%每次，卖出全部。size 是股数
+# 继承官方的类进行修改，能买入指定百分比每次，卖出全部。size 是股数
 class PercentSizerPlus(bt.sizers.PercentSizer):
     def _getsizing(self, comminfo, cash, data, isbuy):
         position = self.broker.getposition(data)
@@ -81,7 +83,8 @@ class PercentSizerPlus(bt.sizers.PercentSizer):
 class NewStrategy(bt.Strategy):
     params = (
         # 参数这里不用管，可以在主函数进行设置
-        ('maperiod', 15),
+        ('s_maperiod', 10),
+        ('l_maperiod', 60),
         ('stop_days', 5),
     )
 
@@ -103,6 +106,7 @@ class NewStrategy(bt.Strategy):
         self.buyprice = dict()
         self.buycomm = dict()
         self.sma = dict()
+        self.lma = dict()
 
         self.own_days = dict()
         self.sell_flag = dict()
@@ -121,8 +125,8 @@ class NewStrategy(bt.Strategy):
             self.order[data._name] = None
             self.buyprice[data._name] = None
             self.buycomm[data._name] = None
-            self.sma[data._name] = bt.indicators.SimpleMovingAverage(
-                data, period=self.params.maperiod)
+            self.sma[data._name] = bt.indicators.SMA(data, period=self.params.s_maperiod)
+            self.lma[data._name] = bt.indicators.SMA(data, period=self.params.l_maperiod)
 
             self.own_days[data._name] = 0
             self.sell_flag[data._name] = False
@@ -180,27 +184,25 @@ class NewStrategy(bt.Strategy):
                 # AB的行为为买入，则中间是卖出
                 if self.decision_A[data._name] == 1:
                     if (self.datasenti[data._name][0] >= self.upper_A[data._name]) or (self.datasenti[data._name][0] <= self.upper_B[data._name]):
-                        if self.getposition(data).size == 0:
-                            # 买入
-                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                            self.order[data._name] = self.buy(data=data)
+                        # 买入
+                        self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                        self.order[data._name] = self.buy(data=data)
                     if self.sell_flag[data._name]:
-                        if self.getposition(data).size != 0:
-                            if self.dataclose[data._name] <= self.sma[data._name]:
+                        if self.broker.getposition(data):
+                            if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
                                 # 小于均线卖卖卖！
                                 self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                                 self.order[data._name] = self.sell(data=data)
                                 self.own_days[data._name] = 0
                                 self.sell_flag[data._name] = False
                 elif self.decision_A[data._name] == -1:
-                    if self.dataclose[data._name] >= self.sma[data._name]:
+                    if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
                         # 大于均线
-                        if self.getposition(data).size == 0:
-                            # 买入
-                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                            self.order[data._name] = self.buy(data=data)
+                        # 买入
+                        self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                        self.order[data._name] = self.buy(data=data)
                     if self.sell_flag[data._name]:
-                        if self.getposition(data).size != 0:
+                        if self.broker.getposition(data):
                             # A右边 B左边 卖出
                             if (self.datasenti[data._name][0] >= self.upper_A[data._name]) or (self.datasenti[data._name][0] <= self.upper_B[data._name]):
                                 self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
@@ -212,14 +214,14 @@ class NewStrategy(bt.Strategy):
                     # 大概有6家公司只用到了均线
 
                     # #此时decision_A和decision_B都是0，采用均线决策
-                    # if self.dataclose[data._name] >= self.sma[data._name]:
+                    # if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
                     #     # 大于均线
                     #     # 买入
                     #     self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                     #     self.order[data._name] = self.buy(data=data)
                     # if self.sell_flag[data._name]:
                     #     if self.broker.getposition(data):
-                    #         if self.dataclose[data._name] <= self.sma[data._name]:
+                    #         if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
                     #             # 小于均线卖卖卖！
                     #             self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                     #             self.order[data._name] = self.sell(data=data)
@@ -230,11 +232,10 @@ class NewStrategy(bt.Strategy):
                 if self.decision_A[data._name] == 1:
                     # 大于upper_A买入
                     if self.datasenti[data._name][0] >= self.upper_A[data._name]:
-                        if self.getposition(data).size == 0:
-                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                            self.order[data._name] = self.buy(data=data)
+                        self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                        self.order[data._name] = self.buy(data=data)
                     if self.sell_flag[data._name]:
-                        if self.getposition(data).size != 0:
+                        if self.broker.getposition(data):
                             if self.decision_B[data._name] == -1:
                                 # 小于upper_B卖出
                                 if self.datasenti[data._name][0] <= self.upper_B[data._name]:
@@ -244,7 +245,7 @@ class NewStrategy(bt.Strategy):
                                     self.sell_flag[data._name] = False
                             else:
                                 # 均线
-                                if self.dataclose[data._name] <= self.sma[data._name]:
+                                if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
                                     # 小于均线卖卖卖！
                                     self.log('SELL CREATE, %.2f' % self.dataclose[data._name][0])
                                     self.order[data._name] = self.sell(data=data)
@@ -254,17 +255,15 @@ class NewStrategy(bt.Strategy):
                 elif self.decision_A[data._name] == -1:
                     if self.decision_B[data._name] == 1:
                         if self.datasenti[data._name][0] <= self.upper_B[data._name]:
-                            if self.getposition(data).size == 0:
-                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                                self.order[data._name] = self.buy(data=data)
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
                     else:
-                        if self.dataclose[data._name] >= self.sma[data._name]:
-                            if self.getposition(data).size == 0:
-                                # 大于均线买入
-                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                                self.order[data._name] = self.buy(data=data)
+                        if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
+                            # 大于均线买入
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
                     if self.sell_flag[data._name]:
-                        if self.getposition(data).size != 0:
+                        if self.broker.getposition(data):
                             if self.datasenti[data._name][0] >= self.upper_A[data._name]:
                                 self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                                 self.order[data._name] = self.sell(data=data)
@@ -274,32 +273,30 @@ class NewStrategy(bt.Strategy):
                 else:
                     if self.decision_B[data._name] == 1:
                         if self.datasenti[data._name][0] <= self.upper_B[data._name]:
-                            if self.getposition(data).size == 0:
-                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                                self.order[data._name] = self.buy(data=data)
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
                         if self.sell_flag[data._name]:
-                            if self.getposition(data).size != 0:
-                                if self.dataclose[data._name] <= self.sma[data._name]:
+                            if self.broker.getposition(data):
+                                if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
                                     # 小于均线卖卖卖！
                                     self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                                     self.order[data._name] = self.sell(data=data)
                                     self.own_days[data._name] = 0
                                     self.sell_flag[data._name] = False
                     else:
-                        if self.dataclose[data._name] >= self.sma[data._name]:
+                        if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
                             # 大于均线买入
-                            if self.getposition(data).size == 0:
-                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                                self.order[data._name] = self.buy(data=data)
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
                         if self.sell_flag[data._name]:
-                            if self.getposition(data).size != 0:
+                            if self.broker.getposition(data):
                                 # 小于upper_B卖出
                                 if self.datasenti[data._name][0] <= self.upper_B[data._name]:
                                     self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                                     self.order[data._name] = self.sell(data=data)
                                     self.own_days[data._name] = 0
                                     self.sell_flag[data._name] = False
-            if self.getposition(data).size != 0:
+            if self.broker.getposition(data):
                 self.own_days[data._name] += 1
 
     def stop(self):
@@ -319,15 +316,19 @@ if __name__ == '__main__':
         '''
     # 读取决策表
     decision = pd.read_csv('data/HS300_55/decision/decision_30_30_55_18-20.csv')
+
     company_profit = []
     benchmark_profit = []
     all_company_name = decision.loc[:, 'company_name']
 
     # 参数设置
     cash_total = 1000000.0
-    stop_days = 5
+    stop_days = 0
     plot = 1
     percents = 3
+    s_maperiod = 20
+    l_maperiod = 60
+
     # 1是混合 0是均线策略
     strategy = 1
     benchmark_result = 0
@@ -336,7 +337,7 @@ if __name__ == '__main__':
     cerebro = bt.Cerebro()
     # 加一个策略
     if strategy == 1:
-        cerebro.addstrategy(NewStrategy, stop_days=stop_days)
+        cerebro.addstrategy(NewStrategy, stop_days=stop_days, s_maperiod=s_maperiod, l_maperiod=l_maperiod)
     else:
         cerebro.addstrategy(MAStrategy)
     # 百分比投资？
@@ -344,7 +345,7 @@ if __name__ == '__main__':
     # 佣金
     cerebro.broker.setcommission(commission=0.003)
     # 回测时间
-    start_date = datetime(2020, 12, 15)
+    start_date = datetime(2020, 10, 10)
     end_date = datetime(2021, 12, 31)
 
     # 循环导入数据

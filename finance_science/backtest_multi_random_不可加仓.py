@@ -79,7 +79,7 @@ class PercentSizerPlus(bt.sizers.PercentSizer):
         return size
 
 # 策略配置
-class MAStrategy(bt.Strategy):
+class NewStrategy(bt.Strategy):
     params = (
         # 参数这里不用管，可以在主函数进行设置
         ('s_maperiod', 10),
@@ -127,7 +127,6 @@ class MAStrategy(bt.Strategy):
             self.sma[data._name] = bt.indicators.SMA(data, period=self.params.s_maperiod)
             self.lma[data._name] = bt.indicators.SMA(data, period=self.params.l_maperiod)
 
-
             self.own_days[data._name] = 0
             self.sell_flag[data._name] = False
         print('init completed')
@@ -174,19 +173,137 @@ class MAStrategy(bt.Strategy):
         # # 在每个横截面上计算买入优先度的综合排名
         # stocks = list(self.datas)
         # ranks = {d: 0 for d in stocks}
-        # 简单策略，当日收盘价大于简单滑动平均值买入，当日收盘价小于简单滑动平均值卖出
+
         for data in self.datas:
-            if self.getposition(data).size == 0:
-                if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
 
-                    self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                    self.order[data._name] = self.buy(data=data)
+            if self.own_days[data._name] >= self.params.stop_days:
+                self.sell_flag[data._name] = True
+            # 此时 A右边 B左边 对应同一种策略，中间用均线辅助
+            if self.decision_A[data._name] == self.decision_B[data._name]:
+                # AB的行为为买入，则中间是卖出
+                if self.decision_A[data._name] == 1:
+                    if (self.datasenti[data._name][0] >= self.upper_A[data._name]) or (self.datasenti[data._name][0] <= self.upper_B[data._name]):
+                        if self.getposition(data).size == 0:
+                            # 买入
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
+                    if self.sell_flag[data._name]:
+                        if self.getposition(data).size != 0:
+                            if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
+                                # 小于均线卖卖卖！
+                                self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.sell(data=data)
+                                self.own_days[data._name] = 0
+                                self.sell_flag[data._name] = False
+                elif self.decision_A[data._name] == -1:
+                    if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
+                        # 大于均线
+                        if self.getposition(data).size == 0:
+                            # 买入
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
+                    if self.sell_flag[data._name]:
+                        if self.getposition(data).size != 0:
+                            # A右边 B左边 卖出
+                            if (self.datasenti[data._name][0] >= self.upper_A[data._name]) or (self.datasenti[data._name][0] <= self.upper_B[data._name]):
+                                self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.sell(data=data)
+                                self.own_days[data._name] = 0
+                                self.sell_flag[data._name] = False
+                else:
+                    print('纯均线不买不卖')
+                    # 大概有6家公司只用到了均线
+
+                    # #此时decision_A和decision_B都是0，采用均线决策
+                    # if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
+                    #     # 大于均线
+                    #     # 买入
+                    #     self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                    #     self.order[data._name] = self.buy(data=data)
+                    # if self.sell_flag[data._name]:
+                    #     if self.broker.getposition(data):
+                    #         if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
+                    #             # 小于均线卖卖卖！
+                    #             self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                    #             self.order[data._name] = self.sell(data=data)
+                    #             self.own_days[data._name] = 0
+                    #             self.sell_flag[data._name] = False
+            # decision_A不等于decision_B
             else:
-                if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
-                    self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
-                    self.order[data._name] = self.sell(data=data)
+                if self.decision_A[data._name] == 1:
+                    # 大于upper_A买入
+                    if self.datasenti[data._name][0] >= self.upper_A[data._name]:
+                        if self.getposition(data).size == 0:
+                            self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                            self.order[data._name] = self.buy(data=data)
+                    if self.sell_flag[data._name]:
+                        if self.getposition(data).size != 0:
+                            if self.decision_B[data._name] == -1:
+                                # 小于upper_B卖出
+                                if self.datasenti[data._name][0] <= self.upper_B[data._name]:
+                                    self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                    self.order[data._name] = self.sell(data=data)
+                                    self.own_days[data._name] = 0
+                                    self.sell_flag[data._name] = False
+                            else:
+                                # 均线
+                                if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
+                                    # 小于均线卖卖卖！
+                                    self.log('SELL CREATE, %.2f' % self.dataclose[data._name][0])
+                                    self.order[data._name] = self.sell(data=data)
+                                    self.own_days[data._name] = 0
+                                    self.sell_flag[data._name] = False
 
+                elif self.decision_A[data._name] == -1:
+                    if self.decision_B[data._name] == 1:
+                        if self.datasenti[data._name][0] <= self.upper_B[data._name]:
+                            if self.getposition(data).size == 0:
+                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.buy(data=data)
+                    else:
+                        if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
+                            if self.getposition(data).size == 0:
+                                # 大于均线买入
+                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.buy(data=data)
+                    if self.sell_flag[data._name]:
+                        if self.getposition(data).size != 0:
+                            if self.datasenti[data._name][0] >= self.upper_A[data._name]:
+                                self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.sell(data=data)
+                                self.own_days[data._name] = 0
+                                self.sell_flag[data._name] = False
 
+                else:
+                    if self.decision_B[data._name] == 1:
+                        if self.datasenti[data._name][0] <= self.upper_B[data._name]:
+                            if self.getposition(data).size == 0:
+                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.buy(data=data)
+                        if self.sell_flag[data._name]:
+                            if self.getposition(data).size != 0:
+                                if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
+                                    # 小于均线卖卖卖！
+                                    self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                    self.order[data._name] = self.sell(data=data)
+                                    self.own_days[data._name] = 0
+                                    self.sell_flag[data._name] = False
+                    else:
+                        if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
+                            # 大于均线买入
+                            if self.getposition(data).size == 0:
+                                self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                self.order[data._name] = self.buy(data=data)
+                        if self.sell_flag[data._name]:
+                            if self.getposition(data).size != 0:
+                                # 小于upper_B卖出
+                                if self.datasenti[data._name][0] <= self.upper_B[data._name]:
+                                    self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
+                                    self.order[data._name] = self.sell(data=data)
+                                    self.own_days[data._name] = 0
+                                    self.sell_flag[data._name] = False
+            if self.getposition(data).size != 0:
+                self.own_days[data._name] += 1
 
     def stop(self):
         # benchmark_data = []
@@ -211,21 +328,29 @@ if __name__ == '__main__':
 
     # 参数设置
     cash_total = 1000000.0
-    stop_days = 5
+    stop_days = 0
     plot = 1
     percents = 3
+    s_maperiod = 20
+    l_maperiod = 60
+
+    # 1是混合 0是均线策略
+    strategy = 1
+    benchmark_result = 0
 
     # 初始化
     cerebro = bt.Cerebro()
     # 加一个策略
-    cerebro.addstrategy(MAStrategy, stop_days=stop_days)
-
+    if strategy == 1:
+        cerebro.addstrategy(NewStrategy, stop_days=stop_days, s_maperiod=s_maperiod, l_maperiod=l_maperiod)
+    else:
+        cerebro.addstrategy(MAStrategy)
     # 百分比投资？
     cerebro.addsizer(PercentSizerPlus, percents=percents)
     # 佣金
     cerebro.broker.setcommission(commission=0.003)
     # 回测时间
-    start_date = datetime(2020, 10, 1)
+    start_date = datetime(2020, 10, 10)
     end_date = datetime(2021, 12, 31)
 
     # 循环导入数据
