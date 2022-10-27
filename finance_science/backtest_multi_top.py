@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from fontTools.varLib.mutator import percents
 import glob
 import os
-
+import pyfolio as pf
 
 def data_reshape(trade_path, feature_path):
     '''
@@ -55,29 +55,6 @@ class PandasDataPlus(bt.feeds.PandasData):
         ('decision_B', -1),# turnover对应传入数据的列名，这个-1会自动匹配backtrader的数据类与原有pandas文件的列名
         # 如果是个大于等于0的数，比如8，那么backtrader会将原始数据下标8(第9列，下标从0开始)的列认为是turnover这一列
     )
-
-# 继承官方的类进行修改，能买入指定百分比每次，卖出全部。size 是股数
-class PercentSizerPlus(bt.sizers.PercentSizer):
-    def _getsizing(self, comminfo, cash, data, isbuy):
-        position = self.broker.getposition(data)
-        if not position:
-            size = cash_total / data.close[0] * (self.params.percents / 100)
-            if size < 100:
-                size = 100
-        else:
-            if isbuy:
-            # 如果是买
-                size = cash_total / data.close[0] * (self.params.percents / 100)
-                if size < 100:
-                    size = 100
-            else:
-            # 如果是卖，卖出全部=position.size
-                size = position.size
-
-        if self.p.retint:
-            size = int(size)
-
-        return size
 
 # 策略配置
 class NewStrategy(bt.Strategy):
@@ -239,26 +216,25 @@ class NewStrategy(bt.Strategy):
         for d in rtop:
             self.log('Enter {} - Rank {:.2f}'.format(d._name, rtop[d]))
             self.order_target_percent(d, target=self.perctarget)
-    def stop(self):
-        # benchmark_data = []
-        # benchmark_data.append(self.stats.benchmark.benchmark[0])
-        # self.mystats = pd.DataFrame(benchmark_data, columns=['benchmark'])
-        # self.mystats.to_csv('benchmark.csv')
-        return
+
+def show_result_empyrical(returns, benchmark_returns):
+    import empyrical
+
+    print('累计收益：', empyrical.cum_returns_final(returns))
+    print('最大回撤：', empyrical.max_drawdown(returns))
+    print('夏普比', empyrical.sharpe_ratio(returns))
+    alpha, beta = empyrical.alpha_beta(np.array(returns), np.array(benchmark_returns))
+    print('Alpha', alpha)
+    print('卡玛比', empyrical.calmar_ratio(returns))
+    print('omega', empyrical.omega_ratio(returns))
 
 if __name__ == '__main__':
     '''
-            1.设置路径trade_path、feature_path
-            2.设置情感阈值 cerebro.addstrategy(TestStrategy, senti_pos_threshold=1, senti_neg_threshold=0.3)
-            3.设置每次买入百分比 cerebro.addsizer(PercentSizerPlus, percents=10)
-            4.设置开始时间 start_date = datetime(2022, 1, 3)  # 回测开始时间
-            5.设置起始资金 cerebro.broker.setcash(100000.0)
-        '''
+        1.设置路径trade_path、feature_path
+        4.设置开始时间 start_date = datetime(2022, 1, 3)  # 回测开始时间
+    '''
     # 读取决策表
     decision = pd.read_csv('data/HS300_55/decision/decision_30_30_55_18-20.csv')
-
-    company_profit = []
-    benchmark_profit = []
     all_company_name = decision.loc[:, 'company_name']
 
     # 参数设置
@@ -267,18 +243,13 @@ if __name__ == '__main__':
     s_maperiod = 15
     l_maperiod = 60
     # 持有股票数量
-    top = 5
-    reserve = 0.02
-
-    # 1是混合 0是均线策略
-    strategy = 1
-    benchmark_result = 0
+    top = 6
+    reserve = 0.01
 
     # 初始化
     cerebro = bt.Cerebro()
     # 加一个策略
-    if strategy == 1:
-        cerebro.addstrategy(NewStrategy, s_maperiod=s_maperiod, l_maperiod=l_maperiod, selnum=top, reserve=reserve)
+    cerebro.addstrategy(NewStrategy, s_maperiod=s_maperiod, l_maperiod=l_maperiod, selnum=top, reserve=reserve)
     # 佣金
     cerebro.broker.setcommission(commission=0.003)
     # 回测时间
@@ -321,24 +292,41 @@ if __name__ == '__main__':
         print('Add Data Completed')
         print('---------------------')
 
-    # # 加入benchmark基准对比 继承notimeframe类表示整个数据持续时间
-    # cerebro.addobserver(bt.observers.Benchmark, timeframe=bt.TimeFrame.NoTimeFrame)
-
     # 设置本金
     cerebro.broker.setcash(cash_total)
     print('本金: %.2f' % cerebro.broker.getvalue())
     print('Loading……')
-    cerebro.run()
+
+    # 风险指标
+    cerebro.addanalyzer(bt.analyzers.PyFolio, _name='pyfolio')
+    results = cerebro.run()
+    strats = results[0]
+    pyfoliozer = strats.analyzers.getbyname('pyfolio')
+    returns, positions, transactions, gross_lev = pyfoliozer.get_pf_items()
+    # load benchmark
+    benchmark = pd.read_csv('hs300_returns_shift.csv', header=0, index_col=0)
+    benchmark.columns = ['0']
+    benchmark_returns = benchmark.iloc[:, 0]
+    returns = returns.iloc[58:]
+    show_result_empyrical(returns, benchmark_returns)
+
     print('最终持有: %.2f' % (cerebro.broker.getvalue()))
-    # benchmarks = pd.read_csv('benchmark.csv')
-    # benchmarking = benchmarks.loc[0, 'benchmark']
     print('沪深300，2021年收益率: -5.2%')
-    # benchmark_profit.append(benchmarking)
-    # 计入收益
-    company_profit.append(cerebro.broker.getvalue() / cash_total)  #
-    print('策略收益率: %.4f' % (((cerebro.broker.getvalue() / cash_total) - 1)*100),"%")
+
+    # 累计收益
+    # 最大回撤
+    # 夏普比率：表示承受每单位总风险能够获得的超额报酬，该比率越高，证明 风险回报越大，该投资组合效果越好。
+
+    # Alpha衡量了股票或组合相对于市场的超额收益，可以获得的与市场波动部分无关的回报。
+    # 若alpha=0，则说明投资组合表现与大盘基本一致；
+    # 若alpha<0，则说明投资组 合相比大盘收益要差，投资组合相对于风险难以获得收益；
+    # 若alpha>0，则说明股票或 组合表现优于大盘，投资组合可以从中获取一定的超额收益。alpha=1%相当于高于同期 市场收益1%。
+
+    # 卡玛比率表示投资组合收益率与最大回撤的比率，也可称为单位回撤收益率，
+    # 可以衡量投资组合的收益风险比，一般该数值越大，投资组合表现越好
 
     if plot == 1:
+        # matplotlib.use('QT5Agg')
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 显示中文标签
         plt.rcParams['axes.unicode_minus'] = False  # 这两行需要手动设置
         cerebro.plot(
@@ -346,5 +334,6 @@ if __name__ == '__main__':
             fmt_x_ticks='%Y-%m-%d',
 
             # Format string for the display of data points values
-            fmt_x_data='%Y-%m-%d'
+            fmt_x_data='%Y-%m-%d',
+            iplot = False
         )
