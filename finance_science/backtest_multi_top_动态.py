@@ -12,18 +12,18 @@ import pyfolio as pf
 
 def data_reshape(trade_path, feature_path):
     '''
-    æ­¤æ–¹æ³•æ˜¯ä¸ºäº†è®©å¤–éƒ¨æ•°æ®æºæ»¡è¶³å›æµ‹æ¡†æ¶çš„æ•°æ®æ ¼å¼è¦æ±‚
+    ´Ë·½·¨ÊÇÎªÁËÈÃÍâ²¿Êı¾İÔ´Âú×ã»Ø²â¿ò¼ÜµÄÊı¾İ¸ñÊ½ÒªÇó
     :param trade_path:
     :param feature_path:
     :return:
     '''
-    #æ•°æ®è¯»å–
+    #Êı¾İ¶ÁÈ¡
     data = pd.read_csv(trade_path)
     feature_data = pd.read_csv(feature_path)
-    #æ”¹å˜ä¸ºæ—¶é—´æ ¼å¼
+    #¸Ä±äÎªÊ±¼ä¸ñÊ½
     data['tradeDate'] = pd.to_datetime(data['tradeDate'])
     feature_data['selectedDate'] = pd.to_datetime(feature_data['selectedDate'])
-    #åˆå¹¶å‡†å¤‡
+    #ºÏ²¢×¼±¸
     feature_data = feature_data.loc[:, ['selectedDate', 'sentimentFactor']]
     feature_data.columns = ['tradeDate', 'sentimentFactor']
     data = pd.merge(data, feature_data, how='left', on=['tradeDate'])
@@ -40,26 +40,26 @@ def data_reshape(trade_path, feature_path):
     df['ticker'] = data['secShortName']
 
     df.set_index('date', inplace=True)
-    # dfè¿”å›ä¸€ä¸ªç¬¦åˆæ ¼å¼çš„dataframe
+    # df·µ»ØÒ»¸ö·ûºÏ¸ñÊ½µÄdataframe
     return df
 
-# ç»§æ‰¿å®˜æ–¹çš„ç±»è¿›è¡Œä¿®æ”¹ï¼Œèƒ½åœ¨dfåŠ å…¥è‡ªå®šä¹‰åˆ—ï¼Œæˆ‘ä»¬è¿™é‡ŒåŠ å…¥çš„æ˜¯sentimentFactor
+# ¼Ì³Ğ¹Ù·½µÄÀà½øĞĞĞŞ¸Ä£¬ÄÜÔÚdf¼ÓÈë×Ô¶¨ÒåÁĞ£¬ÎÒÃÇÕâÀï¼ÓÈëµÄÊÇsentimentFactor
 class PandasDataPlus(bt.feeds.PandasData):
-    lines = ('sentimentFactor', 'upper_A', 'decision_A', 'upper_B', 'decision_B')  # è¦æ·»åŠ çš„åˆ—å
-    # è®¾ç½® line åœ¨æ•°æ®æºä¸Šæ–°å¢çš„ä½ç½®
+    lines = ('sentimentFactor', 'upper_A', 'decision_A', 'upper_B', 'decision_B')  # ÒªÌí¼ÓµÄÁĞÃû
+    # ÉèÖÃ line ÔÚÊı¾İÔ´ÉÏĞÂÔöµÄÎ»ÖÃ
     params = (
         ('sentimentFactor', -1),
         ('upper_A', -1),
         ('decision_A', -1),
         ('upper_B', -1),
-        ('decision_B', -1),# turnoverå¯¹åº”ä¼ å…¥æ•°æ®çš„åˆ—åï¼Œè¿™ä¸ª-1ä¼šè‡ªåŠ¨åŒ¹é…backtraderçš„æ•°æ®ç±»ä¸åŸæœ‰pandasæ–‡ä»¶çš„åˆ—å
-        # å¦‚æœæ˜¯ä¸ªå¤§äºç­‰äº0çš„æ•°ï¼Œæ¯”å¦‚8ï¼Œé‚£ä¹ˆbacktraderä¼šå°†åŸå§‹æ•°æ®ä¸‹æ ‡8(ç¬¬9åˆ—ï¼Œä¸‹æ ‡ä»0å¼€å§‹)çš„åˆ—è®¤ä¸ºæ˜¯turnoverè¿™ä¸€åˆ—
+        ('decision_B', -1),# turnover¶ÔÓ¦´«ÈëÊı¾İµÄÁĞÃû£¬Õâ¸ö-1»á×Ô¶¯Æ¥ÅäbacktraderµÄÊı¾İÀàÓëÔ­ÓĞpandasÎÄ¼şµÄÁĞÃû
+        # Èç¹ûÊÇ¸ö´óÓÚµÈÓÚ0µÄÊı£¬±ÈÈç8£¬ÄÇÃ´backtrader»á½«Ô­Ê¼Êı¾İÏÂ±ê8(µÚ9ÁĞ£¬ÏÂ±ê´Ó0¿ªÊ¼)µÄÁĞÈÏÎªÊÇturnoverÕâÒ»ÁĞ
     )
 
-# ç­–ç•¥é…ç½®
+# ²ßÂÔÅäÖÃ
 class NewStrategy(bt.Strategy):
     params = (
-        # å‚æ•°è¿™é‡Œä¸ç”¨ç®¡ï¼Œå¯ä»¥åœ¨ä¸»å‡½æ•°è¿›è¡Œè®¾ç½®
+        # ²ÎÊıÕâÀï²»ÓÃ¹Ü£¬¿ÉÒÔÔÚÖ÷º¯Êı½øĞĞÉèÖÃ
         ('selnum', 10),
         ('s_maperiod', 10),
         ('l_maperiod', 60),
@@ -86,9 +86,9 @@ class NewStrategy(bt.Strategy):
 
         self.own_days = dict()
         self.sell_flag = dict()
-        # å¾ªç¯ä¿å­˜æ¯ä¸ªè‚¡ç¥¨çš„æ”¶ç›˜ä»·ï¼Œæƒ…ç»ªå› å­
-        # å¾ªç¯ä¿å­˜upper_A, decision_A, upper_B, decision_B
-        # own_dayså’Œsell_flagä¹Ÿè¦ä¿å­˜
+        # Ñ­»·±£´æÃ¿¸ö¹ÉÆ±µÄÊÕÅÌ¼Û£¬ÇéĞ÷Òò×Ó
+        # Ñ­»·±£´æupper_A, decision_A, upper_B, decision_B
+        # own_daysºÍsell_flagÒ²Òª±£´æ
         for data in self.datas:
             self.dataclose[data._name] = data.close
             self.datasenti[data._name] = data.lines.sentimentFactor
@@ -113,56 +113,56 @@ class NewStrategy(bt.Strategy):
 
     def next(self):
         '''
-        1.å…ˆæ¯ä¸€ä¸ªdataè®¡ç®—è´­ä¹°æ—¶ç”¨çš„æ ‡å‡†ï¼Œç„¶ååœ¨å¾ªç¯æœ€åæŠŠæŒ‡æ ‡å’Œè‚¡ç¥¨åæ·»åŠ è¿›å­—å…¸
-            èˆ†æƒ…çš„æƒé‡è¾ƒé«˜ï¼Œç”¨èˆ†æƒ…å’Œé˜ˆå€¼çš„å·®å€¼ x 1000000
-            å‡çº¿å·®è·ç”¨ç™¾åˆ†æ¯”è¡¡é‡
-            ä¿è¯èˆ†æƒ…çš„æ’åºåœ¨å‰é¢ã€‚
-        2.å¾ªç¯å®Œä¹‹åè¿›è¡Œæ’åº
+        1.ÏÈÃ¿Ò»¸ödata¼ÆËã¹ºÂòÊ±ÓÃµÄ±ê×¼£¬È»ºóÔÚÑ­»·×îºó°ÑÖ¸±êºÍ¹ÉÆ±ÃûÌí¼Ó½ø×Öµä
+            ÓßÇéµÄÈ¨ÖØ½Ï¸ß£¬ÓÃÓßÇéºÍãĞÖµµÄ²îÖµ x 1000000
+            ¾ùÏß²î¾àÓÃ°Ù·Ö±ÈºâÁ¿
+            ±£Ö¤ÓßÇéµÄÅÅĞòÔÚÇ°Ãæ¡£
+        2.Ñ­»·ÍêÖ®ºó½øĞĞÅÅĞò
 
-        3.ç”¨orderå‘½ä»¤å¯¹æ’åºåçš„top10æŒ‡å®šè‚¡ç¥¨åšå‡ºæ“ä½œ
+        3.ÓÃorderÃüÁî¶ÔÅÅĞòºóµÄtop10Ö¸¶¨¹ÉÆ±×ö³ö²Ù×÷
         '''
         stocks = {}
         for data in self.datas:
-            # æ¯ä¸€æ¬¡å¾ªç¯åˆå§‹åŒ–æŒ‡æ ‡
+            # Ã¿Ò»´ÎÑ­»·³õÊ¼»¯Ö¸±ê
             flag = 0
-            # æ­¤æ—¶ Aå³è¾¹ Bå·¦è¾¹ å¯¹åº”åŒä¸€ç§ç­–ç•¥ï¼Œä¸­é—´ç”¨å‡çº¿è¾…åŠ©
+            # ´ËÊ± AÓÒ±ß B×ó±ß ¶ÔÓ¦Í¬Ò»ÖÖ²ßÂÔ£¬ÖĞ¼äÓÃ¾ùÏß¸¨Öú
             if self.decision_A[data._name] == self.decision_B[data._name]:
-                # ABçš„è¡Œä¸ºä¸ºä¹°å…¥ï¼Œåˆ™ä¸­é—´æ˜¯å–å‡º
+                # ABµÄĞĞÎªÎªÂòÈë£¬ÔòÖĞ¼äÊÇÂô³ö
                 if self.decision_A[data._name] == 1:
                     if (self.datasenti[data._name][0] >= self.upper_A[data._name]):
-                        # ä¹°å…¥ èˆ†æƒ…çš„æƒé‡æ¯”è¾ƒé«˜
+                        # ÂòÈë ÓßÇéµÄÈ¨ÖØ±È½Ï¸ß
                         flag = abs(self.datasenti[data._name][0] - self.upper_A[data._name]) * 1000000
                     elif (self.datasenti[data._name][0] <= self.upper_B[data._name]):
-                        # ä¹°å…¥
+                        # ÂòÈë
                         flag = abs(self.datasenti[data._name][0] - self.upper_B[data._name]) * 1000000
                 elif self.decision_A[data._name] == -1:
                     if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
-                        # å¤§äºå‡çº¿
-                        # ä¹°å…¥
+                        # ´óÓÚ¾ùÏß
+                        # ÂòÈë
                         flag = (self.sma[data._name][0] - self.lma[data._name][0]) / self.lma[data._name][0]
                 # else:
-                #     print('çº¯å‡çº¿ä¸ä¹°ä¸å–')
-                #     å¤§æ¦‚æœ‰6å®¶å…¬å¸åªç”¨åˆ°äº†å‡çº¿
+                #     print('´¿¾ùÏß²»Âò²»Âô')
+                #     ´ó¸ÅÓĞ6¼Ò¹«Ë¾Ö»ÓÃµ½ÁË¾ùÏß
                 #
-                #     #æ­¤æ—¶decision_Aå’Œdecision_Béƒ½æ˜¯0ï¼Œé‡‡ç”¨å‡çº¿å†³ç­–
+                #     #´ËÊ±decision_AºÍdecision_B¶¼ÊÇ0£¬²ÉÓÃ¾ùÏß¾ö²ß
                 #     if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
-                #         # å¤§äºå‡çº¿
-                #         # ä¹°å…¥
+                #         # ´óÓÚ¾ùÏß
+                #         # ÂòÈë
                 #         self.log('BUY CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                 #         self.order[data._name] = self.buy(data=data)
                 #     if self.sell_flag[data._name]:
                 #         if self.broker.getposition(data):
                 #             if self.sma[data._name][-1]>self.lma[data._name][-1] and self.sma[data._name][0]<self.lma[data._name][0]:
-                #                 # å°äºå‡çº¿å–å–å–ï¼
+                #                 # Ğ¡ÓÚ¾ùÏßÂôÂôÂô£¡
                 #                 self.log('SELL CREATE, Stock: %s, Price: %.2f' % (data._name, self.dataclose[data._name][0]))
                 #                 self.order[data._name] = self.sell(data=data)
                 #                 self.own_days[data._name] = 0
                 #                 self.sell_flag[data._name] = False
 
-            # decision_Aä¸ç­‰äºdecision_B
+            # decision_A²»µÈÓÚdecision_B
             else:
                 if self.decision_A[data._name] == 1:
-                    # å¤§äºupper_Aä¹°å…¥
+                    # ´óÓÚupper_AÂòÈë
                     if self.datasenti[data._name][0] >= self.upper_A[data._name]:
                         flag = abs(self.datasenti[data._name][0] - self.upper_A[data._name]) * 1000000
                 elif self.decision_A[data._name] == -1:
@@ -171,7 +171,7 @@ class NewStrategy(bt.Strategy):
                             flag = abs(self.datasenti[data._name][0] - self.upper_B[data._name]) * 1000000
                     else:
                         if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
-                            # å¤§äºå‡çº¿ä¹°å…¥
+                            # ´óÓÚ¾ùÏßÂòÈë
                             flag = (self.sma[data._name][0] - self.lma[data._name][0]) / self.lma[data._name][0]
                 else:
                     if self.decision_B[data._name] == 1:
@@ -179,141 +179,141 @@ class NewStrategy(bt.Strategy):
                             flag = abs(self.datasenti[data._name][0] - self.upper_B[data._name]) * 1000000
                     else:
                         if self.sma[data._name][-1] < self.lma[data._name][-1] and self.sma[data._name][0] > self.lma[data._name][0]:
-                            # å¤§äºå‡çº¿ä¹°å…¥
+                            # ´óÓÚ¾ùÏßÂòÈë
                             flag = (self.sma[data._name][0] - self.lma[data._name][0]) / self.lma[data._name][0]
-            # flagè®¡ç®—å®Œæ¯•,æŠŠè‚¡ç¥¨å’Œflagåšæˆå­—å…¸ä¿å­˜åœ¨stocks
+            # flag¼ÆËãÍê±Ï,°Ñ¹ÉÆ±ºÍflag×ö³É×Öµä±£´æÔÚstocks
             # stocks[str(data._name)] = flag
             stocks[data] = flag
-        # å¯¹stocksè¿›è¡Œæ’åº
+        # ¶Ôstocks½øĞĞÅÅĞò
         stocks = dict(sorted(stocks.items(), key=lambda x: x[1], reverse=True))
 
-        # å‰”é™¤æ‰ä¸º0çš„ï¼Œå³æ²¡æœ‰ä¿¡å·çš„ã€‚
+        # ÌŞ³ıµôÎª0µÄ£¬¼´Ã»ÓĞĞÅºÅµÄ¡£
         stocks_no_zero = {}
         for key, value in stocks.items():
             if value != 0:
                 stocks_no_zero[key] = value
-        # # åˆ›å»ºæ’å
+        # # ´´½¨ÅÅÃû
         # ranks = {d: i for d, i in zip(stocks, range(1, len(stocks) + 1))}
         # ranks = sorted(ranks.items(), key=lambda x: x[1], reverse=False)
 
-        # åˆ›å»ºæ’å é0
+        # ´´½¨ÅÅÃû ·Ç0
         ranks = {d: i for d, i in zip(stocks_no_zero, range(1, len(stocks_no_zero) + 1))}
         ranks = sorted(ranks.items(), key=lambda x: x[1], reverse=False)
 
         if self.min_buy_num >= len(ranks):
             self.min_buy_num = len(ranks)
         if len(ranks) >= self.p.selnum:
-            # é€‰å–å‰ self.p.selnum åªè‚¡ç¥¨ä½œä¸ºæŒä»“è‚¡
+            # Ñ¡È¡Ç° self.p.selnum Ö»¹ÉÆ±×÷Îª³Ö²Ö¹É
             rtop = dict(ranks[:self.p.selnum])
-            # å‰©ä½™è‚¡ç¥¨å°†ä»æŒä»“ä¸­å‰”é™¤ï¼ˆå¦‚æœåœ¨æŒä»“é‡Œçš„è¯ï¼‰
+            # Ê£Óà¹ÉÆ±½«´Ó³Ö²ÖÖĞÌŞ³ı£¨Èç¹ûÔÚ³Ö²ÖÀïµÄ»°£©
             rbot = dict(ranks[self.p.selnum:])
         else:
-            print("ä»Šå¤©æ˜¯ï¼š", self.datetime.date(), 'ä¹°å…¥ä¿¡å·ä¸è¶³æŒæœ‰é‡')
+            print("½ñÌìÊÇ£º", self.datetime.date(), 'ÂòÈëĞÅºÅ²»×ã³ÖÓĞÁ¿')
             rtop = dict(ranks)
 
 
-        # æå–æœ‰ä»“ä½çš„è‚¡ç¥¨
+        # ÌáÈ¡ÓĞ²ÖÎ»µÄ¹ÉÆ±
         posdata = [d for d, pos in self.getpositions().items() if pos]
 
-        # åˆ é™¤ä¸åœ¨ç»§ç»­æŒæœ‰çš„è‚¡ç¥¨ï¼Œè¿›è€Œé‡Šæ”¾èµ„é‡‘ç”¨äºä¹°å…¥æ–°çš„è‚¡ç¥¨
+        # É¾³ı²»ÔÚ¼ÌĞø³ÖÓĞµÄ¹ÉÆ±£¬½ø¶øÊÍ·Å×Ê½ğÓÃÓÚÂòÈëĞÂµÄ¹ÉÆ±
         for d in (d for d in posdata if d not in rtop):
             self.log('Leave {}'.format(d._name))
             # self.log('Leave {} - Rank {:.2f}'.format(d._name, rbot[d]))
             self.order_target_percent(d, target=0.0)
 
-        # å¯¹ä¸‹ä¸€æœŸç»§ç»­æŒæœ‰çš„è‚¡ç¥¨ï¼Œè¿›è¡Œä»“ä½è°ƒæ•´
+        # ¶ÔÏÂÒ»ÆÚ¼ÌĞø³ÖÓĞµÄ¹ÉÆ±£¬½øĞĞ²ÖÎ»µ÷Õû
         for d in (d for d in posdata if d in rtop):
             self.log('Rebal {} - Rank {:.2f}'.format(d._name, rtop[d]))
             self.order_target_percent(d, target=self.perctarget)
             del rtop[d]
 
-        # ä¹°å…¥å½“å‰æŒä»“ä¸­æ²¡æœ‰çš„è‚¡ç¥¨
+        # ÂòÈëµ±Ç°³Ö²ÖÖĞÃ»ÓĞµÄ¹ÉÆ±
         for d in rtop:
             self.log('Enter {} - Rank {:.2f}'.format(d._name, rtop[d]))
             self.order_target_percent(d, target=self.perctarget)
     def stop(self):
-        print('æœ€å°è´­ä¹°é‡ï¼š', self.min_buy_num)
+        print('×îĞ¡¹ºÂòÁ¿£º', self.min_buy_num)
 def show_result_empyrical(returns, benchmark_returns):
     import empyrical
 
-    print('ç´¯è®¡æ”¶ç›Šï¼š', empyrical.cum_returns_final(returns))
-    print('æœ€å¤§å›æ’¤ï¼š', empyrical.max_drawdown(returns))
-    print('å¤æ™®æ¯”', empyrical.sharpe_ratio(returns))
+    print('ÀÛ¼ÆÊÕÒæ£º', empyrical.cum_returns_final(returns))
+    print('×î´ó»Ø³·£º', empyrical.max_drawdown(returns))
+    print('ÏÄÆÕ±È', empyrical.sharpe_ratio(returns))
     alpha, beta = empyrical.alpha_beta(np.array(returns), np.array(benchmark_returns))
     print('Alpha', alpha)
-    print('å¡ç›æ¯”', empyrical.calmar_ratio(returns))
+    print('¿¨Âê±È', empyrical.calmar_ratio(returns))
     print('omega', empyrical.omega_ratio(returns))
 
 if __name__ == '__main__':
     '''
-        1.è®¾ç½®è·¯å¾„trade_pathã€feature_path
-        4.è®¾ç½®å¼€å§‹æ—¶é—´ start_date = datetime(2022, 1, 3)  # å›æµ‹å¼€å§‹æ—¶é—´
+        1.ÉèÖÃÂ·¾¶trade_path¡¢feature_path
+        4.ÉèÖÃ¿ªÊ¼Ê±¼ä start_date = datetime(2022, 1, 3)  # »Ø²â¿ªÊ¼Ê±¼ä
     '''
-    # è¯»å–å†³ç­–è¡¨
+    # ¶ÁÈ¡¾ö²ß±í
     decision = pd.read_csv('data/HS300_55/decision/decision_30_30_55_18-20.csv')
     all_company_name = decision.loc[:, 'company_name']
 
-    # å‚æ•°è®¾ç½®
+    # ²ÎÊıÉèÖÃ
     cash_total = 1000000.0
     plot = 1
     s_maperiod = 15
     l_maperiod = 60
-    # æŒæœ‰è‚¡ç¥¨æ•°é‡
-    top = 6
+    # ³ÖÓĞ¹ÉÆ±ÊıÁ¿
+    top = 8
     reserve = 0.01
 
-    # åˆå§‹åŒ–
+    # ³õÊ¼»¯
     cerebro = bt.Cerebro()
-    # åŠ ä¸€ä¸ªç­–ç•¥
+    # ¼ÓÒ»¸ö²ßÂÔ
     cerebro.addstrategy(NewStrategy, s_maperiod=s_maperiod, l_maperiod=l_maperiod, selnum=top, reserve=reserve)
-    # ä½£é‡‘
+    # Ó¶½ğ
     cerebro.broker.setcommission(commission=0.003)
-    # å›æµ‹æ—¶é—´
+    # »Ø²âÊ±¼ä
     start_date = datetime(2020, 10, 10)
     end_date = datetime(2021, 12, 31)
 
-    # å¾ªç¯å¯¼å…¥æ•°æ®
+    # Ñ­»·µ¼ÈëÊı¾İ
     for index in decision.index:
-        # è¯»å–å…¬å¸åå­—æ–¹ä¾¿åŒ¹é…æ–‡ä»¶å
+        # ¶ÁÈ¡¹«Ë¾Ãû×Ö·½±ãÆ¥ÅäÎÄ¼şÃû
         company_name = decision.loc[index, 'company_name']
-        # if (company_name == 'éš†åŸºè‚¡ä»½') or (company_name == 'è‹å®æ˜“è´­') or (company_name == 'é’å²›æµ·å°”') or (company_name == 'ä¸œæ–¹è´¢å¯Œ'):
+        # if (company_name == 'Â¡»ù¹É·İ') or (company_name == 'ËÕÄşÒ×¹º') or (company_name == 'Çàµºº£¶û') or (company_name == '¶«·½²Æ¸»'):
         #     company_profit.append(-1)
         #     benchmark_profit.append(0)
         #     continue
 
         trade_path = 'data/HS300_55/tradeData_55/'  # + index + '_' + company_name + '_trade_20-22.csv'
         file = os.listdir(trade_path)
-        # æ¨¡ç³ŠåŒ¹é…æ–‡ä»¶åâ†’æ‰¾åˆ°tradedataè·¯å¾„
+        # Ä£ºıÆ¥ÅäÎÄ¼şÃû¡úÕÒµ½tradedataÂ·¾¶
         for f in file:
             if company_name in f:
                 trade_path = trade_path + f
         # featuredata
         feature_path = 'data/HS300_55/feature/30_30_55/' + company_name + '_feature_30.csv'
 
-        # åŒ¹é…dataframeæ ¼å¼ä¸ºå›æµ‹æ¡†æ¶è¦æ±‚æ ¼å¼
+        # Æ¥Åädataframe¸ñÊ½Îª»Ø²â¿ò¼ÜÒªÇó¸ñÊ½
         df = data_reshape(trade_path, feature_path)
-        # æŠŠtikerçš„æ•°æ®å¯¼å‡ºæ¥åšåå­—ã€‚
+        # °ÑtikerµÄÊı¾İµ¼³öÀ´×öÃû×Ö¡£
         ticker = str(df.iloc[0, 7])
         df = df.iloc[:, :7]
-        # è¯»å–decisionçš„å„æŒ‡æ ‡ å¯¼å…¥ç­–ç•¥
+        # ¶ÁÈ¡decisionµÄ¸÷Ö¸±ê µ¼Èë²ßÂÔ
         upper_A, decision_A, upper_B, decision_B = decision.loc[index,
                                                                 ['upper_A', 'decision_A', 'upper_B', 'decision_B']]
         df.insert(7, 'upper_A', upper_A)
         df.insert(8, 'decision_A', decision_A)
         df.insert(9, 'upper_B', upper_B)
         df.insert(10, 'decision_B', decision_B)
-        data = PandasDataPlus(dataname=df, fromdate=start_date, todate=end_date, plot=False)  # åŠ è½½æ•°æ®
-        cerebro.adddata(data, name=ticker)  # å°†æ•°æ®ä¼ å…¥å›æµ‹ç³»ç»Ÿ
+        data = PandasDataPlus(dataname=df, fromdate=start_date, todate=end_date, plot=False)  # ¼ÓÔØÊı¾İ
+        cerebro.adddata(data, name=ticker)  # ½«Êı¾İ´«Èë»Ø²âÏµÍ³
         print(ticker)
         print('Add Data Completed')
         print('---------------------')
 
-    # è®¾ç½®æœ¬é‡‘
+    # ÉèÖÃ±¾½ğ
     cerebro.broker.setcash(cash_total)
-    print('æœ¬é‡‘: %.2f' % cerebro.broker.getvalue())
-    print('Loadingâ€¦â€¦')
+    print('±¾½ğ: %.2f' % cerebro.broker.getvalue())
+    print('Loading¡­¡­')
 
-    # é£é™©æŒ‡æ ‡
+    # ·çÏÕÖ¸±ê
     cerebro.addanalyzer(bt.analyzers.PyFolio, _name='pyfolio')
     results = cerebro.run()
     strats = results[0]
@@ -326,25 +326,25 @@ if __name__ == '__main__':
     returns = returns.iloc[58:]
     show_result_empyrical(returns, benchmark_returns)
 
-    print('æœ€ç»ˆæŒæœ‰: %.2f' % (cerebro.broker.getvalue()))
-    print('æ²ªæ·±300ï¼Œ2021å¹´æ”¶ç›Šç‡: -5.2%')
+    print('×îÖÕ³ÖÓĞ: %.2f' % (cerebro.broker.getvalue()))
+    print('»¦Éî300£¬2021ÄêÊÕÒæÂÊ: -5.2%')
 
-    # ç´¯è®¡æ”¶ç›Š
-    # æœ€å¤§å›æ’¤
-    # å¤æ™®æ¯”ç‡ï¼šè¡¨ç¤ºæ‰¿å—æ¯å•ä½æ€»é£é™©èƒ½å¤Ÿè·å¾—çš„è¶…é¢æŠ¥é…¬ï¼Œè¯¥æ¯”ç‡è¶Šé«˜ï¼Œè¯æ˜ é£é™©å›æŠ¥è¶Šå¤§ï¼Œè¯¥æŠ•èµ„ç»„åˆæ•ˆæœè¶Šå¥½ã€‚
+    # ÀÛ¼ÆÊÕÒæ
+    # ×î´ó»Ø³·
+    # ÏÄÆÕ±ÈÂÊ£º±íÊ¾³ĞÊÜÃ¿µ¥Î»×Ü·çÏÕÄÜ¹»»ñµÃµÄ³¬¶î±¨³ê£¬¸Ã±ÈÂÊÔ½¸ß£¬Ö¤Ã÷ ·çÏÕ»Ø±¨Ô½´ó£¬¸ÃÍ¶×Ê×éºÏĞ§¹ûÔ½ºÃ¡£
 
-    # Alphaè¡¡é‡äº†è‚¡ç¥¨æˆ–ç»„åˆç›¸å¯¹äºå¸‚åœºçš„è¶…é¢æ”¶ç›Šï¼Œå¯ä»¥è·å¾—çš„ä¸å¸‚åœºæ³¢åŠ¨éƒ¨åˆ†æ— å…³çš„å›æŠ¥ã€‚
-    # è‹¥alpha=0ï¼Œåˆ™è¯´æ˜æŠ•èµ„ç»„åˆè¡¨ç°ä¸å¤§ç›˜åŸºæœ¬ä¸€è‡´ï¼›
-    # è‹¥alpha<0ï¼Œåˆ™è¯´æ˜æŠ•èµ„ç»„ åˆç›¸æ¯”å¤§ç›˜æ”¶ç›Šè¦å·®ï¼ŒæŠ•èµ„ç»„åˆç›¸å¯¹äºé£é™©éš¾ä»¥è·å¾—æ”¶ç›Šï¼›
-    # è‹¥alpha>0ï¼Œåˆ™è¯´æ˜è‚¡ç¥¨æˆ– ç»„åˆè¡¨ç°ä¼˜äºå¤§ç›˜ï¼ŒæŠ•èµ„ç»„åˆå¯ä»¥ä»ä¸­è·å–ä¸€å®šçš„è¶…é¢æ”¶ç›Šã€‚alpha=1%ç›¸å½“äºé«˜äºåŒæœŸ å¸‚åœºæ”¶ç›Š1%ã€‚
+    # AlphaºâÁ¿ÁË¹ÉÆ±»ò×éºÏÏà¶ÔÓÚÊĞ³¡µÄ³¬¶îÊÕÒæ£¬¿ÉÒÔ»ñµÃµÄÓëÊĞ³¡²¨¶¯²¿·ÖÎŞ¹ØµÄ»Ø±¨¡£
+    # Èôalpha=0£¬ÔòËµÃ÷Í¶×Ê×éºÏ±íÏÖÓë´óÅÌ»ù±¾Ò»ÖÂ£»
+    # Èôalpha<0£¬ÔòËµÃ÷Í¶×Ê×é ºÏÏà±È´óÅÌÊÕÒæÒª²î£¬Í¶×Ê×éºÏÏà¶ÔÓÚ·çÏÕÄÑÒÔ»ñµÃÊÕÒæ£»
+    # Èôalpha>0£¬ÔòËµÃ÷¹ÉÆ±»ò ×éºÏ±íÏÖÓÅÓÚ´óÅÌ£¬Í¶×Ê×éºÏ¿ÉÒÔ´ÓÖĞ»ñÈ¡Ò»¶¨µÄ³¬¶îÊÕÒæ¡£alpha=1%Ïàµ±ÓÚ¸ßÓÚÍ¬ÆÚ ÊĞ³¡ÊÕÒæ1%¡£
 
-    # å¡ç›æ¯”ç‡è¡¨ç¤ºæŠ•èµ„ç»„åˆæ”¶ç›Šç‡ä¸æœ€å¤§å›æ’¤çš„æ¯”ç‡ï¼Œä¹Ÿå¯ç§°ä¸ºå•ä½å›æ’¤æ”¶ç›Šç‡ï¼Œ
-    # å¯ä»¥è¡¡é‡æŠ•èµ„ç»„åˆçš„æ”¶ç›Šé£é™©æ¯”ï¼Œä¸€èˆ¬è¯¥æ•°å€¼è¶Šå¤§ï¼ŒæŠ•èµ„ç»„åˆè¡¨ç°è¶Šå¥½
+    # ¿¨Âê±ÈÂÊ±íÊ¾Í¶×Ê×éºÏÊÕÒæÂÊÓë×î´ó»Ø³·µÄ±ÈÂÊ£¬Ò²¿É³ÆÎªµ¥Î»»Ø³·ÊÕÒæÂÊ£¬
+    # ¿ÉÒÔºâÁ¿Í¶×Ê×éºÏµÄÊÕÒæ·çÏÕ±È£¬Ò»°ã¸ÃÊıÖµÔ½´ó£¬Í¶×Ê×éºÏ±íÏÖÔ½ºÃ
 
     if plot == 1:
         # matplotlib.use('QT5Agg')
-        plt.rcParams['font.sans-serif'] = ['SimHei']  # æ˜¾ç¤ºä¸­æ–‡æ ‡ç­¾
-        plt.rcParams['axes.unicode_minus'] = False  # è¿™ä¸¤è¡Œéœ€è¦æ‰‹åŠ¨è®¾ç½®
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # ÏÔÊ¾ÖĞÎÄ±êÇ©
+        plt.rcParams['axes.unicode_minus'] = False  # ÕâÁ½ĞĞĞèÒªÊÖ¶¯ÉèÖÃ
         cerebro.plot(
             #  Format string for the display of ticks on the x axis
             fmt_x_ticks='%Y-%m-%d',
