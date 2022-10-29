@@ -9,6 +9,7 @@ from fontTools.varLib.mutator import percents
 import glob
 import os
 import pyfolio as pf
+import quantstats
 
 def data_reshape(trade_path, feature_path):
     '''
@@ -326,6 +327,11 @@ if __name__ == '__main__':
     returns = returns.iloc[58:]
     show_result_empyrical(returns, benchmark_returns)
 
+    returns.index = returns.index.tz_convert(None)
+    benchmark_returns.index = pd.to_datetime(benchmark_returns.index)
+    benchmark_returns.index = benchmark_returns.index.tz_convert(None)
+
+    quantstats.reports.html(returns, benchmark=benchmark_returns, output='stats.html', title='Sentiment')
     print('最终持有: %.2f' % (cerebro.broker.getvalue()))
     print('沪深300，2021年收益率: -5.2%')
 

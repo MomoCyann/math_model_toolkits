@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 from fontTools.varLib.mutator import percents
 import glob
 import os
+import quantstats
 
 def data_reshape(trade_path, feature_path):
     '''
@@ -82,7 +83,7 @@ class PercentSizerPlus(bt.sizers.PercentSizer):
 class MAStrategy(bt.Strategy):
     params = (
         # 参数这里不用管，可以在主函数进行设置
-        ('s_maperiod', 5),
+        ('s_maperiod', 15),
         ('l_maperiod', 60),
         ('stop_days', 5),
     )
@@ -199,6 +200,17 @@ class MAStrategy(bt.Strategy):
         # self.mystats.to_csv('benchmark.csv')
         return
 
+def show_result_empyrical(returns, benchmark_returns):
+    import empyrical
+
+    print('累计收益：', empyrical.cum_returns_final(returns))
+    print('最大回撤：', empyrical.max_drawdown(returns))
+    print('夏普比', empyrical.sharpe_ratio(returns))
+    alpha, beta = empyrical.alpha_beta(np.array(returns), np.array(benchmark_returns))
+    print('Alpha', alpha)
+    print('卡玛比', empyrical.calmar_ratio(returns))
+    print('omega', empyrical.omega_ratio(returns))
+
 if __name__ == '__main__':
     '''
             1.设置路径trade_path、feature_path
@@ -276,15 +288,27 @@ if __name__ == '__main__':
     cerebro.broker.setcash(cash_total)
     print('本金: %.2f' % cerebro.broker.getvalue())
     print('Loading……')
-    cerebro.run()
-    print('最终持有: %.2f' % (cerebro.broker.getvalue()))
-    # benchmarks = pd.read_csv('benchmark.csv')
-    # benchmarking = benchmarks.loc[0, 'benchmark']
+
+    # 风险指标
+    cerebro.addanalyzer(bt.analyzers.PyFolio, _name='pyfolio')
+    results = cerebro.run()
+    strats = results[0]
+    pyfoliozer = strats.analyzers.getbyname('pyfolio')
+    returns, positions, transactions, gross_lev = pyfoliozer.get_pf_items()
+    # load benchmark
+    benchmark = pd.read_csv('hs300_returns_shift.csv', header=0, index_col=0)
+    benchmark.columns = ['0']
+    benchmark_returns = benchmark.iloc[:, 0]
+    returns = returns.iloc[58:]
+    show_result_empyrical(returns, benchmark_returns)
+
+    returns.index = returns.index.tz_convert(None)
+    benchmark_returns.index = pd.to_datetime(benchmark_returns.index)
+    benchmark_returns.index = benchmark_returns.index.tz_convert(None)
+
+    quantstats.reports.html(returns, benchmark=benchmark_returns, output='stats.html', title='MA_15_60')
     print('沪深300，2021年收益率: -5.2%')
-    # benchmark_profit.append(benchmarking)
-    # 计入收益
-    company_profit.append(cerebro.broker.getvalue() / cash_total)  #
-    print('策略收益率: %.4f' % (((cerebro.broker.getvalue() / cash_total) - 1)*100),"%")
+
 
     if plot == 1:
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 显示中文标签
@@ -294,5 +318,6 @@ if __name__ == '__main__':
             fmt_x_ticks='%Y-%m-%d',
 
             # Format string for the display of data points values
-            fmt_x_data='%Y-%m-%d'
+            fmt_x_data='%Y-%m-%d',
+            iplot = False
         )
