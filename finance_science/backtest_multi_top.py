@@ -325,6 +325,8 @@ if __name__ == '__main__':
     benchmark.columns = ['0']
     benchmark_returns = benchmark.iloc[:, 0]
     returns = returns.iloc[58:]
+    # 储存return序列
+    returns.to_csv('Senti_returns.csv')
     show_result_empyrical(returns, benchmark_returns)
 
     returns.index = returns.index.tz_convert(None)
