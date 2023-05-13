@@ -1,14 +1,442 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49270493-82aa-4dda-9b67-c72b5202a6e8" name="Default Changelist" comment="8/1 BERT">
-      <change afterPath="$PROJECT_DIR$/finance_science/BERT/embedding_title_label.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/BERT/iri.xls" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/NN_classifier.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/finance_science/wordvec.py" afterDir="false" />
+    <list default="true" id="49270493-82aa-4dda-9b67-c72b5202a6e8" name="Default Changelist" comment="10/30 draw">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/decision/decision_30_30_55_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/万华化学_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/上汽集团_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/东方财富_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/东方雨虹_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中信建投_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中信证券_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中信银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中兴通讯_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中国人寿_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中国太保_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中国平安_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中国电建_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中国联通_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中国银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/中远海控_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/五粮液_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/交通银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/亿纬锂能_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/伊利股份_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/光大银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/兴业银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/农业银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/华友钴业_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/国泰君安_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/复星医药_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/天齐锂业_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/工商银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/平安银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/广汽集团_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/建设银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/恒瑞医药_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/招商银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/格力电器_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/歌尔股份_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/比亚迪_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/民生银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/泸州老窖_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/浦发银行_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/牧原股份_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/申万宏源_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/科大讯飞_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/立讯精密_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/紫金矿业_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/美的集团_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/苏宁易购_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/药明康德_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/贵州茅台_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/赣锋锂业_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/通威股份_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/长城汽车_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/长安汽车_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/阳光电源_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/隆基股份_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/青岛海尔_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/feature/30_30_55/顺丰控股_feature_30.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/0_比亚迪_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/10_建设银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/11_兴业银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/12_中国人寿_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/13_五粮液_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/14_农业银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/16_格力电器_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/17_隆基股份_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/18_赣锋锂业_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/19_中国联通_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/20_中兴通讯_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/21_长安汽车_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/22_平安银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/23_牧原股份_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/24_苏宁易购_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/27_民生银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/28_上汽集团_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/29_广汽集团_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/2_贵州茅台_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/30_美的集团_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/31_恒瑞医药_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/32_交通银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/33_科大讯飞_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/34_中信银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/35_天齐锂业_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/36_东方财富_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/37_复星医药_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/38_立讯精密_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/39_泸州老窖_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/3_中信建投_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/40_亿纬锂能_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/41_药明康德_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/42_申万宏源_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/43_中国银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/44_顺丰控股_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/45_中远海控_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/46_紫金矿业_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/48_歌尔股份_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/49_浦发银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/4_工商银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/50_光大银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/51_通威股份_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/52_伊利股份_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/53_青岛海尔_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/54_中国太保_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/55_阳光电源_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/56_万华化学_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/57_中国电建_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/58_东方雨虹_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/59_华友钴业_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/5_招商银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/6_中国平安_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/7_长城汽车_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/8_国泰君安_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/9_中信证券_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/11_兴业银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/15_中芯国际_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/1_宁德时代_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/23_牧原股份_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/25_天风证券_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/26_邮储银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/47_中泰证券_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/50_光大银行_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/54_中国太保_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/6_中国平安_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/HS300_55/tradeData_55/backup/9_中信证券_trade_18-20.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/三一重工1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/东方财富1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/中国国航1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/中国巨石1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/中青旅1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/京东方A1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/伊利股份1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/优矿账号.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/传智教育1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/保利发展1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/华新水泥1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/国基精工1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/宁德时代1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/平安银行1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/恒瑞医药1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/杭州银行1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/片仔癀1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/用友网络1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/data/data/福耀玻璃1-12.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/plotResult.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/predict.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/finance_science/词云.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math_model_precode/fig_preview/整型变量直方图.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math_model_precode/fig_preview/整型变量直方图.tiff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math_model_precode/fig_preview/浮点变量直方图.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math_model_precode/fig_preview/浮点变量直方图.tiff" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/classifier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/finance_science/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/RoBERTa_wwm_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/t1440.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/t1440.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/temparature.m" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/temparature.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/ton.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/ton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬夏季一日代表性室内温度变化.png" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬夏季一日代表性室内温度变化.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬夏季一日代表性室内温度变化.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬夏季一日代表性室内温度变化.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬季一直开启电源模式下水温变化.png" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬季一直开启电源模式下水温变化.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬季一直开启电源模式下水温变化.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬季一直开启电源模式下水温变化.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬季二人洗澡最优设定温度下EWH水温变化.png" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬季二人洗澡最优设定温度下EWH水温变化.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬季二人洗澡最优设定温度下EWH水温变化.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬季二人洗澡最优设定温度下EWH水温变化.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬季最优设定温度下EWH水温变化.png" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬季最优设定温度下EWH水温变化.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/冬季最优设定温度下EWH水温变化.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/冬季最优设定温度下EWH水温变化.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/夏季一直开启电源模式下水温变化.png" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/夏季一直开启电源模式下水温变化.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/夏季一直开启电源模式下水温变化.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/夏季一直开启电源模式下水温变化.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/夏季最优设定温度下EWH水温变化.png" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/夏季最优设定温度下EWH水温变化.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_1/夏季最优设定温度下EWH水温变化.tiff" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_1/夏季最优设定温度下EWH水温变化.tiff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_4/shitcode.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_4/shitcode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_4/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_4/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/Entropy_Method.m" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/Entropy_Method.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/Positivization.m" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/Positivization.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/3sigma.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/3sigma.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/edu.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/edu.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/edu_gr_alltype.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/edu_gr_alltype.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/edu_gr_dif.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/edu_gr_dif.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/edu_value.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/edu_value.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/edu_year.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/edu_year.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/evaluate_14features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/evaluate_14features.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/evaluate_14features_minmax.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/evaluate_14features_minmax.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/evaluate_features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/evaluate_features.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/evaluate_features_minmax.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/evaluate_features_minmax.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/grey59.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/grey59.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/mic59.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/mic59.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/more_features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/more_features.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/more_features_minmax.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/more_features_minmax.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/more_features_washed.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/more_features_washed.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/outliersResult.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/outliersResult.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/price_fixed_GR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/price_fixed_GR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/price_m2m_GR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/price_m2m_GR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/15.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/15.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/17.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/17.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/18.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/18.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/19.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/19.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/20.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/20.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/problem2_7year/21.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/problem2_7year/21.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/data/流通领域重要生产资料价格.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/data/流通领域重要生产资料价格.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/edu_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/edu_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/evaluate_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/evaluate_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/mylog.m" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/mylog.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/preprocess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_5/topsis.m" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_5/topsis.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/shit.docx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/shit.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/shit.m" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/shit.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/shit_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/shit_data.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/shit_model.docx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/shit_model.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/untitled.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/untitled.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/wKh2D2CXc5OALa4-AAtyUnniqAs785.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/wKh2D2CXc5OALa4-AAtyUnniqAs785.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/附件1 data集.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/附件1 data集.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Summer_mathmodel_training_shitbro/training1_6/附件2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_summer_train_shit/training1_6/附件2.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/整型变量直方图.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/整型变量直方图.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/浮点变量直方图.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fig_preview/浮点变量直方图.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/G了的/pca_4_main.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/G了的/pca_4_main.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/G了的/problem4.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/G了的/problem4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/G了的/regression_no_val.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/G了的/regression_no_val.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/G了的/regression_normal_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/G了的/regression_normal_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/数据集/整理数据/14-化学性质-orig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/数据集/整理数据/14-化学性质-orig.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/数据集/整理数据/all_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/数据集/整理数据/all_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/数据集/整理数据/all_data1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/数据集/整理数据/all_data1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/数据集/整理数据/all_data_ym.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/数据集/整理数据/all_data_ym.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/数据集/整理数据/all_data_ym_2023_change.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/数据集/整理数据/all_data_ym_2023_change.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/数据集/整理数据/data_12_20.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/数据集/整理数据/data_12_20.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第三问/3.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第三问/3.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第三问/ARIMA预测.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第三问/ARIMA预测.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第三问/化学性质ARIMA预测.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第三问/化学性质ARIMA预测.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第三问/化学性质数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第三问/化学性质数据.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第三问/画图.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第三问/画图.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/10cm湿度LSTM预测数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/10cm湿度LSTM预测数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/10cm湿度画图数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/10cm湿度画图数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/2_10cm湿度预测.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/2_10cm湿度预测.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/2_shidu展示.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/2_shidu展示.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/2_湿度预测40_100_200.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/2_湿度预测40_100_200.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/2_降水蒸发NDVI预测.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/2_降水蒸发NDVI预测.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/40cm100cm200cm湿度SARIMA预测结果.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/40cm100cm200cm湿度SARIMA预测结果.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/LSTM不同步长结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/LSTM不同步长结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/LSTM模型参数/LSTM/keras_metadata.pb" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/LSTM模型参数/LSTM/keras_metadata.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/LSTM模型参数/LSTM/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/LSTM模型参数/LSTM/saved_model.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/LSTM模型参数/LSTM/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/LSTM模型参数/LSTM/variables/variables.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/LSTM模型参数/LSTM/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/LSTM模型参数/LSTM/variables/variables.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/LSTM预测.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/LSTM预测.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/SARIMA回归预测.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/SARIMA回归预测.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/低层植被(LAIL,m2m2)SARIMA误差.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/低层植被(LAIL,m2m2)SARIMA误差.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/低层植被(LAIL,m2m2)SARIMA预测结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/低层植被(LAIL,m2m2)SARIMA预测结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/土壤蒸发量(mm)SARIMA误差.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/土壤蒸发量(mm)SARIMA误差.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/土壤蒸发量(mm)SARIMA预测结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/土壤蒸发量(mm)SARIMA预测结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/所有特征整合数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/所有特征整合数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/数据整理.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/数据整理.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/植被指数(NDVI)SARIMA误差.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/植被指数(NDVI)SARIMA误差.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/植被指数(NDVI)SARIMA预测结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/植被指数(NDVI)SARIMA预测结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/降水量(mm)SARIMA误差.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/降水量(mm)SARIMA误差.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/降水量(mm)SARIMA预测结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/降水量(mm)SARIMA预测结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第二问/预测结果画图.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第二问/预测结果画图.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第五问/各降雨量下所需数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第五问/各降雨量下所需数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第五问/计算放牧强度最大阈值.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第五问/计算放牧强度最大阈值.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/化学性质原数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/化学性质原数据.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/化学性质预测.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/化学性质预测.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/土壤肥力画图.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/土壤肥力画图.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/当前策略cp.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/当前策略cp.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/当前策略化学性质.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/当前策略化学性质.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/当前策略湿度.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/当前策略湿度.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/湿度预测画图.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/湿度预测画图.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/轻度10cm湿度预测.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/轻度10cm湿度预测.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/轻度放牧化学性质.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/轻度放牧化学性质.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第六问/轻度放牧湿度预测.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第六问/轻度放牧湿度预测.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/人文因素数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/人文因素数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/土壤健康指数.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/土壤健康指数.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/土壤健康指数结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/土壤健康指数结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/土壤板结化指数.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/土壤板结化指数.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/土壤板结化指数所需数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/土壤板结化指数所需数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/地表因素数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/地表因素数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/指定时间范围内年均数据(未归一化).csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/指定时间范围内年均数据(未归一化).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/指数计算及其画图.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/指数计算及其画图.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/最佳放牧强度计算.py" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/最佳放牧强度计算.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/气象因素数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/气象因素数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/沙漠化指数.tif" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/沙漠化指数.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/沙漠化指数所需数据.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/沙漠化指数所需数据.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_battle/第四问/沙漠化指数结果.csv" beforeDir="false" afterPath="$PROJECT_DIR$/math_model_final_battle/第四问/沙漠化指数结果.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/(invalid)have_a_try.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/(invalid)have_a_try_lstm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/(invalid)predict.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/benchmark.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/万科7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/三一重工7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/三峡能源7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/上海机场7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/东方财富7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/中信证券7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/中公教育7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/中国国航7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/中国巨石7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/中芯国际7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/中青旅7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/五粮液7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/京东方7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/伊利股份7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/传智教育7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/佳发教育7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/保利发展7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/华新水泥7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/南京银行7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/同花顺7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/国基精工7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/大参林7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/天津港7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/宁德时代7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/宏发股份7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/平安银行7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/恒瑞医药7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/招商蛇口7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/晨光文具7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/杭州银行7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/格力电器7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/比亚迪7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/永兴材料7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/浙江龙盛7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/海大集团7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/海天味业7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/海康威视7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/爱尔眼科7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/片仔癀7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/用友网络7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/福耀玻璃7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/科大讯飞7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/美的集团7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/迈克生物7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/重庆啤酒7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/金风科技7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/长城军工7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/长江电力7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/阳光电源7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/clear_data/顺丰控股7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/万科A1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/三一重工1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/三峡能源1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/上海机场1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/东方财富1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/中信证券1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/中公教育1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/中国国航1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/中国巨石1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/中芯国际1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/中青旅1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/五粮液1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/京东方A1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/伊利股份1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/传智教育1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/佳发教育1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/保利发展1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/华新水泥1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/南京银行1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/同花顺1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/国基精工1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/大参林1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/天津港1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/宁德时代1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/宏发股份1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/平安银行1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/恒瑞医药1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/招商蛇口1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/晨光文具1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/杭州银行1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/格力电器1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/比亚迪1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/永兴材料1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/浙江龙盛1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/海大集团1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/海天味业1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/海康威视1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/爱尔眼科1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/片仔癀1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/用友网络1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/福耀玻璃1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/科大讯飞1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/美的集团1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/迈克生物1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/重庆啤酒1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/金风科技1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/长城军工1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/original_data/长江电力1-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/万科7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/三一重工7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/三峡能源7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/上海机场7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/东方财富7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/中信证券7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/中公教育7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/中国国航7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/中国巨石7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/中芯国际7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/中青旅7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/五粮液7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/京东方7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/伊利股份7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/传智教育7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/佳发教育7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/保利发展7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/华新水泥7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/南京银行7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/同花顺7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/国基精工7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/大参林7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/天津港7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/宁德时代7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/宏发股份7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/平安银行7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/恒瑞医药7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/招商蛇口7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/晨光文具7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/杭州银行7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/格力电器7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/比亚迪7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/永兴材料7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/浙江龙盛7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/海大集团7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/海天味业7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/海康威视7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/爱尔眼科7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/片仔癀7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/用友网络7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/福耀玻璃7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/科大讯飞7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/美的集团7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/迈克生物7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/重庆啤酒7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/金风科技7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/长城军工7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/长江电力7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/阳光电源7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/data/split_data/顺丰控股7-12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/draw_returns.py" beforeDir="false" afterPath="$PROJECT_DIR$/finance_science/draw_returns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/hs300_returns.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/hs300_returns_shift.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/finance_science/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +454,17 @@
         <option value="Jupyter Notebook" />
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -47,26 +486,84 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Project.color&quot;: &quot;0d1a26&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\math_model_toolkits\finance_science" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\math_model_toolkits\finance_science" />
       <recent name="D:\RX-105\math_model_toolkits\finance_science" />
       <recent name="D:\RX-105\math_model_toolkits\finance_science\BERT" />
-      <recent name="E:\math_model_toolkits\finance_science" />
       <recent name="E:\math_model_toolkits\finance_science\BERT" />
       <recent name="E:\math_model_toolkits\finance_science\BERT\RoBERTa-wwm-ext" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.NN_classifier (1)">
-    <configuration name="NN_classifier (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
+  <component name="RunManager" selected="Python.draw_returns">
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="backtest_multi_ma_不可加仓 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Contests" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -78,7 +575,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/NN_classifier.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/backtest_multi_ma_不可加仓.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -87,8 +584,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="NN_classifier" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
+    <configuration name="backtest_multi_random_可加仓" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Contests" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -100,7 +597,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:\RX-105\math_model_toolkits\finance_science\NN_classifier.py" />
+      <option name="SCRIPT_NAME" value="E:\math_model_toolkits\finance_science\backtest_multi_random_可加仓.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -109,30 +606,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="RoBERTa_wwm_ext (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/finance_science/BERT" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/BERT/RoBERTa_wwm_ext.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="RoBERTa_wwm_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
+    <configuration name="backtest_multi_top" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Contests" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -144,7 +619,51 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:\RX-105\math_model_toolkits\finance_science\RoBERTa_wwm_model.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/backtest_multi_top.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="backtest_multi_top10" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/finance_science" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/backtest_multi_top10.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="draw_returns" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/finance_science" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/draw_returns.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,7 +673,7 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
+      <module name="Contests" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -175,8 +694,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="wordvec" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="math_model_toolkits" />
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Contests" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -188,7 +707,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/wordvec.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/finance_science/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -197,13 +716,106 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Sphinx task">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Autodetect">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="Contests" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.NN_classifier (1)" />
-        <item itemvalue="Python.wordvec" />
-        <item itemvalue="Python.NN_classifier" />
-        <item itemvalue="Python.RoBERTa_wwm_model" />
-        <item itemvalue="Python.RoBERTa_wwm_ext (1)" />
+        <item itemvalue="Python.draw_returns" />
+        <item itemvalue="Python.backtest_multi_top" />
+        <item itemvalue="Python.backtest_multi_ma_不可加仓 (1)" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.backtest_multi_top10" />
       </list>
     </recent_temporary>
   </component>
@@ -223,6 +835,17 @@
       <workItem from="1658636805900" duration="14282000" />
       <workItem from="1659167820528" duration="1616000" />
       <workItem from="1659399129347" duration="8936000" />
+      <workItem from="1666749175632" duration="9357000" />
+      <workItem from="1666766471682" duration="16684000" />
+      <workItem from="1666871736467" duration="7215000" />
+      <workItem from="1666918144921" duration="26000" />
+      <workItem from="1667133879558" duration="9294000" />
+      <workItem from="1667153243876" duration="480000" />
+      <workItem from="1667186856110" duration="138000" />
+      <workItem from="1683984602711" duration="1389000" />
+      <workItem from="1683986709848" duration="2095000" />
+      <workItem from="1683988943190" duration="172000" />
+      <workItem from="1683989125762" duration="100000" />
     </task>
     <task id="LOCAL-00001" summary="7.16">
       <created>1657961783015</created>
@@ -343,7 +966,35 @@
       <option name="project" value="LOCAL" />
       <updated>1659347012636</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="10/26 wating">
+      <created>1666759782263</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1666759782263</updated>
+    </task>
+    <task id="LOCAL-00019" summary="10/26 wating">
+      <created>1666801109456</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1666801109456</updated>
+    </task>
+    <task id="LOCAL-00020" summary="10/27 待做动态">
+      <created>1666880538673</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1666880538673</updated>
+    </task>
+    <task id="LOCAL-00021" summary="10/30 draw">
+      <created>1667153302307</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1667153302307</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,7 +1033,10 @@
     <MESSAGE value="合并所有公司数据，splitWord为分词版本" />
     <MESSAGE value="7/31 splitword and bert test" />
     <MESSAGE value="8/1 BERT" />
-    <option name="LAST_COMMIT_MESSAGE" value="8/1 BERT" />
+    <MESSAGE value="10/26 wating" />
+    <MESSAGE value="10/27 待做动态" />
+    <MESSAGE value="10/30 draw" />
+    <option name="LAST_COMMIT_MESSAGE" value="10/30 draw" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -402,7 +1056,24 @@
           <line>8</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/finance_science/draw_returns.py</url>
+          <line>64</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/finance_science/draw_returns.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -414,19 +1085,45 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/math_model_toolkits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658660198411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MathModel$123.coverage" NAME="123 Coverage Results" MODIFIED="1658040854897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/math_model_toolkits$test.coverage" NAME="test Coverage Results" MODIFIED="1659324401901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659251821193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/math_model_toolkits$classifier.coverage" NAME="classifier Coverage Results" MODIFIED="1659402212910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/math_model_tookits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658636360470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/math_model_tookits$hellowordl.coverage" NAME="hellowordl Coverage Results" MODIFIED="1658026203679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MathModel$news_data.coverage" NAME="news_data Coverage Results" MODIFIED="1659328497989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/math_model_toolkits$NN_classifier__1_.coverage" NAME="NN_classifier (1) Coverage Results" MODIFIED="1659409413243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/MathModel$SplitWords.coverage" NAME="SplitWords Coverage Results" MODIFIED="1659328600181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
-    <SUITE FILE_PATH="coverage/math_model_toolkits$wordvec.coverage" NAME="wordvec Coverage Results" MODIFIED="1659406259341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
     <SUITE FILE_PATH="coverage/math_model_tookits$missing_value.coverage" NAME="missing_value Coverage Results" MODIFIED="1658556662270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$ton.coverage" NAME="ton Coverage Results" MODIFIED="1660122356375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/training1_1" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_top10.coverage" NAME="backtest_multi_top10 Coverage Results" MODIFIED="1666792652181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
     <SUITE FILE_PATH="coverage/MathModel$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1659055784979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science/chinese_sentiment-master/model/cnn" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_random_double_ma.coverage" NAME="backtest_multi_random_double_ma Coverage Results" MODIFIED="1666753356465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MathModel$Concat.coverage" NAME="Concat Coverage Results" MODIFIED="1659251821193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$123.coverage" NAME="123 Coverage Results" MODIFIED="1658040854897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$data_preprocess.coverage" NAME="data_preprocess Coverage Results" MODIFIED="1663253160546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/math_model_precode" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$have_a_try.coverage" NAME="have_a_try Coverage Results" MODIFIED="1660699094334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$predict.coverage" NAME="predict Coverage Results" MODIFIED="1660665176574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science/word_vector" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$predict__1_.coverage" NAME="predict (1) Coverage Results" MODIFIED="1660698602981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$feature_engineering.coverage" NAME="feature_engineering Coverage Results" MODIFIED="1663056599521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/math_model_precode" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_random___1_.coverage" NAME="backtest_multi_random_可加仓 (1) Coverage Results" MODIFIED="1666758966361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/MathModel$SplitWords.coverage" NAME="SplitWords Coverage Results" MODIFIED="1659328600181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$classifier.coverage" NAME="classifier Coverage Results" MODIFIED="1659402212910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$NN_classifier__1_.coverage" NAME="NN_classifier (1) Coverage Results" MODIFIED="1660469788913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658660198411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_random_.coverage" NAME="backtest_multi_random_不可加仓 Coverage Results" MODIFIED="1666759157388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$model_opt.coverage" NAME="model_opt Coverage Results" MODIFIED="1664420331361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/math_model_precode" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$11.coverage" NAME="11 Coverage Results" MODIFIED="1660110846330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/training1_1" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest.coverage" NAME="backtest Coverage Results" MODIFIED="1661135606197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$NN_classifier.coverage" NAME="NN_classifier Coverage Results" MODIFIED="1661154770915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$wordvec.coverage" NAME="wordvec Coverage Results" MODIFIED="1659406259341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_ma___1_.coverage" NAME="backtest_multi_ma_不可加仓 (1) Coverage Results" MODIFIED="1667139171239" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
     <SUITE FILE_PATH="coverage/MathModel$test.coverage" NAME="test Coverage Results" MODIFIED="1659337541930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MathModel$news_data.coverage" NAME="news_data Coverage Results" MODIFIED="1659328497989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_tookits$data_preprocess__1_.coverage" NAME="data_preprocess (1) Coverage Results" MODIFIED="1658636360470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$test.coverage" NAME="test Coverage Results" MODIFIED="1666873906433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$getNewsfactor.coverage" NAME="getNewsfactor Coverage Results" MODIFIED="1660785760020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$have_a_try_lstm.coverage" NAME="have_a_try_lstm Coverage Results" MODIFIED="1660809062932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$benchmark.coverage" NAME="benchmark Coverage Results" MODIFIED="1660972963529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/venv/Lib/site-packages/backtrader/observers" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$draw_returns.coverage" NAME="draw_returns Coverage Results" MODIFIED="1667145424117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$preprocess_data.coverage" NAME="preprocess_data Coverage Results" MODIFIED="1659888002487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_ma_0_15_.coverage" NAME="backtest_multi_ma_0.15% Coverage Results" MODIFIED="1666755608648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_random_double_ma__1_.coverage" NAME="backtest_multi_random_double_ma (1) Coverage Results" MODIFIED="1666755652055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$RoBERTa_wwm_model.coverage" NAME="RoBERTa_wwm_model Coverage Results" MODIFIED="1661136603395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_tookits$hellowordl.coverage" NAME="hellowordl Coverage Results" MODIFIED="1658026203679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$backtest_multi_top.coverage" NAME="backtest_multi_top Coverage Results" MODIFIED="1667140246312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$regression_1_.coverage" NAME="regression(1) Coverage Results" MODIFIED="1664862806261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/math_model_precode" />
+    <SUITE FILE_PATH="coverage/math_model_toolkits$wdvec_plus.coverage" NAME="wdvec_plus Coverage Results" MODIFIED="1661147689661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/finance_science" />
   </component>
 </project>

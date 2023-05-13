@@ -14,20 +14,20 @@ def date_convert(data):
 if __name__ == '__main__':
     # 读取数据
     # 基准
-    benchmark = pd.read_csv('hs300_returns_shift.csv', header=0, index_col=0)
+    benchmark = pd.read_csv('/returns_data/hs300_returns_shift.csv', header=0, index_col=0)
     benchmark.columns = ['0']
     benchmark_returns = benchmark.iloc[1:, 0]
     benchmark_returns_cumulative = (benchmark_returns + 1).cumprod()
     benchmark_returns_cumulative = date_convert(benchmark_returns_cumulative)
 
     # 双均线
-    ma = pd.read_csv('MA_returns.csv', header=0, index_col=0)
+    ma = pd.read_csv('/returns_data/MA_returns.csv', header=0, index_col=0)
     ma.columns = ['0']
     ma_returns = ma.iloc[1:, 0]
     ma_returns_cumulative = (ma_returns + 1).cumprod()
     ma_returns_cumulative = date_convert(ma_returns_cumulative)
     # 舆情
-    senti = pd.read_csv('Senti_returns.csv', header=0, index_col=0)
+    senti = pd.read_csv('/returns_data/Senti_returns.csv', header=0, index_col=0)
     senti.columns = ['0']
     senti_returns = senti.iloc[1:, 0]
     senti_returns_cumulative = (senti_returns + 1).cumprod()
